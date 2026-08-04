@@ -38,7 +38,7 @@ test("server-renders the portfolio home page", async () => {
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
   assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 7);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
-  assert.doesNotMatch(html, /home-project-label/);
+  assert.equal((html.match(/class="home-project-label"/g) ?? []).length, 7);
   assert.match(html, /rel="icon"/);
   assert.match(html, /property="og:image"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
@@ -126,6 +126,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(layout, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT/);
   assert.match(gitignore, /public\/fonts\/portfolio-custom\.woff2/);
   assert.match(envExample, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=false/);
+  assert.match(envExample, /NEXT_PUBLIC_SHOW_PROJECT_LABELS=false/);
   assert.match(manifest, /\/images\/responsive\/unsplash\//);
   assert.match(license, /MIT License/);
   assert.match(notices, /SIL Open Font License 1\.1/);

@@ -185,6 +185,8 @@ Use `focalX` and `focalY` to position the crop. Both accept values from `0` to `
 
 Set `showProjectLabels: true` in `content/site.yml` to show the optional labels beneath homepage thumbnails. The default is `false`, preserving the image-only homepage.
 
+To preview labels privately without changing the distributable default, add `NEXT_PUBLIC_SHOW_PROJECT_LABELS=true` to `.env.local`.
+
 ### Project media
 
 Project galleries support three media types.

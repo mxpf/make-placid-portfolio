@@ -154,7 +154,10 @@ export function getSiteConfig(): SiteConfig {
     language: data.language ?? "en",
     locale: data.locale ?? "en_US",
     keywords: data.keywords ?? [],
-    showProjectLabels: data.showProjectLabels ?? false,
+    showProjectLabels:
+      process.env.NEXT_PUBLIC_SHOW_PROJECT_LABELS === "true"
+        ? true
+        : data.showProjectLabels ?? false,
     socialImageAlt: data.socialImageAlt ?? `${data.name} portfolio`,
     favicon: data.favicon ?? "/favicon.png",
     appleTouchIcon: data.appleTouchIcon ?? "/apple-touch-icon.png",
