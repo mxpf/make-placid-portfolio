@@ -1,5 +1,6 @@
 {
-  "name": "site-creator-vinext-starter",
+  "name": "minimal-portfolio",
+  "description": "An elegant, content-led portfolio template for creative practices.",
   "version": "0.1.0",
   "private": true,
   "engines": {
