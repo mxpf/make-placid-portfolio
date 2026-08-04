@@ -19,6 +19,7 @@ media:
     id: "07-youtube"
     ratio: "16 / 9"
     youtubeId: "ifElv18k2O8"
+    poster: "/images/unsplash/vUwJ8uu_C1M.jpg"
     title: "I Am Easy To Find, a film by Mike Mills and The National"
     caption: "Black-and-white film by Mike Mills for The National."
   - kind: image

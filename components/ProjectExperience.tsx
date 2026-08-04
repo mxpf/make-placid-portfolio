@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import type { ImageMedia, Project, ProjectMedia, VideoMedia } from "@/lib/content";
+import type { ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => { finished: Promise<void> };
@@ -56,6 +56,35 @@ function HostedVideo({ media }: { media: VideoMedia }) {
   );
 }
 
+function YouTubeVideo({ media }: { media: YouTubeMedia }) {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <div className="media-frame" style={ratioStyle(media.ratio)}>
+      {!playing && media.poster ? (
+        <button
+          type="button"
+          className="video-poster"
+          aria-label={`Play ${media.title}`}
+          onClick={() => setPlaying(true)}
+        >
+          <img src={media.poster} alt="" aria-hidden="true" />
+          <span className="play-triangle" aria-hidden="true" />
+        </button>
+      ) : (
+        <iframe
+          className="youtube-frame"
+          src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}?autoplay=1&playsinline=1&rel=0`}
+          title={media.title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      )}
+    </div>
+  );
+}
+
 function GalleryMedia({
   media,
   onOpenImage,
@@ -69,20 +98,7 @@ function GalleryMedia({
 }) {
   if (media.kind === "video") return <HostedVideo media={media} />;
 
-  if (media.kind === "youtube") {
-    return (
-      <div className="media-frame" style={ratioStyle(media.ratio)}>
-        <iframe
-          className="youtube-frame"
-          src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}?playsinline=1&rel=0`}
-          title={media.title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      </div>
-    );
-  }
+  if (media.kind === "youtube") return <YouTubeVideo media={media} />;
 
   if (!canOpenDetail) {
     return (

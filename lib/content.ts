@@ -25,6 +25,7 @@ export type YouTubeMedia = {
   kind: "youtube";
   id: string;
   youtubeId: string;
+  poster?: string;
   ratio: string;
   title: string;
   caption?: string;

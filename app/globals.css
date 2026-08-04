@@ -280,8 +280,9 @@ iframe {
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-left: 16px solid var(--dark);
+  border-left: 16px solid var(--light);
   transform: translate(-40%, -50%);
+  mix-blend-mode: difference;
 }
 
 .youtube-frame {
