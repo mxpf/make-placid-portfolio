@@ -36,6 +36,7 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, />Max Pfennighaus<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
+  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 7);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
@@ -55,6 +56,9 @@ test("server-renders project and about routes", async () => {
 
   assert.match(projectHtml, /Sample Project 03 — Motion Language/);
   assert.match(projectHtml, /class="video-poster"/);
+  assert.match(projectHtml, /ifElv18k2O8/);
+  assert.match(projectHtml, /\/images\/unsplash\/xVyR9Tkl23c\.jpg/);
+  assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
   assert.match(aboutHtml, />Close<\/button>/);
   assert.match(aboutHtml, /sample About content for the first portfolio prototype/);
 });
