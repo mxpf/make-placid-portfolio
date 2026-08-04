@@ -88,6 +88,8 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);
   assert.match(styles, /\.project-gallery > \.media-item:last-child:not\(:has\(\.media-caption\)\)\s*\{[^}]*margin-bottom: var\(--rail-height\)/s);
   assert.match(styles, /\.project-gallery > \.media-item:last-child:has\(\.media-caption\)\s*\{[^}]*calc\(var\(--spacing-3\) \+ var\(--rail-height\)\)/s);
+  assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
+  assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
   await assert.rejects(access(new URL("SkeletonPreview.tsx", previewRoot)));

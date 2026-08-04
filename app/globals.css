@@ -37,8 +37,10 @@ body {
   color: var(--dark);
 }
 
+html:has(body.detail-open),
 body.detail-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body.page-leaving main {
@@ -327,6 +329,7 @@ iframe {
   z-index: 40;
   inset: var(--header-height) 0 var(--rail-height);
   overflow-y: auto;
+  overscroll-behavior: none;
   padding: 0 24px var(--rail-height);
   background: var(--light);
 }
