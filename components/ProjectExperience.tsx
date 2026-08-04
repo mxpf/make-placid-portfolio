@@ -7,7 +7,10 @@ import type { ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from
 import { columnImageSizes, detailImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
 
 type ViewTransitionDocument = Document & {
-  startViewTransition?: (update: () => void) => { finished: Promise<void> };
+  startViewTransition?: (update: () => void) => {
+    ready: Promise<void>;
+    finished: Promise<void>;
+  };
 };
 
 type ViewTransitionStyle = CSSProperties & { viewTransitionName?: string };
@@ -192,7 +195,9 @@ export function ProjectExperience({ project }: { project: Project }) {
       return Promise.resolve();
     }
 
-    return startViewTransition.call(document, update).finished;
+    const transition = startViewTransition.call(document, update);
+    void transition.ready.catch(() => undefined);
+    return transition.finished;
   }, []);
 
   const openDetail = useCallback((media: ImageMedia) => {
@@ -200,14 +205,18 @@ export function ProjectExperience({ project }: { project: Project }) {
     const index = staticImages.findIndex((image) => image.id === media.id);
     const name = `project-image-${media.id}`;
     flushSync(() => setTransitionId(name));
-    runTransition(() => flushSync(() => setDetailIndex(index))).finally(() => setTransitionId(null));
+    void runTransition(() => flushSync(() => setDetailIndex(index)))
+      .catch(() => undefined)
+      .finally(() => setTransitionId(null));
   }, [runTransition, staticImages, supportsDetail]);
 
   const closeDetail = useCallback(() => {
     if (!detailImage) return;
     const name = `project-image-${detailImage.id}`;
     flushSync(() => setTransitionId(name));
-    runTransition(() => flushSync(() => setDetailIndex(null))).finally(() => setTransitionId(null));
+    void runTransition(() => flushSync(() => setDetailIndex(null)))
+      .catch(() => undefined)
+      .finally(() => setTransitionId(null));
   }, [detailImage, runTransition]);
 
   useEffect(() => {

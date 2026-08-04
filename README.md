@@ -1,4 +1,4 @@
-# Minimal Portfolio
+# Make Placid
 
 An editorial portfolio template for designers, artists, photographers, architects, and creative practices.
 
@@ -44,7 +44,7 @@ Clone the repository, install its dependencies, and start the local development 
 
 ```bash
 git clone <repository-url>
-cd minimal-portfolio
+cd make-placid-portfolio
 npm install
 npm run dev
 ```
