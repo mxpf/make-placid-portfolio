@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 06 — Environmental Graphics"
+title: "Project 06 — Environment"
 order: 6
 published: true
 thumbnail:
@@ -26,7 +26,7 @@ media:
     src: "/images/unsplash/K7oqWgDJQ6E.jpg"
     ratio: "4 / 5"
     alt: "Pedestrian casting a long shadow on a downtown street"
-    caption: "Optional caption aligned to the right edge."
+    caption: "Detail from the environmental graphics program."
     tone: 2
   - kind: image
     id: "06-d"
@@ -48,6 +48,6 @@ media:
     tone: 2
 ---
 
-Sample Project 06 — Environmental Graphics
+Project 06 — Environment
 
-Six varied assets create a substantial test page for independent gallery scrolling and full-width desktop detail viewing.
+An environmental graphics program connecting orientation, information, and identity across a physical space.

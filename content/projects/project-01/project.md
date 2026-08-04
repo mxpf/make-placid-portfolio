@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 01 — Identity System"
+title: "Project 01 — Identity"
 order: 1
 published: true
 thumbnail:
@@ -20,7 +20,7 @@ media:
     src: "/images/unsplash/K67sBVqLLuw.jpg"
     ratio: "4 / 5"
     alt: "Curved modern buildings surrounding an open sky"
-    caption: "Sample caption with 24 pixels above and 36 pixels below."
+    caption: "Selected application from the identity system."
     tone: 2
   - kind: image
     id: "01-c"
@@ -30,8 +30,8 @@ media:
     tone: 3
 ---
 
-Sample Project 01 — Identity System
+Project 01 — Identity
 
-This short sample description tests the fixed, bottom-aligned project narrative. Final project copy can contain any number of paragraphs.
+A flexible identity system developed to balance recognition and variation across print, digital, and spatial applications.
 
-The right column preserves each asset’s native proportion while maintaining the portfolio’s 24-pixel rhythm.
+The visual language is direct, adaptable, and built to remain coherent at every scale.

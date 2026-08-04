@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 05 — Film & Campaign"
+title: "Project 05 — Campaign"
 order: 5
 published: true
 thumbnail:
@@ -36,6 +36,6 @@ media:
     tone: 1
 ---
 
-Sample Project 05 — Film & Campaign
+Project 05 — Campaign
 
-This project combines static imagery with a privacy-enhanced YouTube embed. Video remains inline and is skipped by desktop image-detail navigation.
+A campaign expressed through still and moving image, with a flexible structure for different audiences and formats.

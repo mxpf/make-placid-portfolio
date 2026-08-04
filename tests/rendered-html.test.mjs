@@ -54,7 +54,7 @@ test("server-renders project and about routes", async () => {
     aboutResponse.text(),
   ]);
 
-  assert.match(projectHtml, /Sample Project 03 — Motion Language/);
+  assert.match(projectHtml, /Project 03 — Motion/);
   assert.match(projectHtml, /class="video-poster"/);
   assert.match(projectHtml, /ifElv18k2O8/);
   assert.match(projectHtml, /\/images\/unsplash\/xVyR9Tkl23c\.jpg/);
@@ -62,18 +62,22 @@ test("server-renders project and about routes", async () => {
   assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
   assert.match(aboutHtml, />Close<\/button>/);
-  assert.match(aboutHtml, /sample About content for the first portfolio prototype/);
+  assert.match(aboutHtml, /independent designer working across identity, editorial, digital products, and environments/);
 });
 
-test("removes the disposable starter preview", async () => {
-  const [page, layout, packageJson] = await Promise.all([
+test("keeps identity copy in the content layer", async () => {
+  const [page, layout, chrome, siteConfig, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
   assert.match(page, /getProjects\(\)/);
-  assert.match(layout, /<SiteChrome \/>/);
+  assert.match(layout, /getSiteConfig\(\)/);
+  assert.match(siteConfig, /name: "Max Pfennighaus"/);
+  assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
   await assert.rejects(access(new URL("SkeletonPreview.tsx", previewRoot)));

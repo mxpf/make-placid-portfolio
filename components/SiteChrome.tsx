@@ -4,9 +4,15 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
 
-const RETURN_KEY = "max-portfolio-about-return";
+const RETURN_KEY = "portfolio-about-return";
 
-export function SiteChrome() {
+type SiteChromeProps = {
+  name: string;
+  aboutLabel: string;
+  closeLabel: string;
+};
+
+export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
   const pathname = usePathname();
   const isAbout = pathname === "/about";
 
@@ -41,17 +47,17 @@ export function SiteChrome() {
     <header className="site-header">
       <div className="site-name">
         <TransitionLink className="site-link" href="/" beforeNavigate={clearReturnLocation}>
-          Max Pfennighaus
+          {name}
         </TransitionLink>
       </div>
       <div className="site-action">
         {isAbout ? (
           <button className="site-link" type="button" onClick={closeAbout}>
-            Close
+            {closeLabel}
           </button>
         ) : (
           <TransitionLink className="site-link" href="/about" beforeNavigate={rememberLocation}>
-            About &amp; contact
+            {aboutLabel}
           </TransitionLink>
         )}
       </div>

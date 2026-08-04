@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 03 — Motion Language"
+title: "Project 03 — Motion"
 order: 3
 published: true
 thumbnail:
@@ -21,7 +21,7 @@ media:
     src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
     poster: "/images/unsplash/h2coDswHOAw.jpg"
     title: "Hosted motion study"
-    caption: "Hosted-video example, displayed in monochrome."
+    caption: "A hosted motion study displayed in monochrome."
   - kind: youtube
     id: "03-youtube"
     ratio: "16 / 9"
@@ -37,6 +37,6 @@ media:
     tone: 1
 ---
 
-Sample Project 03 — Motion Language
+Project 03 — Motion
 
-This project demonstrates a hosted video within the same editorial gallery as static imagery. Playback is always initiated by the visitor.
+A motion language translating the project’s graphic principles into rhythm, sequence, and sound.

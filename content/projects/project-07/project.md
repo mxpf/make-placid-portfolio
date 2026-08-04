@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 07 — Brand Platform"
+title: "Project 07 — Platform"
 order: 7
 published: true
 thumbnail:
@@ -39,7 +39,7 @@ media:
     src: "/images/unsplash/_OYIxRbFBNw.jpg"
     ratio: "16 / 9"
     alt: "Manhattan Bridge framed by buildings in Brooklyn"
-    caption: "Final sample caption."
+    caption: "Selected application from the platform."
     tone: 1
   - kind: image
     id: "07-e"
@@ -55,6 +55,6 @@ media:
     tone: 3
 ---
 
-Sample Project 07 — Brand Platform
+Project 07 — Platform
 
-The final placeholder project carries seven assets, providing the longest initial gallery and a useful stress test for navigation and scroll restoration.
+A brand platform designed to support a broad family of communications while retaining a recognizable point of view.

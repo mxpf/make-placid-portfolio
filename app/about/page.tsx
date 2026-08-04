@@ -1,8 +1,8 @@
-import { getAboutHtml } from "@/lib/content";
+import { getAboutHtml, getSiteConfig } from "@/lib/content";
 
-export const metadata = {
-  title: "About & contact",
-};
+export function generateMetadata() {
+  return { title: getSiteConfig().aboutLabel };
+}
 
 export default function AboutPage() {
   return (

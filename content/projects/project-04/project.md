@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 04 — Digital Standards"
+title: "Project 04 — Digital"
 order: 4
 published: true
 thumbnail:
@@ -20,7 +20,7 @@ media:
     src: "/images/unsplash/K67sBVqLLuw.jpg"
     ratio: "1 / 1"
     alt: "Curved modern buildings framing an open sky"
-    caption: "Sample interface-system caption."
+    caption: "A selected view from the digital system."
     tone: 2
   - kind: image
     id: "04-c"
@@ -42,6 +42,6 @@ media:
     tone: 1
 ---
 
-Sample Project 04 — Digital Standards
+Project 04 — Digital
 
-This longer sample gallery tests repeated image rhythm and a single caption without imposing a fixed crop on project media.
+A digital design system built from a concise set of repeatable components and interaction principles.

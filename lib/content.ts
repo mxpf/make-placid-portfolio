@@ -49,6 +49,17 @@ export type Project = {
   descriptionHtml: string;
 };
 
+export type SiteConfig = {
+  name: string;
+  description: string;
+  email: string;
+  location: string;
+  aboutLabel: string;
+  closeLabel: string;
+  projectsLabel: string;
+  socialImage: string;
+};
+
 const projectFiles = import.meta.glob("../content/projects/*/project.md", {
   query: "?raw",
   import: "default",
@@ -56,6 +67,12 @@ const projectFiles = import.meta.glob("../content/projects/*/project.md", {
 }) as Record<string, string>;
 
 const aboutFiles = import.meta.glob("../content/about.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+const siteFiles = import.meta.glob("../content/site.yml", {
   query: "?raw",
   import: "default",
   eager: true,
@@ -109,7 +126,17 @@ export function getProject(slug: string) {
   return project.published ? project : null;
 }
 
+export function getSiteConfig(): SiteConfig {
+  const source = Object.values(siteFiles)[0];
+  if (!source) throw new Error("Missing content/site.yml.");
+  return parseYaml(source) as SiteConfig;
+}
+
 export function getAboutHtml() {
-  const source = Object.values(aboutFiles)[0];
+  const config = getSiteConfig();
+  const source = Object.values(aboutFiles)[0]
+    .replaceAll("{{name}}", config.name)
+    .replaceAll("{{email}}", config.email)
+    .replaceAll("{{location}}", config.location);
   return renderMarkdown(source);
 }

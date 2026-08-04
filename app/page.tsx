@@ -1,16 +1,17 @@
-import { getProjects } from "@/lib/content";
+import { getProjects, getSiteConfig } from "@/lib/content";
 import { TransitionLink } from "@/components/TransitionLink";
 
-export const metadata = {
-  title: { absolute: "Max Pfennighaus" },
-  description: "Selected work by Max Pfennighaus.",
-};
+export function generateMetadata() {
+  const site = getSiteConfig();
+  return { title: { absolute: site.name }, description: site.description };
+}
 
 export default function Home() {
   const projects = getProjects();
+  const site = getSiteConfig();
 
   return (
-    <main className="home-grid" aria-label="Selected projects">
+    <main className="home-grid" aria-label={site.projectsLabel}>
       {projects.map((project) => (
         <TransitionLink
           className="home-project"

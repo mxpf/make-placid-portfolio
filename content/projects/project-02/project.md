@@ -1,5 +1,5 @@
 ---
-title: "Sample Project 02 — Editorial Program"
+title: "Project 02 — Editorial"
 order: 2
 published: true
 thumbnail:
@@ -26,7 +26,7 @@ media:
     src: "/images/unsplash/K7oqWgDJQ6E.jpg"
     ratio: "5 / 4"
     alt: "Pedestrian casting a long shadow on a downtown street"
-    caption: "A representative editorial caption."
+    caption: "A representative spread from the editorial program."
     tone: 3
   - kind: image
     id: "02-d"
@@ -36,6 +36,6 @@ media:
     tone: 1
 ---
 
-Sample Project 02 — Editorial Program
+Project 02 — Editorial
 
-This sample project explores a longer gallery with portrait, landscape, and spread-like proportions. Its homepage representative remains an independent 3:2 crop.
+An editorial program organized around clear hierarchy, considered pacing, and a restrained relationship between image and text.
