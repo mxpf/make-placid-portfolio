@@ -79,7 +79,11 @@ const siteFiles = import.meta.glob("../content/site.yml", {
 }) as Record<string, string>;
 
 function renderMarkdown(source: string) {
-  return marked.parse(source, { async: false }) as string;
+  const html = marked.parse(source, { async: false }) as string;
+  return html.replace(
+    /(<blockquote>\s*<p>)([“‘"'])/g,
+    '$1<span class="hanging-quote">$2</span>',
+  );
 }
 
 function parseProjectFile(source: string) {

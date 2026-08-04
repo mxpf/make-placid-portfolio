@@ -63,6 +63,7 @@ test("server-renders project and about routes", async () => {
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
   assert.match(aboutHtml, />Close<\/button>/);
   assert.match(aboutHtml, /independent designer working across identity, editorial, digital products, and environments/);
+  assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
 });
 
 test("keeps identity copy in the content layer", async () => {

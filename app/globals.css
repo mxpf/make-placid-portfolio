@@ -182,8 +182,10 @@ iframe {
 .project-summary {
   position: fixed;
   bottom: var(--rail-height);
-  width: calc((100vw - 72px) / 2);
+  width: calc((100vw - 72px) / 2 + var(--spacing-1));
   max-height: calc(100vh - var(--header-height) - var(--rail-height));
+  margin-left: calc(var(--spacing-1) * -1);
+  padding-left: var(--spacing-1);
   overflow: auto;
   scrollbar-width: thin;
   text-wrap: pretty;
@@ -203,15 +205,28 @@ iframe {
 
 .project-summary ul,
 .about-copy ul {
-  padding-left: 27px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.project-summary li::before,
+.about-copy li::before {
+  display: inline-block;
+  width: 0.65em;
+  margin-left: -0.65em;
+  content: "•";
 }
 
 .project-summary blockquote,
 .about-copy blockquote {
   margin-left: 0;
   margin-right: 0;
-  text-indent: -0.42em;
   hanging-punctuation: first;
+}
+
+.hanging-quote {
+  display: inline-block;
+  margin-left: -0.43em;
 }
 
 .project-gallery {
@@ -439,19 +454,29 @@ iframe {
     position: static;
     width: auto;
     max-height: none;
+    margin-left: 0;
+    padding-left: 0;
     overflow: visible;
   }
 
   .project-summary ul,
   .about-copy ul {
     padding-left: 0;
-    list-style-position: inside;
+  }
+
+  .project-summary li::before,
+  .about-copy li::before {
+    width: 0.65em;
+    margin-left: 0;
   }
 
   .project-summary blockquote,
   .about-copy blockquote {
-    text-indent: 0;
     hanging-punctuation: none;
+  }
+
+  .hanging-quote {
+    margin-left: 0;
   }
 
   .gallery-image-button {
