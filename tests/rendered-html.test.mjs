@@ -79,6 +79,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(layout, /getSiteConfig\(\)/);
   assert.match(siteConfig, /name: "Max Pfennighaus"/);
   assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
+  assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);
   assert.match(styles, /\.project-gallery > \.media-item:last-child:not\(:has\(\.media-caption\)\)\s*\{[^}]*margin-bottom: var\(--rail-height\)/s);
