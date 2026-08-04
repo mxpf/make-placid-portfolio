@@ -228,7 +228,11 @@ iframe {
 }
 
 .project-gallery > .media-item:last-child:not(:has(.media-caption)) {
-  margin-bottom: 0;
+  margin-bottom: var(--rail-height);
+}
+
+.project-gallery > .media-item:last-child:has(.media-caption) {
+  margin-bottom: calc(var(--spacing-3) + var(--rail-height));
 }
 
 .media-frame {
