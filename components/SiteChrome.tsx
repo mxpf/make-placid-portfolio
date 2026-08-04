@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useLayoutEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
 
 const RETURN_KEY = "portfolio-about-return";
@@ -14,9 +14,10 @@ type SiteChromeProps = {
 
 export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const isAbout = pathname === "/about";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.classList.remove("page-leaving");
   }, [pathname]);
 
@@ -36,11 +37,11 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
   function returnFromAbout() {
     if (sessionStorage.getItem(RETURN_KEY) === "true") {
       sessionStorage.removeItem(RETURN_KEY);
-      history.back();
+      router.back();
       return;
     }
 
-    location.assign("/");
+    router.push("/");
   }
 
   return (

@@ -87,6 +87,7 @@ iframe {
 
 .site-action {
   view-transition-name: site-action;
+  transition: opacity 180ms ease;
 }
 
 .site-link {
@@ -390,16 +391,9 @@ iframe {
   to { opacity: 1; }
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root) {
-  animation: page-out 220ms ease both;
-}
-
+::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: page-in 320ms ease both;
+  animation: none;
 }
 
 @keyframes page-out {
@@ -418,6 +412,12 @@ iframe {
 
 @keyframes project-page-in {
   from {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  body.page-leaving .site-action {
     opacity: 0;
   }
 }

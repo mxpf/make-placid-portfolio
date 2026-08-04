@@ -67,10 +67,11 @@ test("server-renders project and about routes", async () => {
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, layout, chrome, styles, siteConfig, packageJson] = await Promise.all([
+  const [page, layout, chrome, transitionLink, styles, siteConfig, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
@@ -80,6 +81,8 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(layout, /getSiteConfig\(\)/);
   assert.match(siteConfig, /name: "Max Pfennighaus"/);
   assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
+  assert.match(transitionLink, /router\.push\(href\)/);
+  assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);

@@ -1,6 +1,7 @@
 "use client";
 
 import type { MouseEvent, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
 export function TransitionLink({
   href,
@@ -15,6 +16,8 @@ export function TransitionLink({
   ariaLabel?: string;
   beforeNavigate?: () => void;
 }) {
+  const router = useRouter();
+
   function navigate(event: MouseEvent<HTMLAnchorElement>) {
     if (
       event.defaultPrevented ||
@@ -35,7 +38,7 @@ export function TransitionLink({
     }
 
     document.body.classList.add("page-leaving");
-    window.setTimeout(() => window.location.assign(href), 180);
+    window.setTimeout(() => router.push(href), 180);
   }
 
   return (
