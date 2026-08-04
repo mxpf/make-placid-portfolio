@@ -409,6 +409,18 @@ iframe {
     overflow: visible;
   }
 
+  .project-summary ul,
+  .about-copy ul {
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  .project-summary blockquote,
+  .about-copy blockquote {
+    text-indent: 0;
+    hanging-punctuation: none;
+  }
+
   .gallery-image-button {
     cursor: default;
     pointer-events: none;
