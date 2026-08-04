@@ -1,5 +1,7 @@
 ---
 title: "Project 06 — Environment"
+homepageLabel: "Environment"
+seoDescription: "An environmental graphics program connecting orientation, information, and identity across a physical space."
 order: 6
 published: true
 thumbnail:
@@ -48,6 +50,6 @@ media:
     tone: 2
 ---
 
-Project 06 — Environment
+# Project 06 — Environment
 
 An environmental graphics program connecting orientation, information, and identity across a physical space.

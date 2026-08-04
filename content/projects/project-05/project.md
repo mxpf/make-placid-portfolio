@@ -1,5 +1,7 @@
 ---
 title: "Project 05 — Campaign"
+homepageLabel: "Campaign"
+seoDescription: "A campaign expressed through still and moving image across audiences and formats."
 order: 5
 published: true
 thumbnail:
@@ -36,6 +38,6 @@ media:
     tone: 1
 ---
 
-Project 05 — Campaign
+# Project 05 — Campaign
 
 A campaign expressed through still and moving image, with a flexible structure for different audiences and formats.

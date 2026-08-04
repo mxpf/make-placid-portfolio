@@ -1,5 +1,7 @@
 ---
 title: "Project 04 — Digital"
+homepageLabel: "Digital"
+seoDescription: "A digital design system built from repeatable components and a concise set of interaction principles."
 order: 4
 published: true
 thumbnail:
@@ -42,6 +44,6 @@ media:
     tone: 1
 ---
 
-Project 04 — Digital
+# Project 04 — Digital
 
 A digital design system built from a concise set of repeatable components and interaction principles.

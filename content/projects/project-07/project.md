@@ -1,5 +1,7 @@
 ---
 title: "Project 07 — Platform"
+homepageLabel: "Platform"
+seoDescription: "A brand platform supporting a broad family of communications while retaining a recognizable point of view."
 order: 7
 published: true
 thumbnail:
@@ -55,6 +57,6 @@ media:
     tone: 3
 ---
 
-Project 07 — Platform
+# Project 07 — Platform
 
 A brand platform designed to support a broad family of communications while retaining a recognizable point of view.

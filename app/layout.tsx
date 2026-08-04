@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const origin = `${protocol}://${host}`;
+  const origin = site.url || `${protocol}://${host}`;
   const socialImage = new URL(site.socialImage, origin).toString();
 
   return {
@@ -19,11 +19,21 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s — ${site.name}`,
     },
     description: site.description,
+    keywords: site.keywords,
+    alternates: { canonical: "/" },
+    icons: {
+      icon: [{ url: site.favicon, type: "image/png", sizes: "64x64" }],
+      apple: [{ url: site.appleTouchIcon, type: "image/png", sizes: "180x180" }],
+    },
+    robots: { index: true, follow: true },
     openGraph: {
       title: site.name,
       description: site.description,
       type: "website",
-      images: [{ url: socialImage, width: 1743, height: 909, alt: `${site.name} portfolio` }],
+      url: origin,
+      locale: site.locale,
+      siteName: site.name,
+      images: [{ url: socialImage, width: 1200, height: 630, alt: site.socialImageAlt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -40,9 +50,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const site = getSiteConfig();
+  const customFontEnabled = process.env.NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT === "true";
 
   return (
-    <html lang="en">
+    <html lang={site.language} className={customFontEnabled ? "custom-font" : undefined}>
       <body>
         <SiteChrome
           name={site.name}

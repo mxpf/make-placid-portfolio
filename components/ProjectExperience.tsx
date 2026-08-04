@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import type { ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
+import { columnImageSizes, detailImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => { finished: Promise<void> };
@@ -15,9 +16,27 @@ function ratioStyle(ratio: string): CSSProperties {
   return { aspectRatio: ratio };
 }
 
-function ImageVisual({ media, className = "" }: { media: ImageMedia; className?: string }) {
+function ImageVisual({
+  media,
+  className = "",
+  sizes = columnImageSizes,
+  priority = false,
+}: {
+  media: ImageMedia;
+  className?: string;
+  sizes?: string;
+  priority?: boolean;
+}) {
   if (media.src) {
-    return <img className={className} src={media.src} alt={media.alt} />;
+    return (
+      <ResponsiveImage
+        className={className}
+        src={media.src}
+        alt={media.alt}
+        sizes={sizes}
+        priority={priority}
+      />
+    );
   }
 
   return (
@@ -44,7 +63,12 @@ function HostedVideo({ media }: { media: VideoMedia }) {
           onClick={() => setPlaying(true)}
         >
           {media.poster !== "placeholder" && (
-            <img src={media.poster} alt="" aria-hidden="true" />
+            <ResponsiveImage
+              src={media.poster}
+              alt=""
+              ariaHidden
+              sizes={columnImageSizes}
+            />
           )}
           <span className="play-triangle" aria-hidden="true" />
         </button>
@@ -68,7 +92,12 @@ function YouTubeVideo({ media }: { media: YouTubeMedia }) {
           aria-label={`Play ${media.title}`}
           onClick={() => setPlaying(true)}
         >
-          <img src={media.poster} alt="" aria-hidden="true" />
+          <ResponsiveImage
+            src={media.poster}
+            alt=""
+            ariaHidden
+            sizes={columnImageSizes}
+          />
           <span className="play-triangle" aria-hidden="true" />
         </button>
       ) : (
@@ -90,11 +119,13 @@ function GalleryMedia({
   onOpenImage,
   transitionName,
   canOpenDetail,
+  priority,
 }: {
   media: ProjectMedia;
   onOpenImage: (media: ImageMedia) => void;
   transitionName?: string;
   canOpenDetail: boolean;
+  priority: boolean;
 }) {
   if (media.kind === "video") return <HostedVideo media={media} />;
 
@@ -103,7 +134,7 @@ function GalleryMedia({
   if (!canOpenDetail) {
     return (
       <div className="media-frame" style={ratioStyle(media.ratio)}>
-        <ImageVisual media={media} />
+        <ImageVisual media={media} priority={priority} />
       </div>
     );
   }
@@ -119,7 +150,7 @@ function GalleryMedia({
         viewTransitionName: transitionName,
       } as ViewTransitionStyle}
     >
-      <ImageVisual media={media} />
+      <ImageVisual media={media} priority={priority} />
     </button>
   );
 }
@@ -212,12 +243,13 @@ export function ProjectExperience({ project }: { project: Project }) {
       </div>
 
       <section className="project-gallery" aria-label={`${project.title} media`}>
-        {project.media.map((media) => (
+        {project.media.map((media, index) => (
           <figure className="media-item" key={media.id}>
             <GalleryMedia
               media={media}
               onOpenImage={openDetail}
               canOpenDetail={supportsDetail}
+              priority={index === 0}
               transitionName={transitionId === `project-image-${media.id}` ? transitionId : undefined}
             />
             {media.caption && <figcaption className="media-caption">{media.caption}</figcaption>}
@@ -233,7 +265,7 @@ export function ProjectExperience({ project }: { project: Project }) {
               key={detailImage.id}
               style={{ viewTransitionName: transitionId ?? undefined } as ViewTransitionStyle}
             >
-              <ImageVisual media={detailImage} />
+              <ImageVisual media={detailImage} sizes={detailImageSizes} priority />
             </div>
           </button>
         </div>

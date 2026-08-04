@@ -36,6 +36,9 @@ export type ProjectMedia = ImageMedia | VideoMedia | YouTubeMedia;
 export type Project = {
   slug: string;
   title: string;
+  homepageLabel?: string;
+  seoDescription: string;
+  socialImage?: string;
   order: number;
   published: boolean;
   thumbnail: {
@@ -52,12 +55,20 @@ export type Project = {
 export type SiteConfig = {
   name: string;
   description: string;
+  url: string;
+  language: string;
+  locale: string;
+  keywords: string[];
   email: string;
   location: string;
   aboutLabel: string;
   closeLabel: string;
   projectsLabel: string;
+  showProjectLabels: boolean;
   socialImage: string;
+  socialImageAlt: string;
+  favicon: string;
+  appleTouchIcon: string;
 };
 
 const projectFiles = import.meta.glob("../content/projects/*/project.md", {
@@ -101,6 +112,9 @@ function readProject(slug: string): Project {
   return {
     slug,
     title: data.title,
+    homepageLabel: data.homepageLabel,
+    seoDescription: data.seoDescription ?? data.title,
+    socialImage: data.socialImage,
     order: data.order,
     published: data.published,
     thumbnail: {
@@ -133,7 +147,18 @@ export function getProject(slug: string) {
 export function getSiteConfig(): SiteConfig {
   const source = Object.values(siteFiles)[0];
   if (!source) throw new Error("Missing content/site.yml.");
-  return parseYaml(source) as SiteConfig;
+  const data = parseYaml(source);
+  return {
+    ...data,
+    url: data.url ?? "",
+    language: data.language ?? "en",
+    locale: data.locale ?? "en_US",
+    keywords: data.keywords ?? [],
+    showProjectLabels: data.showProjectLabels ?? false,
+    socialImageAlt: data.socialImageAlt ?? `${data.name} portfolio`,
+    favicon: data.favicon ?? "/favicon.png",
+    appleTouchIcon: data.appleTouchIcon ?? "/apple-touch-icon.png",
+  } as SiteConfig;
 }
 
 export function getAboutHtml() {

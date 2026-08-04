@@ -1,5 +1,7 @@
 ---
 title: "Project 01 — Identity"
+homepageLabel: "Identity"
+seoDescription: "A flexible identity system balancing recognition and variation across print, digital, and spatial applications."
 order: 1
 published: true
 thumbnail:
@@ -30,7 +32,7 @@ media:
     tone: 3
 ---
 
-Project 01 — Identity
+# Project 01 — Identity
 
 A flexible identity system developed to balance recognition and variation across print, digital, and spatial applications.
 

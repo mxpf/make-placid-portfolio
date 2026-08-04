@@ -1,6 +1,6 @@
-# Placeholder image credits
+# Demonstration asset credits
 
-The photographs below are temporary portfolio placeholders downloaded from Unsplash and used under the [Unsplash License](https://unsplash.com/license). Attribution is not required by the license, but is preserved here for reference.
+The photographs below are demonstration assets downloaded from Unsplash and used under the [Unsplash License](https://unsplash.com/license). Attribution is not required by that license, but is preserved here for reference. These photographs are not covered by the software's MIT License.
 
 - [_OYIxRbFBNw](https://unsplash.com/photos/_OYIxRbFBNw) — Leonardo Burgos
 - [8roGGOgcVfg](https://unsplash.com/photos/8roGGOgcVfg) — Helen G
@@ -22,4 +22,8 @@ The photographs below are temporary portfolio placeholders downloaded from Unspl
 - [Qt0ogPnhGWY](https://unsplash.com/photos/Qt0ogPnhGWY) — Bekah Allmark
 - [Afqw8XrP1V8](https://unsplash.com/photos/Afqw8XrP1V8) — Philippe Mignot
 
-The embedded black-and-white film is [“I Am Easy To Find”](https://www.youtube.com/watch?v=ifElv18k2O8), written and directed by Mike Mills for The National and embedded from the band’s official YouTube channel.
+The default favicon and Apple touch icon are cropped derivatives of `_OYIxRbFBNw.jpg` by Leonardo Burgos.
+
+The embedded black-and-white film is [“I Am Easy To Find”](https://www.youtube.com/watch?v=ifElv18k2O8), written and directed by Mike Mills for The National and embedded from the band’s official YouTube channel. It is streamed through YouTube and is not distributed with the template.
+
+The hosted-video demonstration uses MDN's remote CC0 flower video. It is streamed from MDN and is not distributed with the template.

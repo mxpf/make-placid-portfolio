@@ -27,6 +27,9 @@ Minimalism here means clarity, not absence. The design creates rhythm through pr
 - Desktop image-detail view with click, Escape, and arrow-key controls
 - Subtle homepage image zoom on hover
 - Content-driven identity, metadata, About page, and projects
+- Configurable project-level search and social metadata
+- Responsive WebP image variants generated at build time
+- Optional homepage project labels, disabled by default
 - Reduced-motion support and visible keyboard focus states
 - Local image assets with no runtime image service dependency
 
@@ -57,15 +60,25 @@ Edit `content/site.yml`:
 ```yaml
 name: "Your Name"
 description: "Selected design and creative direction."
+url: "https://portfolio.example.com"
+language: "en"
+locale: "en_US"
+keywords:
+  - "design"
+  - "portfolio"
 email: "studio@example.com"
 location: "City, Country"
 aboutLabel: "About & contact"
 closeLabel: "Close"
 projectsLabel: "Selected projects"
+showProjectLabels: false
 socialImage: "/og.png"
+socialImageAlt: "Your Name — selected work"
+favicon: "/favicon.png"
+appleTouchIcon: "/apple-touch-icon.png"
 ```
 
-These values populate the navigation, page metadata, accessibility labels, and reusable fields on the About page.
+These values populate the navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. The project also generates `robots.txt` and `sitemap.xml` from this configuration.
 
 ### 2. Write the About page
 
@@ -77,11 +90,35 @@ Edit `content/about.md`. The following tokens are replaced with values from `con
 
 Standard Markdown is supported, including paragraphs, links, lists, and block quotations.
 
-### 3. Replace the social image
+### 3. Set the typography
+
+The distributable template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license is included at `public/fonts/OFL.txt`.
+
+For a privately licensed font, place a regular WOFF2 file at:
+
+```text
+public/fonts/portfolio-custom.woff2
+```
+
+Then create a private environment file from the included example and enable the custom font:
+
+```bash
+cp .env.example .env.local
+```
+
+```text
+NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=true
+```
+
+Both `.env.local` and `portfolio-custom.woff2` are ignored by Git and are never included in the distributable repository. With the flag left `false`, the template uses Instrument Sans and does not request the private font file. Confirm that your font license permits web embedding on your own deployment.
+
+### 4. Replace the social and icon images
 
 Replace `public/og.png` with a landscape preview image for link sharing. If the filename changes, update `socialImage` in `content/site.yml`.
 
-### 4. Replace the placeholder work
+Replace `public/favicon.png` and `public/apple-touch-icon.png` with your own square brand assets, then update their paths in `content/site.yml` if necessary.
+
+### 5. Replace the demonstration work
 
 Store portfolio assets under `public/`, organized however you prefer. For example:
 
@@ -112,6 +149,9 @@ A complete project file looks like this:
 ```markdown
 ---
 title: "Exhibition Identity"
+homepageLabel: "Exhibition"
+seoDescription: "A concise exhibition identity across print and space."
+socialImage: "/images/exhibition/social.jpg"
 order: 1
 published: true
 thumbnail:
@@ -135,11 +175,15 @@ A concise description of the project, its context, and the work shown.
 
 Use `order` to control homepage position. Set `published: false` to keep a project in the repository without displaying it on the site.
 
+`homepageLabel`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title, while the project social image falls back to its homepage thumbnail and then the site-wide social image.
+
 ### Homepage thumbnails
 
 Homepage thumbnails are always displayed at 3:2. Supply a dedicated 3:2 image when possible; other proportions are cropped automatically.
 
 Use `focalX` and `focalY` to position the crop. Both accept values from `0` to `100`, with `50` representing the center.
+
+Set `showProjectLabels: true` in `content/site.yml` to show the optional labels beneath homepage thumbnails. The default is `false`, preserving the image-only homepage.
 
 ### Project media
 
@@ -186,6 +230,31 @@ The custom poster keeps YouTube chrome out of the composition until playback beg
 
 Ratios use CSS aspect-ratio syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 / 9`. Captions are optional. When present, the layout applies the design's larger caption interval automatically.
 
+### Complete demonstration project
+
+`content/projects/project-03/project.md` demonstrates every supported content and media feature in one case study:
+
+- Headings, paragraphs, lists, a block quotation, and an external link
+- Static images with and without captions
+- Hosted video with a poster
+- YouTube video with a custom poster
+- Multiple project-image proportions
+- Project-specific homepage and search metadata
+
+Use it as a reference while creating a new project, then replace or remove it before launch.
+
+## Responsive images
+
+The source photographs remain in their original locations. A build-time script creates optimized WebP candidates at several widths and records their dimensions in a generated manifest. The components use `srcset` and `sizes` so browsers download an appropriate file for mobile, a desktop column, or the full-width detail view.
+
+Generate variants manually after adding or replacing images:
+
+```bash
+npm run images
+```
+
+The same command runs automatically before every production build. No runtime image service or third-party image request is required.
+
 ## Interaction
 
 On desktop:
@@ -224,6 +293,7 @@ components/           Navigation, transitions, and project interactions
 content/              Site identity, About copy, and project content
 lib/content.ts        Content loading and Markdown rendering
 public/               Fonts, images, videos, and social assets
+scripts/              Authoring utilities, including image generation
 tests/                Rendered-route checks
 .openai/hosting.json  OpenAI Sites configuration
 ```
@@ -233,6 +303,7 @@ tests/                Rendered-route checks
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the local development server |
+| `npm run images` | Generate responsive WebP image variants |
 | `npm run build` | Create a production build |
 | `npm start` | Run the production build locally |
 | `npm test` | Build and verify the rendered routes |
@@ -248,15 +319,20 @@ npm run lint
 ## Publishing checklist
 
 - Replace the example name, biography, email address, and project copy.
-- Replace the placeholder Unsplash images and example video embeds.
+- Replace or approve the licensed demonstration images and example video embeds.
 - Replace `public/og.png`.
+- Replace the favicon and Apple touch icon.
+- Update `url`, language, locale, keywords, and social-image text in `content/site.yml`.
 - Confirm every meaningful image has accurate alternative text.
 - Keep third-party image and media credits current.
-- Confirm that your font license permits redistribution before making the repository public, or replace the bundled font with one you can distribute.
-- Choose and add an open-source license if others should be permitted to reuse the code.
+- Keep privately licensed fonts in the ignored `portfolio-custom.woff2` slot.
 - Run the tests and lint checks.
 
-The included Unsplash placeholder credits are recorded in `content/image-credits.md`.
+## Licensing
+
+The software is available under the [MIT License](LICENSE). Third-party fonts, photographs, and remote media retain their original licenses or terms and are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+Instrument Sans is included under the SIL Open Font License 1.1. The Unsplash demonstration credits are recorded in `content/image-credits.md`. The optional `portfolio-custom.woff2` file is deliberately excluded from the repository and the MIT-licensed distribution.
 
 ## Deployment
 

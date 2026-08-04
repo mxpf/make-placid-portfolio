@@ -1,5 +1,7 @@
 ---
 title: "Project 02 — Editorial"
+homepageLabel: "Editorial"
+seoDescription: "An editorial program organized around hierarchy, pacing, and a restrained relationship between image and text."
 order: 2
 published: true
 thumbnail:
@@ -36,6 +38,6 @@ media:
     tone: 1
 ---
 
-Project 02 — Editorial
+# Project 02 — Editorial
 
 An editorial program organized around clear hierarchy, considered pacing, and a restrained relationship between image and text.

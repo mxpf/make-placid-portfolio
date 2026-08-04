@@ -1,7 +1,12 @@
 import { getAboutHtml, getSiteConfig } from "@/lib/content";
 
 export function generateMetadata() {
-  return { title: getSiteConfig().aboutLabel };
+  const site = getSiteConfig();
+  return {
+    title: site.aboutLabel,
+    description: `About and contact information for ${site.name}.`,
+    alternates: { canonical: "/about" },
+  };
 }
 
 export default function AboutPage() {

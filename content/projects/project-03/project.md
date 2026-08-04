@@ -1,5 +1,8 @@
 ---
-title: "Project 03 — Motion"
+title: "Project 03 — Complete Case Study"
+homepageLabel: "Complete case study"
+seoDescription: "A complete demonstration project combining editorial copy, still images, hosted video, YouTube, varied image ratios, and captions."
+socialImage: "/images/unsplash/xVyR9Tkl23c.jpg"
 order: 3
 published: true
 thumbnail:
@@ -34,9 +37,25 @@ media:
     src: "/images/unsplash/dI9KhXi0ooE.jpg"
     ratio: "4 / 5"
     alt: "Empire State Building emerging through white fog"
+    caption: "A captioned still closes the complete media sequence."
     tone: 1
 ---
 
-Project 03 — Motion
+# Project 03 — Complete Case Study
 
-A motion language translating the project’s graphic principles into rhythm, sequence, and sound.
+This project demonstrates the complete content system in one place: editorial copy, still imagery, hosted video, an embedded YouTube film, varied proportions, and optional captions.
+
+## Project information
+
+- Client — Example Studio
+- Year — 2026
+- Role — Identity, editorial, digital, and motion
+- Collaborators — A representative creative team
+
+## Approach
+
+The structure is intentionally concise. Each medium follows the same spacing logic, while captions and changes in proportion create a measured visual rhythm.
+
+> “The system remains quiet enough for the work to stay central.”
+
+[Visit the example project link](https://example.com) to test inline links and keyboard focus states.
