@@ -3,27 +3,36 @@ title: "Sample Project 03 — Motion Language"
 order: 3
 published: true
 thumbnail:
-  alt: "Neutral placeholder for Sample Project 03"
+  src: "/images/unsplash/xVyR9Tkl23c.jpg"
+  alt: "Commuter standing beside a blurred metro train"
   focalX: 50
   focalY: 50
   tone: 3
 media:
   - kind: image
     id: "03-a"
+    src: "/images/unsplash/xVyR9Tkl23c.jpg"
     ratio: "3 / 2"
-    alt: "Opening frame placeholder for a motion language"
+    alt: "Commuter standing beside a blurred metro train"
     tone: 3
   - kind: video
     id: "03-video"
     ratio: "16 / 9"
     src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-    poster: "placeholder"
-    title: "Sample hosted flower video"
-    caption: "Hosted-video example with a custom play treatment."
+    poster: "/images/unsplash/h2coDswHOAw.jpg"
+    title: "Hosted motion study"
+    caption: "Hosted-video example, displayed in monochrome."
+  - kind: youtube
+    id: "03-youtube"
+    ratio: "16 / 9"
+    youtubeId: "ifElv18k2O8"
+    title: "I Am Easy To Find, a film by Mike Mills and The National"
+    caption: "Black-and-white film by Mike Mills for The National."
   - kind: image
     id: "03-b"
+    src: "/images/unsplash/dI9KhXi0ooE.jpg"
     ratio: "4 / 5"
-    alt: "Vertical motion study placeholder"
+    alt: "Empire State Building emerging through white fog"
     tone: 1
 ---
 

@@ -3,31 +3,36 @@ title: "Sample Project 02 — Editorial Program"
 order: 2
 published: true
 thumbnail:
-  alt: "Neutral placeholder for Sample Project 02"
+  src: "/images/unsplash/a4gn0tegY_g.jpg"
+  alt: "Pedestrians and shadows crossing a striped street"
   focalX: 50
   focalY: 50
   tone: 2
 media:
   - kind: image
     id: "02-a"
+    src: "/images/unsplash/JMD2xOvcLVw.jpg"
     ratio: "2 / 3"
-    alt: "Tall editorial placeholder"
+    alt: "Silhouetted figure climbing an outdoor staircase"
     tone: 2
   - kind: image
     id: "02-b"
+    src: "/images/unsplash/y03Eh7H-dqQ.jpg"
     ratio: "3 / 2"
-    alt: "Wide editorial placeholder"
+    alt: "Cable-car tracks receding through a sunlit city street"
     tone: 1
   - kind: image
     id: "02-c"
+    src: "/images/unsplash/K7oqWgDJQ6E.jpg"
     ratio: "5 / 4"
-    alt: "Editorial spread placeholder"
+    alt: "Pedestrian casting a long shadow on a downtown street"
     caption: "A representative editorial caption."
     tone: 3
   - kind: image
     id: "02-d"
+    src: "/images/unsplash/vUwJ8uu_C1M.jpg"
     ratio: "16 / 9"
-    alt: "Wide editorial system placeholder"
+    alt: "Angular glass facade disappearing into white sky"
     tone: 1
 ---
 

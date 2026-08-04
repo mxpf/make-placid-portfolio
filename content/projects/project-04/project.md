@@ -3,36 +3,42 @@ title: "Sample Project 04 — Digital Standards"
 order: 4
 published: true
 thumbnail:
-  alt: "Neutral placeholder for Sample Project 04"
+  src: "/images/unsplash/K67sBVqLLuw.jpg"
+  alt: "Curved modern buildings framing an open sky"
   focalX: 50
   focalY: 50
   tone: 1
 media:
   - kind: image
     id: "04-a"
+    src: "/images/unsplash/hxi_yRxODNc.jpg"
     ratio: "16 / 10"
-    alt: "Digital standards placeholder"
+    alt: "Repeating geometric openings across a pale facade"
     tone: 1
   - kind: image
     id: "04-b"
+    src: "/images/unsplash/K67sBVqLLuw.jpg"
     ratio: "1 / 1"
-    alt: "Square interface system placeholder"
+    alt: "Curved modern buildings framing an open sky"
     caption: "Sample interface-system caption."
     tone: 2
   - kind: image
     id: "04-c"
+    src: "/images/unsplash/dI9KhXi0ooE.jpg"
     ratio: "3 / 4"
-    alt: "Portrait digital standards placeholder"
+    alt: "Empire State Building emerging through white fog"
     tone: 3
   - kind: image
     id: "04-d"
+    src: "/images/unsplash/aGVx6_UFkO0.jpg"
     ratio: "3 / 2"
-    alt: "Landscape digital standards placeholder"
+    alt: "Skyscrapers viewed from the street in heavy fog"
     tone: 2
   - kind: image
     id: "04-e"
+    src: "/images/unsplash/8roGGOgcVfg.jpg"
     ratio: "5 / 4"
-    alt: "Digital component library placeholder"
+    alt: "Downtown towers rising along an empty street"
     tone: 1
 ---
 

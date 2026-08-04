@@ -3,41 +3,48 @@ title: "Sample Project 06 — Environmental Graphics"
 order: 6
 published: true
 thumbnail:
-  alt: "Neutral placeholder for Sample Project 06"
+  src: "/images/unsplash/Afqw8XrP1V8.jpg"
+  alt: "Foggy waterfront promenade lined with street lamps"
   focalX: 50
   focalY: 50
   tone: 3
 media:
   - kind: image
     id: "06-a"
+    src: "/images/unsplash/Afqw8XrP1V8.jpg"
     ratio: "5 / 4"
-    alt: "Environmental graphic placeholder"
+    alt: "Foggy waterfront promenade lined with street lamps"
     tone: 3
   - kind: image
     id: "06-b"
+    src: "/images/unsplash/b0eg-PYGICQ.jpg"
     ratio: "16 / 9"
-    alt: "Wide environmental graphic placeholder"
+    alt: "City skyline dissolving vertically into mist"
     tone: 1
   - kind: image
     id: "06-c"
+    src: "/images/unsplash/K7oqWgDJQ6E.jpg"
     ratio: "4 / 5"
-    alt: "Vertical signage placeholder"
+    alt: "Pedestrian casting a long shadow on a downtown street"
     caption: "Optional caption aligned to the right edge."
     tone: 2
   - kind: image
     id: "06-d"
+    src: "/images/unsplash/a4gn0tegY_g.jpg"
     ratio: "1 / 1"
-    alt: "Square environmental detail placeholder"
+    alt: "Pedestrians and shadows crossing a striped street"
     tone: 1
   - kind: image
     id: "06-e"
+    src: "/images/unsplash/y03Eh7H-dqQ.jpg"
     ratio: "3 / 2"
-    alt: "Landscape environmental system placeholder"
+    alt: "Cable-car tracks receding through a sunlit city street"
     tone: 3
   - kind: image
     id: "06-f"
+    src: "/images/unsplash/JMD2xOvcLVw.jpg"
     ratio: "2 / 3"
-    alt: "Tall environmental installation placeholder"
+    alt: "Silhouetted figure climbing an outdoor staircase"
     tone: 2
 ---
 

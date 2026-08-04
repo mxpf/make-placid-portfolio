@@ -134,6 +134,15 @@ iframe {
   object-fit: cover;
 }
 
+.home-project img,
+.media-frame > img,
+.media-frame > video,
+.media-frame > iframe,
+.detail-media img,
+.video-poster img {
+  filter: grayscale(1);
+}
+
 .placeholder {
   display: block;
   background: color-mix(in srgb, var(--dark) 8%, var(--light));
