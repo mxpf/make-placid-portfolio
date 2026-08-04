@@ -32,8 +32,8 @@ test("server-renders the portfolio home page", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Make Placid<\/title>/i);
-  assert.match(html, />Make Placid<\/a>/);
+  assert.match(html, /<title>Max Pfennighaus<\/title>/i);
+  assert.match(html, />Max Pfennighaus<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
   assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 7);
@@ -69,7 +69,7 @@ test("server-renders project and about routes", async () => {
   assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
   assert.match(aboutHtml, />Close<\/button>/);
-  assert.match(aboutHtml, /minimalist portfolio system for designers, artists, photographers, architects, and creative practices/);
+  assert.match(aboutHtml, /independent designer working across identity, editorial, digital products, and environments/);
   assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
 });
 
@@ -87,8 +87,8 @@ test("publishes search-engine discovery routes", async () => {
     sitemapResponse.text(),
   ]);
 
-  assert.match(robots, /Sitemap: https:\/\/max-pfennighaus-studio\.mxpf\.chatgpt\.site\/sitemap\.xml/);
-  assert.match(sitemap, /<loc>https:\/\/max-pfennighaus-studio\.mxpf\.chatgpt\.site\/projects\/project-03<\/loc>/);
+  assert.match(robots, /Sitemap: https:\/\/maxpfennig\.haus\/sitemap\.xml/);
+  assert.match(sitemap, /<loc>https:\/\/maxpfennig\.haus\/projects\/project-03<\/loc>/);
 });
 
 test("keeps identity copy in the content layer", async () => {
@@ -109,10 +109,10 @@ test("keeps identity copy in the content layer", async () => {
 
   assert.match(page, /getProjects\(\)/);
   assert.match(layout, /getSiteConfig\(\)/);
-  assert.match(siteConfig, /name: "Make Placid"/);
+  assert.match(siteConfig, /name: "Max Pfennighaus"/);
   assert.match(siteConfig, /showProjectLabels: false/);
   assert.match(siteConfig, /socialImageAlt:/);
-  assert.doesNotMatch(`${page}${layout}${chrome}`, /Make Placid/);
+  assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
   assert.match(transitionLink, /router\.push\(href\)/);
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);

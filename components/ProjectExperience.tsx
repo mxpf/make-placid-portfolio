@@ -221,19 +221,20 @@ export function ProjectExperience({ project }: { project: Project }) {
 
   useEffect(() => {
     if (detailIndex === null) return;
+    const activeIndex = detailIndex;
     detailScroller.current?.focus({ preventScroll: true });
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         event.preventDefault();
         closeDetail();
-      } else if (event.key === "ArrowLeft" && detailIndex > 0) {
+      } else if (event.key === "ArrowLeft" && activeIndex > 0) {
         event.preventDefault();
-        setDetailIndex(detailIndex - 1);
+        setDetailIndex(activeIndex - 1);
         detailScroller.current?.scrollTo({ top: 0 });
-      } else if (event.key === "ArrowRight" && detailIndex < staticImages.length - 1) {
+      } else if (event.key === "ArrowRight" && activeIndex < staticImages.length - 1) {
         event.preventDefault();
-        setDetailIndex(detailIndex + 1);
+        setDetailIndex(activeIndex + 1);
         detailScroller.current?.scrollTo({ top: 0 });
       }
     }

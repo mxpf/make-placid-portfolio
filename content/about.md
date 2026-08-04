@@ -1,8 +1,8 @@
-{{name}} is a minimalist portfolio system for designers, artists, photographers, architects, and creative practices. It gives image, motion, and editorial copy equal weight without adding unnecessary interface.
+{{name}} is an independent designer working across identity, editorial, digital products, and environments. The practice partners with cultural and commercial organizations on clear, enduring visual systems.
 
 - {{location}}
 - [{{email}}](mailto:{{email}})
 
-> “Use this space for a concise point of view, working principle, or studio statement.”
+> “A concise quotation or point of view can live here.”
 
-Replace this demonstration copy with a short introduction, contact details, and only the information your practice needs.
+Available for selected commissions, collaborations, and conversations.
