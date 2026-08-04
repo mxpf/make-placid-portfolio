@@ -171,7 +171,7 @@ iframe {
   gap: var(--spacing-2);
   min-height: 100vh;
   padding: var(--header-height) 24px calc(var(--rail-height) * 2);
-  animation: page-in 320ms ease both;
+  animation: project-page-in 320ms ease both;
 }
 
 .project-summary-column {
@@ -390,6 +390,12 @@ iframe {
   from {
     opacity: 0;
     transform: translateY(6px);
+  }
+}
+
+@keyframes project-page-in {
+  from {
+    opacity: 0;
   }
 }
 

@@ -66,10 +66,11 @@ test("server-renders project and about routes", async () => {
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, layout, chrome, siteConfig, packageJson] = await Promise.all([
+  const [page, layout, chrome, styles, siteConfig, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -78,6 +79,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(layout, /getSiteConfig\(\)/);
   assert.match(siteConfig, /name: "Max Pfennighaus"/);
   assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
+  assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
   await assert.rejects(access(new URL("SkeletonPreview.tsx", previewRoot)));
