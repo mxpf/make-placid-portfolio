@@ -393,6 +393,10 @@ iframe {
   background: var(--light);
 }
 
+.detail-layer:focus {
+  outline: none;
+}
+
 .detail-close {
   display: block;
   width: 100%;

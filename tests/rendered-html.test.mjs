@@ -122,6 +122,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-gallery > \.media-item:last-child:has\(\.media-caption\)\s*\{[^}]*calc\(var\(--spacing-3\) \+ var\(--rail-height\)\)/s);
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
+  assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
   assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", "Instrument Sans"/s);
   assert.match(layout, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT/);
   assert.match(gitignore, /public\/fonts\/portfolio-custom\.woff2/);
