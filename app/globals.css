@@ -170,7 +170,7 @@ iframe {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-2);
   min-height: 100vh;
-  padding: var(--header-height) 24px calc(var(--rail-height) * 2);
+  padding: var(--header-height) 24px 0;
   animation: project-page-in 320ms ease both;
 }
 
@@ -225,6 +225,10 @@ iframe {
 
 .media-item:has(.media-caption) {
   margin-bottom: var(--spacing-3);
+}
+
+.project-gallery > .media-item:last-child:not(:has(.media-caption)) {
+  margin-bottom: 0;
 }
 
 .media-frame {
