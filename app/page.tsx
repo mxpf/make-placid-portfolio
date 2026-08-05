@@ -15,7 +15,7 @@ export default function Home() {
     <main className="home-grid" aria-label={site.projectsLabel}>
       {projects.map((project, index) => (
         <TransitionLink
-          className="home-project"
+          className={`home-project${project.colorMedia ? " color-media" : ""}`}
           href={`/projects/${project.slug}`}
           key={project.slug}
           ariaLabel={`View ${project.title}`}

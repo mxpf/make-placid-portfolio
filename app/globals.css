@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Portfolio Custom";
+  font-family: "mxpf-sans";
   src: url("/fonts/portfolio-custom.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
@@ -19,7 +19,7 @@
   --spacing-2: 24px;
   --spacing-3: 36px;
   --dark: #1c1c1a;
-  --light: #f7f6f2;
+  --light: #eeede9;
   --link: #70706c;
   --header-height: 84px;
   --rail-height: 24px;
@@ -39,7 +39,7 @@ html {
 }
 
 html.custom-font {
-  font-family: "Portfolio Custom", "Instrument Sans", Arial, Helvetica, sans-serif;
+  font-family: "mxpf-sans", "Instrument Sans", Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -177,6 +177,12 @@ iframe {
 .detail-media img,
 .video-poster img {
   filter: grayscale(1);
+}
+
+.color-media img,
+.color-media video,
+.color-media iframe {
+  filter: none;
 }
 
 .placeholder {
@@ -360,6 +366,11 @@ iframe {
   background: color-mix(in srgb, var(--dark) 14%, var(--light));
 }
 
+.video-poster:focus-visible {
+  outline: 2px solid var(--light);
+  outline-offset: -6px;
+}
+
 .video-poster img {
   width: 100%;
   height: 100%;
@@ -370,13 +381,31 @@ iframe {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--dark) 78%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 36%, transparent);
+  transform: translate(-50%, -50%);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.play-triangle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 16px solid var(--light);
-  transform: translate(-40%, -50%);
-  mix-blend-mode: difference;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 21px solid var(--light);
+  content: "";
+  transform: translate(-36%, -50%);
+}
+
+.video-poster:hover .play-triangle {
+  background: var(--dark);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
 .youtube-frame {
@@ -437,6 +466,40 @@ iframe {
 .about-copy {
   grid-column: 2;
   text-wrap: pretty;
+}
+
+.not-found-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-2);
+  min-height: 100vh;
+  padding: var(--header-height) 24px var(--rail-height);
+  animation: page-in 320ms ease both;
+}
+
+.not-found-copy {
+  align-self: end;
+  grid-column: 1;
+  text-wrap: pretty;
+}
+
+.not-found-copy h1 {
+  margin: 0 0 var(--spacing-2);
+  font: inherit;
+  font-weight: 400;
+}
+
+.not-found-link {
+  transition: color 180ms ease;
+}
+
+.not-found-link:hover {
+  color: var(--link);
+}
+
+.not-found-link:focus-visible {
+  outline: 1px solid var(--link);
+  outline-offset: 3px;
 }
 
 @keyframes detail-crossfade {
@@ -543,6 +606,12 @@ iframe {
 
   .about-layout {
     display: block;
+    padding-top: 0;
+  }
+
+  .not-found-layout {
+    display: block;
+    min-height: calc(100vh - var(--header-height));
     padding-top: 0;
   }
 

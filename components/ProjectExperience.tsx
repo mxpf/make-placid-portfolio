@@ -56,6 +56,22 @@ function ImageVisual({
 function HostedVideo({ media }: { media: VideoMedia }) {
   const [playing, setPlaying] = useState(false);
 
+  if (media.autoplay) {
+    return (
+      <div className="media-frame" style={ratioStyle(media.ratio)}>
+        <video
+          src={media.src}
+          poster={media.poster === "placeholder" ? undefined : media.poster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label={media.title}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="media-frame" style={ratioStyle(media.ratio)}>
       {!playing && (
@@ -244,7 +260,7 @@ export function ProjectExperience({ project }: { project: Project }) {
   }, [closeDetail, detailIndex, staticImages.length]);
 
   return (
-    <main className="project-layout">
+    <main className={`project-layout${project.colorMedia ? " color-media" : ""}`}>
       <div className="project-summary-column">
         <div
           className="project-summary"

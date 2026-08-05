@@ -42,6 +42,14 @@ for (const sourcePath of images) {
   await mkdir(targetDirectory, { recursive: true });
 
   const candidates = widths.filter((width) => width <= metadata.width);
+  const largestTarget = widths.at(-1);
+  if (
+    largestTarget &&
+    metadata.width < largestTarget &&
+    !candidates.includes(metadata.width)
+  ) {
+    candidates.push(metadata.width);
+  }
   if (candidates.length === 0) candidates.push(metadata.width);
   const sources = [];
 

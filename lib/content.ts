@@ -20,6 +20,7 @@ export type VideoMedia = {
   poster: string;
   ratio: string;
   title: string;
+  autoplay?: boolean;
   caption?: string;
 };
 
@@ -41,6 +42,7 @@ export type Project = {
   homepageLabel?: string;
   seoDescription: string;
   socialImage?: string;
+  colorMedia: boolean;
   order: number;
   published: boolean;
   thumbnail: {
@@ -111,6 +113,7 @@ function readProject(slug: string): Project {
     homepageLabel: data.homepageLabel,
     seoDescription: data.seoDescription ?? data.title,
     socialImage: data.socialImage,
+    colorMedia: data.colorMedia ?? false,
     order: data.order,
     published: data.published,
     thumbnail: {

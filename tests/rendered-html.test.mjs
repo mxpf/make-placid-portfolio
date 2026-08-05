@@ -10,20 +10,32 @@ async function render(pathname = "/") {
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
+  const env = {
+    ASSETS: {
+      fetch: async () => new Response("Not found", { status: 404 }),
     },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+  };
+  const context = {
+    waitUntil() {},
+    passThroughOnException() {},
+  };
+  const request = new Request(`http://localhost${pathname}`, {
+    headers: { accept: "text/html" },
+  });
+  const response = await worker.fetch(request, env, context);
+  const location = response.headers.get("location");
+
+  if ([301, 302, 307, 308].includes(response.status) && location) {
+    return worker.fetch(
+      new Request(new URL(location, request.url), {
+        headers: { accept: "text/html" },
+      }),
+      env,
+      context,
+    );
+  }
+
+  return response;
 }
 
 test("server-renders the portfolio home page", async () => {
@@ -36,7 +48,12 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, />Max Pfennighaus<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
-  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 7);
+  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 3);
+  assert.match(html, /src="\/images\/projects\/jj\/jj-07\.png"/);
+  assert.match(html, /src="\/images\/projects\/hk\/hk-01\.png"/);
+  assert.match(html, /src="\/images\/projects\/synchrony\/synchrony-01\.png"/);
+  assert.match(html, /src="\/images\/projects\/ibm\/ibm-04\.png"/);
+  assert.match(html, /class="home-project color-media"/);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
   assert.doesNotMatch(html, /home-project-label/);
   assert.match(html, /rel="icon"/);
@@ -45,50 +62,74 @@ test("server-renders the portfolio home page", async () => {
 });
 
 test("server-renders project and about routes", async () => {
-  const [projectResponse, aboutResponse] = await Promise.all([
+  const [synchronyResponse, johnsonResponse, hollandKnightResponse, ibmResponse, campaignResponse, aboutResponse] = await Promise.all([
     render("/projects/project-03"),
+    render("/projects/project-01"),
+    render("/projects/project-02"),
+    render("/projects/project-04"),
+    render("/projects/project-05"),
     render("/about"),
   ]);
 
-  assert.equal(projectResponse.status, 200);
+  assert.equal(synchronyResponse.status, 200);
+  assert.equal(johnsonResponse.status, 200);
+  assert.equal(hollandKnightResponse.status, 200);
+  assert.equal(ibmResponse.status, 200);
+  assert.equal(campaignResponse.status, 200);
   assert.equal(aboutResponse.status, 200);
 
-  const [projectHtml, aboutHtml] = await Promise.all([
-    projectResponse.text(),
+  const [synchronyHtml, johnsonHtml, hollandKnightHtml, ibmHtml, campaignHtml, aboutHtml] = await Promise.all([
+    synchronyResponse.text(),
+    johnsonResponse.text(),
+    hollandKnightResponse.text(),
+    ibmResponse.text(),
+    campaignResponse.text(),
     aboutResponse.text(),
   ]);
 
-  assert.match(projectHtml, /Project 03 — Complete Case Study/);
-  assert.match(projectHtml, /class="video-poster"/);
-  assert.match(projectHtml, /ifElv18k2O8/);
-  assert.match(projectHtml, /\/images\/unsplash\/xVyR9Tkl23c\.jpg/);
-  assert.match(projectHtml, /<h2>Project information<\/h2>/);
-  assert.match(projectHtml, /<blockquote>/);
-  assert.match(projectHtml, /href="https:\/\/example\.com"/);
-  assert.match(projectHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
-  assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
-  assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
-  assert.match(aboutHtml, />Close<\/button>/);
-  assert.match(aboutHtml, /independent designer working across identity, editorial, digital products, and environments/);
-  assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
+  assert.match(synchronyHtml, /Synchrony/);
+  assert.match(synchronyHtml, /project-layout color-media/);
+  assert.match(synchronyHtml, /synchrony-20\.png/);
+  assert.match(synchronyHtml, /The platform supported social communications, cultural moments, and community-specific messages/);
+  assert.doesNotMatch(synchronyHtml, /synchrony-(04|06|07|09|11|14|16|18|21)\.png/);
+  assert.match(campaignHtml, /class="video-poster"/);
+  assert.match(campaignHtml, /ifElv18k2O8/);
+  assert.match(campaignHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
+  assert.doesNotMatch(campaignHtml, /youtube-nocookie\.com\/embed/);
+  assert.doesNotMatch(campaignHtml, /M7lc1UVf-VE|Google Developers/);
+  assert.match(johnsonHtml, /Johnson &amp; Johnson/);
+  assert.match(johnsonHtml, /project-layout color-media/);
+  assert.match(johnsonHtml, /jj-gif-01\.gif/);
+  assert.match(johnsonHtml, /jj-gif-03\.gif/);
+  assert.match(johnsonHtml, /jj-video-01\.mp4/);
+  assert.match(johnsonHtml, /autoPlay=""/);
+  assert.match(johnsonHtml, /loop=""/);
+  assert.match(johnsonHtml, /muted=""/);
+  assert.match(johnsonHtml, /playsInline=""/);
+  assert.match(hollandKnightHtml, /Holland &amp; Knight/);
+  assert.match(hollandKnightHtml, /hk-16\.png/);
+  assert.match(hollandKnightHtml, /The system remained recognizable across informal, physical brand touchpoints\./);
+  assert.match(ibmHtml, /IBM/);
+  assert.match(ibmHtml, /project-layout color-media/);
+  assert.match(ibmHtml, /ibm-33\.png/);
+  assert.match(ibmHtml, /The interaction model carried into a live executive presentation/);
+  assert.doesNotMatch(ibmHtml, /ibm-(01|02|03|06|12|14|16|18|19|20|21|23|24|25|29|32)\.png/);
+  assert.match(aboutHtml, />About &amp; contact<\/a>/);
+  assert.match(aboutHtml, /senior creative leader with more than 25 years of experience/);
 });
 
-test("publishes search-engine discovery routes", async () => {
-  const [robotsResponse, sitemapResponse] = await Promise.all([
-    render("/robots.txt"),
-    render("/sitemap.xml"),
+test("defines search-engine discovery routes", async () => {
+  const [robots, sitemap, siteConfig] = await Promise.all([
+    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
   ]);
 
-  assert.equal(robotsResponse.status, 200);
-  assert.equal(sitemapResponse.status, 200);
-
-  const [robots, sitemap] = await Promise.all([
-    robotsResponse.text(),
-    sitemapResponse.text(),
-  ]);
-
-  assert.match(robots, /Sitemap: https:\/\/maxpfennig\.haus\/sitemap\.xml/);
-  assert.match(sitemap, /<loc>https:\/\/maxpfennig\.haus\/projects\/project-03<\/loc>/);
+  assert.match(robots, /dynamic = "force-static"/);
+  assert.match(robots, /\$\{site\.url\}\/sitemap\.xml/);
+  assert.match(sitemap, /getProjects\(\)/);
+  assert.match(sitemap, /\$\{site\.url\}\/projects\/\$\{project\.slug\}/);
+  assert.match(siteConfig, /url: "https:\/\/maxpfennig\.haus"/);
 });
 
 test("keeps identity copy in the content layer", async () => {
@@ -123,7 +164,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
-  assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", "Instrument Sans"/s);
+  assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "mxpf-sans", "Instrument Sans"/s);
   assert.match(layout, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT/);
   assert.match(gitignore, /public\/fonts\/portfolio-custom\.woff2/);
   assert.match(envExample, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=false/);
