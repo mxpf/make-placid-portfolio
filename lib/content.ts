@@ -1,7 +1,14 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
 import { marked } from "marked";
 import { parse as parseYaml } from "yaml";
+import aboutSource from "../content/about.md?raw";
+import project01Source from "../content/projects/project-01/project.md?raw";
+import project02Source from "../content/projects/project-02/project.md?raw";
+import project03Source from "../content/projects/project-03/project.md?raw";
+import project04Source from "../content/projects/project-04/project.md?raw";
+import project05Source from "../content/projects/project-05/project.md?raw";
+import project06Source from "../content/projects/project-06/project.md?raw";
+import project07Source from "../content/projects/project-07/project.md?raw";
+import siteSource from "../content/site.yml?raw";
 
 export type ImageMedia = {
   kind: "image";
@@ -75,18 +82,15 @@ export type SiteConfig = {
   appleTouchIcon: string;
 };
 
-const contentDirectory = join(process.cwd(), "content");
-const projectsDirectory = join(contentDirectory, "projects");
-const projectFiles = Object.fromEntries(
-  readdirSync(projectsDirectory, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => [
-      entry.name,
-      readFileSync(join(projectsDirectory, entry.name, "project.md"), "utf8"),
-    ]),
-) as Record<string, string>;
-const aboutSource = readFileSync(join(contentDirectory, "about.md"), "utf8");
-const siteSource = readFileSync(join(contentDirectory, "site.yml"), "utf8");
+const projectFiles: Record<string, string> = {
+  "project-01": project01Source,
+  "project-02": project02Source,
+  "project-03": project03Source,
+  "project-04": project04Source,
+  "project-05": project05Source,
+  "project-06": project06Source,
+  "project-07": project07Source,
+};
 
 function renderMarkdown(source: string) {
   const html = marked.parse(source, { async: false }) as string;
