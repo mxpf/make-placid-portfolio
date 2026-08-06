@@ -6,7 +6,7 @@ const jobs = [
   {
     input: "public/images/projects/ibm/ibm-26.png",
     output: "public/images/projects/ibm/ibm-home.png",
-    extract: { left: 58, top: 39, width: 1050, height: 700 },
+    extract: { left: 58, top: 0, width: 1050, height: 700 },
   },
   {
     input: "public/images/projects/nyt/nyt-01.png",
@@ -16,7 +16,7 @@ const jobs = [
   {
     input: "public/images/projects/nyt/nyt-insider.png",
     output: "public/images/projects/nyt/nyt-insider-home.png",
-    extract: { left: 1090, top: 8730, width: 1014, height: 676 },
+    extract: { left: 1090, top: 8730, width: 1008, height: 672 },
   },
   {
     input: "public/images/projects/npr/npr-ux.png",
@@ -26,7 +26,7 @@ const jobs = [
   {
     input: "public/images/projects/sands/sands-details-cover.png",
     output: "public/images/projects/sands/sands-home.png",
-    extract: { left: 0, top: 0, width: 2550, height: 1700 },
+    extract: { left: 0, top: 2, width: 2546, height: 1700 },
   },
   {
     input: "public/images/projects/amazon/amazon-cover.png",

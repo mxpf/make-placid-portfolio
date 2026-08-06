@@ -7,12 +7,12 @@ keywords:
   - "design"
   - "creative direction"
   - "portfolio"
-email: "max@example.com"
+email: "maxpfennighaus@gmail.com"
 location: "New York, NY"
 aboutLabel: "About & contact"
 closeLabel: "Close"
 projectsLabel: "Selected projects"
-showProjectLabels: false
+showProjectLabels: true
 socialImage: "/og.png"
 socialImageAlt: "Max Pfennighaus — selected design and creative direction"
 favicon: "/favicon.png"

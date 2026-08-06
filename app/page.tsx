@@ -13,6 +13,7 @@ export default function Home() {
 
   return (
     <main className="home-grid" aria-label={site.projectsLabel}>
+      <h1 className="visually-hidden">{site.projectsLabel}</h1>
       {projects.map((project, index) => (
         <TransitionLink
           className={`home-project${project.colorMedia ? " color-media" : ""}`}

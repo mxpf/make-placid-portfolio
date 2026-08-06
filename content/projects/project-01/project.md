@@ -66,12 +66,12 @@ media:
   - kind: image
     id: "jj-19"
     src: "/images/projects/jj/jj-19.png"
-    ratio: "876 / 2040"
+    ratio: "875 / 2039"
     alt: "Johnson & Johnson Innovation consumer health webpage"
   - kind: image
     id: "jj-20"
     src: "/images/projects/jj/jj-20.png"
-    ratio: "876 / 2040"
+    ratio: "875 / 2039"
     alt: "Johnson & Johnson MedTech webpage"
     caption: "Shared digital guidance created recognizable experiences across Innovation, MedTech, and other business contexts."
   - kind: image

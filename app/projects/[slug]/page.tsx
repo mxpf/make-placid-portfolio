@@ -48,5 +48,18 @@ export default async function ProjectPage({
   const project = getProject(slug);
   if (!project) notFound();
 
-  return <ProjectExperience project={project} />;
+  const projects = getProjects();
+  const projectIndex = projects.findIndex((item) => item.slug === project.slug);
+  const previous = projectIndex > 0 ? projects[projectIndex - 1] : null;
+  const next = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
+  const previousProject = previous ? { slug: previous.slug, title: previous.title } : null;
+  const nextProject = next ? { slug: next.slug, title: next.title } : null;
+
+  return (
+    <ProjectExperience
+      project={project}
+      previousProject={previousProject}
+      nextProject={nextProject}
+    />
+  );
 }

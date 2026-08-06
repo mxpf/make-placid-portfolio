@@ -76,6 +76,18 @@ button {
   background: transparent;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 img,
 video,
 iframe {
@@ -105,8 +117,12 @@ iframe {
 }
 
 .site-link {
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
-  height: 24px;
+  min-height: 44px;
+  margin: -10px -6px 0;
+  padding: 10px 6px;
   cursor: pointer;
   transition: color 180ms ease;
 }
@@ -118,7 +134,9 @@ iframe {
 .site-link:focus-visible,
 .home-project:focus-visible,
 .gallery-image-button:focus-visible,
-.video-poster:focus-visible {
+.video-poster:focus-visible,
+.video-autoplay-toggle:focus-visible,
+.project-navigation a:focus-visible {
   outline: 1px solid var(--link);
   outline-offset: 3px;
 }
@@ -262,7 +280,8 @@ iframe {
   margin-top: var(--spacing-3);
 }
 
-.project-summary > :last-child,
+.project-summary-lead > :last-child,
+.project-summary-body > :last-child,
 .about-copy > :last-child {
   margin-bottom: 0;
 }
@@ -314,6 +333,10 @@ iframe {
   min-width: 0;
 }
 
+.project-lead-media {
+  grid-column: 2;
+}
+
 .media-item {
   margin: 0 0 var(--spacing-2);
 }
@@ -322,12 +345,8 @@ iframe {
   margin-bottom: var(--spacing-3);
 }
 
-.project-gallery > .media-item:last-child:not(:has(.media-caption)) {
-  margin-bottom: var(--rail-height);
-}
-
-.project-gallery > .media-item:last-child:has(.media-caption) {
-  margin-bottom: var(--rail-height);
+.project-gallery > .media-item:last-child {
+  margin-bottom: var(--spacing-3);
 }
 
 .media-frame {
@@ -439,6 +458,44 @@ iframe {
   transform: translate(-50%, -50%) scale(1.06);
 }
 
+.video-autoplay-toggle {
+  position: absolute;
+  z-index: 3;
+  right: var(--spacing-1);
+  bottom: var(--spacing-1);
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--light);
+  background: color-mix(in srgb, var(--dark) 78%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 36%, transparent);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.video-autoplay-toggle:hover {
+  background: var(--dark);
+  transform: scale(1.06);
+}
+
+.play-icon {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 13px solid currentColor;
+}
+
+.pause-icon {
+  width: 13px;
+  height: 17px;
+  border-right: 4px solid currentColor;
+  border-left: 4px solid currentColor;
+}
+
 .youtube-frame {
   border: 0;
 }
@@ -474,6 +531,28 @@ iframe {
   height: auto;
   min-height: 1px;
   object-fit: contain;
+}
+
+.project-navigation {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-2);
+  margin-bottom: var(--rail-height);
+}
+
+.project-navigation a {
+  width: fit-content;
+  transition: color 180ms ease;
+}
+
+.project-navigation a:hover {
+  color: var(--link);
+}
+
+.project-navigation a:last-child {
+  justify-self: end;
+  text-align: right;
 }
 
 .bottom-rail {
@@ -589,21 +668,38 @@ iframe {
   }
 
   .project-layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
     padding-top: 0;
   }
 
-  .project-summary-column {
-    margin-bottom: var(--spacing-2);
+  .project-summary-column,
+  .project-summary {
+    display: contents;
   }
 
-  .project-summary {
-    position: static;
-    width: auto;
-    max-height: none;
-    margin-left: 0;
-    padding-left: 0;
-    overflow: visible;
+  .project-summary-lead {
+    order: 1;
+    margin-bottom: var(--spacing-2);
+    text-wrap: pretty;
+  }
+
+  .project-lead-media {
+    order: 2;
+  }
+
+  .project-summary-body {
+    order: 3;
+    margin-bottom: var(--spacing-3);
+    text-wrap: pretty;
+  }
+
+  .project-gallery {
+    order: 4;
+  }
+
+  .project-navigation {
+    order: 5;
   }
 
   .project-summary ul,
@@ -648,6 +744,10 @@ iframe {
 
   .detail-layer {
     display: none;
+  }
+
+  .project-navigation {
+    margin-top: 0;
   }
 }
 

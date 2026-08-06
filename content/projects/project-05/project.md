@@ -20,11 +20,17 @@ media:
     alt: "The New York Times editorial typography guidelines showing five type families and examples in use"
     caption: "The company’s first comprehensive system connecting editorial and marketing expression established shared principles for typography, interaction, messaging, and application—without diminishing the newsroom’s distinct character."
   - kind: image
-    id: "nyt-campaign"
-    src: "/images/projects/nyt/nyt-campaign.png"
-    ratio: "3360 / 7856"
-    alt: "New York Times campaigns spanning T Magazine, Men’s Style, Real Estate, Cooking, and mobile product launches"
-    caption: "Brand Creative extended across audience-specific campaigns, editorial verticals, product launches, and acquisition—giving each initiative a distinct expression within the larger Times brand."
+    id: "nyt-campaign-t"
+    src: "/images/projects/nyt/nyt-campaign-t.png"
+    ratio: "3 / 2"
+    alt: "T Magazine launch campaign shown across three fashion covers"
+    caption: "Brand Creative gave audience-specific launches a distinct expression within the larger Times brand."
+  - kind: image
+    id: "nyt-campaign-products"
+    src: "/images/projects/nyt/nyt-campaign-products.png"
+    ratio: "3 / 2"
+    alt: "New York Times mobile product launch campaign across Apple Watch and Android"
+    caption: "Product campaigns translated The Times’ editorial authority into direct, contemporary acquisition creative."
   - kind: image
     id: "nyt-international-print"
     src: "/images/projects/nyt/nyt-international-print.png"

@@ -10,8 +10,11 @@ export function generateMetadata() {
 }
 
 export default function AboutPage() {
+  const site = getSiteConfig();
+
   return (
     <main className="about-layout">
+      <h1 className="visually-hidden">{site.aboutLabel}</h1>
       <article
         className="about-copy"
         dangerouslySetInnerHTML={{ __html: getAboutHtml() }}

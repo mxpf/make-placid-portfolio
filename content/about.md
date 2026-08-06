@@ -8,6 +8,6 @@ I’m based in Katonah, New York, with my wife and our four children. Away from 
 
 I’m currently open to senior creative leadership roles, consulting engagements, and selected project collaborations.
 
-[LinkedIn](https://www.linkedin.com/in/mxpfe/)  
-[Résumé](max-pfennighaus-resume.pdf)  
+[LinkedIn](https://www.linkedin.com/in/mxpfe/)<br>
+[Résumé](/max-pfennighaus-resume.pdf)<br>
 [Email](mailto:{{email}})

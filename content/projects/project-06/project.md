@@ -2,7 +2,7 @@
 title: "Times Insider"
 homepageLabel: "Times Insider"
 seoDescription: "Identity, launch campaign, editorial applications, and subscription experience for Times Insider, a New York Times product built around access to the newsroom."
-socialImage: "/images/projects/nyt/nyt-insider-product.jpg"
+socialImage: "/images/projects/nyt/nyt-insider-launch.png"
 colorMedia: true
 order: 6
 published: true
@@ -14,23 +14,29 @@ thumbnail:
   tone: 1
 media:
   - kind: image
-    id: "nyt-insider"
-    src: "/images/projects/nyt/nyt-insider.png"
-    ratio: "3360 / 15196"
-    alt: "Times Insider launch campaign, identity system, editorial applications, and digital experiences"
-    caption: "Times Insider turned access to the newsroom into a subscriber proposition, extending a distinctive identity across launch advertising, editorial storytelling, and product."
+    id: "nyt-insider-launch"
+    src: "/images/projects/nyt/nyt-insider-launch.png"
+    ratio: "2052 / 1376"
+    alt: "Times Insider launch campaign shown across print and environmental advertising"
+    caption: "The launch campaign turned access to the newsroom into a clear subscriber proposition."
+  - kind: image
+    id: "nyt-insider-identity"
+    src: "/images/projects/nyt/nyt-insider-home.png"
+    ratio: "3 / 2"
+    alt: "Times Insider wordmark"
+    caption: "A distinctive identity gave Insider its own voice while retaining a clear connection to The Times."
   - kind: image
     id: "nyt-insider-site"
-    src: "/images/projects/nyt/nyt-insider-site.png"
-    ratio: "1280 / 4257"
-    alt: "Times Insider website bringing together reporting, events, podcasts, books, and newsroom stories"
-    caption: "The digital experience brought reporting, events, podcasts, books, and behind-the-scenes access into one subscriber destination."
+    src: "/images/projects/nyt/nyt-insider-site-home.png"
+    ratio: "1280 / 853"
+    alt: "Times Insider homepage combining newsroom reporting with events, podcasts, and archival stories"
+    caption: "The digital experience brought reporting, events, podcasts, books, and behind-the-scenes access into one destination."
   - kind: image
     id: "nyt-insider-subscription"
-    src: "/images/projects/nyt/nyt-insider-subscription.png"
-    ratio: "1280 / 3394"
-    alt: "Times Insider All Access subscription experience"
-    caption: "The subscription experience translated the editorial promise into a clear All Access upgrade path connecting stories, events, podcasts, newsletters, and TBooks."
+    src: "/images/projects/nyt/nyt-insider-subscription-home.png"
+    ratio: "16 / 9"
+    alt: "Times Insider All Access subscription campaign featuring a reporter in the field"
+    caption: "The subscription experience translated the editorial promise into a direct All Access upgrade path."
 ---
 
 # Times Insider

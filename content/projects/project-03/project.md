@@ -16,7 +16,7 @@ media:
   - kind: image
     id: "synchrony-01"
     src: "/images/projects/synchrony/synchrony-01.png"
-    ratio: "2422 / 1363"
+    ratio: "2422 / 1362"
     alt: "Synchrony illustration system spanning people, business, collaboration, and wellness"
     caption: "A coordinated illustration toolkit gave teams representational and abstract modes that could stand alone or work together."
   - kind: image
@@ -38,13 +38,13 @@ media:
   - kind: image
     id: "synchrony-05"
     src: "/images/projects/synchrony/synchrony-05.png"
-    ratio: "1167 / 609"
+    ratio: "1167 / 608"
     alt: "Synchrony brand voice framework connecting role, intent, and personality"
     caption: "Custom type and a practical voice framework aligned how the brand looked and sounded."
   - kind: image
     id: "synchrony-08"
     src: "/images/projects/synchrony/synchrony-08.png"
-    ratio: "1167 / 609"
+    ratio: "1167 / 608"
     alt: "Synchrony event communication templates using the abstract pattern system"
     caption: "Reusable templates extended the system into event communications without locking teams into one composition."
   - kind: image
@@ -56,41 +56,41 @@ media:
   - kind: image
     id: "synchrony-10"
     src: "/images/projects/synchrony/synchrony-10.png"
-    ratio: "1586 / 1834"
+    ratio: "1584 / 1834"
     alt: "Desktop view of Synchrony’s Roadmap to Diversity small-business editorial platform"
     caption: "Roadmap to Diversity translated the enterprise brand into a focused editorial platform for small businesses."
   - kind: image
     id: "synchrony-12"
     src: "/images/projects/synchrony/synchrony-12.png"
-    ratio: "2422 / 1964"
+    ratio: "2420 / 1964"
     alt: "Synchrony Business Schooled sponsored entrepreneur series"
     caption: "Business Schooled extended the brand into sponsored editorial content with a distinct voice and visual world."
   - kind: image
     id: "synchrony-15"
     src: "/images/projects/synchrony/synchrony-15.png"
-    ratio: "2420 / 1562"
+    ratio: "2416 / 1562"
     alt: "TogetherWe layout guidance and diversity and inclusion campaign applications"
     caption: "TogetherWe unified diversity and inclusion initiatives through a simple verbal and visual platform built to support distinct messages."
   - kind: image
     id: "synchrony-17"
     src: "/images/projects/synchrony/synchrony-17.png"
-    ratio: "1026 / 660"
+    ratio: "1026 / 659"
     alt: "Overview of the TogetherWe creative platform including typography, gradients, symbols, and layouts"
   - kind: image
     id: "synchrony-18"
     src: "/images/projects/synchrony/synchrony-18.png"
-    ratio: "1026 / 660"
+    ratio: "1026 / 659"
     alt: "TogetherWe guidance for the Synchrony pillars symbol and bridge graphic"
     caption: "A concise set of typographic, color, symbol, and layout rules made the platform easy for teams to use consistently."
   - kind: image
     id: "synchrony-19"
     src: "/images/projects/synchrony/synchrony-19.png"
-    ratio: "749 / 1010"
+    ratio: "749 / 1008"
     alt: "Synchrony social post announcing an investment in education equity"
   - kind: image
     id: "synchrony-20"
     src: "/images/projects/synchrony/synchrony-20.png"
-    ratio: "749 / 1010"
+    ratio: "748 / 965"
     alt: "TogetherWe social post celebrating Hispanic Heritage Month"
     caption: "The system flexed across enterprise commitments and cultural moments while allowing each message to retain its specificity."
 ---

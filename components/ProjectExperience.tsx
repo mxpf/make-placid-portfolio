@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import type { ImageGridItem, ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
 import { columnImageSizes, detailImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
+import { TransitionLink } from "@/components/TransitionLink";
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => {
@@ -65,19 +66,63 @@ function ImageVisual({
 
 function HostedVideo({ media }: { media: VideoMedia }) {
   const [playing, setPlaying] = useState(false);
+  const [autoplayAllowed, setAutoplayAllowed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!media.autoplay) return;
+
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => {
+      const allowed = !query.matches;
+      setAutoplayAllowed(allowed);
+      if (!allowed) videoRef.current?.pause();
+    };
+
+    syncPreference();
+    query.addEventListener("change", syncPreference);
+    return () => query.removeEventListener("change", syncPreference);
+  }, [media.autoplay]);
+
+  useEffect(() => {
+    if (!media.autoplay || !autoplayAllowed) return;
+    void videoRef.current?.play().catch(() => setPlaying(false));
+  }, [autoplayAllowed, media.autoplay]);
+
+  const toggleAutoplayVideo = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      void video.play().catch(() => setPlaying(false));
+    } else {
+      video.pause();
+    }
+  }, []);
 
   if (media.autoplay) {
     return (
-      <div className="media-frame" style={ratioStyle(media.ratio)}>
+      <div className="media-frame autoplay-video" style={ratioStyle(media.ratio)}>
         <video
+          ref={videoRef}
           src={media.src}
           poster={media.poster === "placeholder" ? undefined : media.poster}
-          autoPlay
+          autoPlay={autoplayAllowed}
           muted
           loop
           playsInline
           aria-label={media.title}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         />
+        <button
+          type="button"
+          className="video-autoplay-toggle"
+          aria-label={`${playing ? "Pause" : "Play"} ${media.title}`}
+          onClick={toggleAutoplayVideo}
+        >
+          <span className={playing ? "pause-icon" : "play-icon"} aria-hidden="true" />
+        </button>
       </div>
     );
   }
@@ -211,17 +256,40 @@ function GalleryMedia({
   );
 }
 
-export function ProjectExperience({ project }: { project: Project }) {
+type ProjectNavigationItem = Pick<Project, "slug" | "title">;
+
+function splitDescriptionHtml(html: string) {
+  const match = html.match(/^(\s*<h1[\s\S]*?<\/h1>\s*<p>[\s\S]*?<\/p>)([\s\S]*)$/);
+  return match
+    ? { leadHtml: match[1], bodyHtml: match[2] }
+    : { leadHtml: html, bodyHtml: "" };
+}
+
+export function ProjectExperience({
+  project,
+  previousProject,
+  nextProject,
+}: {
+  project: Project;
+  previousProject: ProjectNavigationItem | null;
+  nextProject: ProjectNavigationItem | null;
+}) {
   const staticImages = useMemo(
     () => project.media.filter((media): media is ImageMedia => media.kind === "image"),
     [project.media],
+  );
+  const description = useMemo(
+    () => splitDescriptionHtml(project.descriptionHtml),
+    [project.descriptionHtml],
   );
   const [detailIndex, setDetailIndex] = useState<number | null>(null);
   const [transitionId, setTransitionId] = useState<string | null>(null);
   const [supportsDetail, setSupportsDetail] = useState(false);
   const detailScroller = useRef<HTMLDivElement>(null);
+  const detailTrigger = useRef<HTMLElement | null>(null);
 
   const detailImage = detailIndex === null ? null : staticImages[detailIndex];
+  const [leadMedia, ...remainingMedia] = project.media;
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
@@ -256,6 +324,9 @@ export function ProjectExperience({ project }: { project: Project }) {
   const openDetail = useCallback((media: ImageMedia) => {
     if (!supportsDetail) return;
     const index = staticImages.findIndex((image) => image.id === media.id);
+    detailTrigger.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
     const name = `project-image-${media.id}`;
     flushSync(() => setTransitionId(name));
     void runTransition(() => flushSync(() => setDetailIndex(index)))
@@ -269,7 +340,10 @@ export function ProjectExperience({ project }: { project: Project }) {
     flushSync(() => setTransitionId(name));
     void runTransition(() => flushSync(() => setDetailIndex(null)))
       .catch(() => undefined)
-      .finally(() => setTransitionId(null));
+      .finally(() => {
+        setTransitionId(null);
+        detailTrigger.current?.focus({ preventScroll: true });
+      });
   }, [detailImage, runTransition]);
 
   useEffect(() => {
@@ -299,26 +373,58 @@ export function ProjectExperience({ project }: { project: Project }) {
   return (
     <main className={`project-layout${project.colorMedia ? " color-media" : ""}`}>
       <div className="project-summary-column">
-        <div
-          className="project-summary"
-          dangerouslySetInnerHTML={{ __html: project.descriptionHtml }}
-        />
+        <div className="project-summary">
+          <div
+            className="project-summary-lead"
+            dangerouslySetInnerHTML={{ __html: description.leadHtml }}
+          />
+          {description.bodyHtml ? (
+            <div
+              className="project-summary-body"
+              dangerouslySetInnerHTML={{ __html: description.bodyHtml }}
+            />
+          ) : null}
+        </div>
       </div>
 
+      <figure className="media-item project-lead-media">
+        <GalleryMedia
+          media={leadMedia}
+          onOpenImage={openDetail}
+          canOpenDetail={supportsDetail}
+          priority
+          transitionName={transitionId === `project-image-${leadMedia.id}` ? transitionId : undefined}
+        />
+        {leadMedia.caption && <figcaption className="media-caption">{leadMedia.caption}</figcaption>}
+      </figure>
+
       <section className="project-gallery" aria-label={`${project.title} media`}>
-        {project.media.map((media, index) => (
+        {remainingMedia.map((media) => (
           <figure className="media-item" key={media.id}>
             <GalleryMedia
               media={media}
               onOpenImage={openDetail}
               canOpenDetail={supportsDetail}
-              priority={index === 0}
+              priority={false}
               transitionName={transitionId === `project-image-${media.id}` ? transitionId : undefined}
             />
             {media.caption && <figcaption className="media-caption">{media.caption}</figcaption>}
           </figure>
         ))}
       </section>
+
+      <nav className="project-navigation" aria-label="More projects">
+        {previousProject ? (
+          <TransitionLink href={`/projects/${previousProject.slug}`}>
+            Previous — {previousProject.title}
+          </TransitionLink>
+        ) : <span />}
+        {nextProject ? (
+          <TransitionLink href={`/projects/${nextProject.slug}`}>
+            Next — {nextProject.title}
+          </TransitionLink>
+        ) : <span />}
+      </nav>
 
       {detailImage ? (
         <div className="detail-layer" ref={detailScroller} role="dialog" aria-modal="true" aria-label="Image detail" tabIndex={-1}>
