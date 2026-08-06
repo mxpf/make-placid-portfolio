@@ -1,43 +1,47 @@
 ---
-title: "Project 05 — Campaign"
-homepageLabel: "Campaign"
-seoDescription: "A campaign expressed through still and moving image across audiences and formats."
+title: "The New York Times"
+homepageLabel: "The New York Times"
+seoDescription: "Brand creative leadership for The New York Times across design systems, product launches, acquisition campaigns, and digital subscription experiences."
+socialImage: "/images/projects/nyt/nyt-01.png"
+colorMedia: true
 order: 5
 published: true
 thumbnail:
-  src: "/images/unsplash/_hQfqHt0MTg.jpg"
-  alt: "Studio portrait of a woman in a dark turtleneck"
+  src: "/images/projects/nyt/nyt-01.png"
+  alt: "The New York Times editorial typeface system across three guideline pages"
   focalX: 50
   focalY: 50
-  tone: 2
+  tone: 1
 media:
   - kind: image
-    id: "05-a"
-    src: "/images/unsplash/_hQfqHt0MTg.jpg"
-    ratio: "3 / 2"
-    alt: "Studio portrait of a woman in a dark turtleneck"
-    tone: 2
-  - kind: youtube
-    id: "05-youtube"
-    ratio: "16 / 9"
-    youtubeId: "ifElv18k2O8"
-    poster: "/images/unsplash/rFRfxVM606s.jpg"
-    title: "I Am Easy To Find, a film by Mike Mills and The National"
-    caption: "Black-and-white film by Mike Mills for The National."
+    id: "nyt-01"
+    src: "/images/projects/nyt/nyt-01.png"
+    ratio: "2422 / 1280"
+    alt: "The New York Times editorial typography guidelines showing five type families and examples in use"
+    caption: "The company’s first comprehensive system connecting editorial and marketing expression established shared principles for typography, interaction, messaging, and application—without diminishing the newsroom’s distinct character."
   - kind: image
-    id: "05-b"
-    src: "/images/unsplash/rFRfxVM606s.jpg"
-    ratio: "2 / 3"
-    alt: "Portrait of a woman wearing a patterned cap and holding a pipe"
-    tone: 3
+    id: "nyt-campaign"
+    src: "/images/projects/nyt/nyt-campaign.png"
+    ratio: "3360 / 7856"
+    alt: "New York Times campaigns spanning T Magazine, Men’s Style, Real Estate, Cooking, and mobile product launches"
+    caption: "Brand Creative extended across audience-specific campaigns, editorial verticals, product launches, and acquisition—giving each initiative a distinct expression within the larger Times brand."
   - kind: image
-    id: "05-c"
-    src: "/images/unsplash/kXC0dbqtRe4.jpg"
-    ratio: "4 / 3"
-    alt: "High-contrast profile portrait against a black background"
-    tone: 1
+    id: "nyt-international-print"
+    src: "/images/projects/nyt/nyt-international-print.png"
+    ratio: "1920 / 1280"
+    alt: "International New York Times print campaign built around global perspective"
+    caption: "The international campaign framed global reach as perspective, carrying one idea from brand narrative into print and digital acquisition."
+  - kind: image
+    id: "nyt-international-banners"
+    src: "/images/projects/nyt/nyt-international-banners.png"
+    ratio: "1920 / 1280"
+    alt: "International New York Times digital acquisition campaign across six banner executions"
 ---
 
-# Project 05 — Campaign
+# The New York Times
 
-A campaign expressed through still and moving image, with a flexible structure for different audiences and formats.
+Editorial authority, built for a digital subscription business
+
+At The New York Times, I led Brand Creative as the company accelerated its shift to digital subscriptions. As Executive Creative Director of Brand Design and Marketing, I directed a multidisciplinary team of 50 across brand systems, product launches, acquisition campaigns, and subscription experiences—building a creative foundation that supported growth without compromising the authority of the newsroom.
+
+The work helped The Times surpass one million digital subscribers, with subscription revenue growing 20% in 2014 and 46% in 2015.

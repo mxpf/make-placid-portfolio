@@ -47,14 +47,19 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, /<title>Max Pfennighaus<\/title>/i);
   assert.match(html, />Max Pfennighaus<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
-  assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
-  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 3);
-  assert.match(html, /src="\/images\/projects\/jj\/jj-07\.png"/);
-  assert.match(html, /src="\/images\/projects\/hk\/hk-01\.png"/);
-  assert.match(html, /src="\/images\/projects\/synchrony\/synchrony-01\.png"/);
+  assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 8);
+  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 0);
+  assert.match(html, /src="\/images\/projects\/jj\/jj-home\.png"/);
+  assert.match(html, /src="\/images\/projects\/hk\/hk-home\.png"/);
+  assert.match(html, /src="\/images\/projects\/synchrony\/synchrony-home\.png"/);
   assert.match(html, /src="\/images\/projects\/ibm\/ibm-04\.png"/);
+  assert.match(html, /src="\/images\/projects\/nyt\/nyt-01\.png"/);
+  assert.match(html, /src="\/images\/projects\/nyt\/nyt-insider-product\.jpg"/);
+  assert.match(html, /src="\/images\/projects\/npr\/npr-ux\.png"/);
+  assert.match(html, /src="\/images\/projects\/sands\/sands-details-environment\.png"/);
+  assert.match(html, /object-fit:contain/);
   assert.match(html, /class="home-project color-media"/);
-  assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
+  assert.match(html, /srcSet="\/images\/responsive\/projects\//);
   assert.doesNotMatch(html, /home-project-label/);
   assert.match(html, /rel="icon"/);
   assert.match(html, /property="og:image"/);
@@ -62,12 +67,15 @@ test("server-renders the portfolio home page", async () => {
 });
 
 test("server-renders project and about routes", async () => {
-  const [synchronyResponse, johnsonResponse, hollandKnightResponse, ibmResponse, campaignResponse, aboutResponse] = await Promise.all([
+  const [synchronyResponse, johnsonResponse, hollandKnightResponse, ibmResponse, nytResponse, insiderResponse, nprResponse, sandsResponse, aboutResponse] = await Promise.all([
     render("/projects/project-03"),
     render("/projects/project-01"),
     render("/projects/project-02"),
     render("/projects/project-04"),
     render("/projects/project-05"),
+    render("/projects/project-06"),
+    render("/projects/project-07"),
+    render("/projects/project-08"),
     render("/about"),
   ]);
 
@@ -75,28 +83,64 @@ test("server-renders project and about routes", async () => {
   assert.equal(johnsonResponse.status, 200);
   assert.equal(hollandKnightResponse.status, 200);
   assert.equal(ibmResponse.status, 200);
-  assert.equal(campaignResponse.status, 200);
+  assert.equal(nytResponse.status, 200);
+  assert.equal(insiderResponse.status, 200);
+  assert.equal(nprResponse.status, 200);
+  assert.equal(sandsResponse.status, 200);
   assert.equal(aboutResponse.status, 200);
 
-  const [synchronyHtml, johnsonHtml, hollandKnightHtml, ibmHtml, campaignHtml, aboutHtml] = await Promise.all([
+  const [synchronyHtml, johnsonHtml, hollandKnightHtml, ibmHtml, nytHtml, insiderHtml, nprHtml, sandsHtml, aboutHtml] = await Promise.all([
     synchronyResponse.text(),
     johnsonResponse.text(),
     hollandKnightResponse.text(),
     ibmResponse.text(),
-    campaignResponse.text(),
+    nytResponse.text(),
+    insiderResponse.text(),
+    nprResponse.text(),
+    sandsResponse.text(),
     aboutResponse.text(),
   ]);
 
   assert.match(synchronyHtml, /Synchrony/);
   assert.match(synchronyHtml, /project-layout color-media/);
   assert.match(synchronyHtml, /synchrony-20\.png/);
-  assert.match(synchronyHtml, /The platform supported social communications, cultural moments, and community-specific messages/);
-  assert.doesNotMatch(synchronyHtml, /synchrony-(04|06|07|09|11|14|16|18|21)\.png/);
-  assert.match(campaignHtml, /class="video-poster"/);
-  assert.match(campaignHtml, /ifElv18k2O8/);
-  assert.match(campaignHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
-  assert.doesNotMatch(campaignHtml, /youtube-nocookie\.com\/embed/);
-  assert.doesNotMatch(campaignHtml, /M7lc1UVf-VE|Google Developers/);
+  assert.match(synchronyHtml, /The system flexed across enterprise commitments and cultural moments/);
+  assert.doesNotMatch(synchronyHtml, /synchrony-(06|07|09|11|14|16|21)\.png/);
+  assert.match(nytHtml, /The New York Times/);
+  assert.match(nytHtml, /project-layout color-media/);
+  assert.match(nytHtml, /nyt-01\.png/);
+  assert.match(nytHtml, /nyt-campaign\.png/);
+  assert.match(nytHtml, /nyt-international-print\.png/);
+  assert.match(nytHtml, /nyt-international-banners\.png/);
+  assert.match(nytHtml, /first comprehensive system connecting editorial and marketing expression/);
+  assert.match(nytHtml, /surpass one million digital subscribers/);
+  assert.doesNotMatch(nytHtml, /nyt-insider(?:-site|-subscription)?\.png/);
+  assert.doesNotMatch(nytHtml, /Johnson &amp; Johnson|Letter spacing is tight/);
+  assert.match(insiderHtml, /Times Insider/);
+  assert.match(insiderHtml, /project-layout color-media/);
+  assert.match(insiderHtml, /nyt-insider\.png/);
+  assert.match(insiderHtml, /nyt-insider-site\.png/);
+  assert.match(insiderHtml, /nyt-insider-subscription\.png/);
+  assert.match(insiderHtml, /subscription product built around access to the newsroom/);
+  assert.match(insiderHtml, /The digital experience brought reporting/);
+  assert.match(nprHtml, /Designing public radio for a multi-platform world/);
+  assert.match(nprHtml, /more than 250 member stations/);
+  assert.match(nprHtml, /designed its logo and identity/);
+  assert.match(nprHtml, /npr-ux\.png/);
+  assert.match(nprHtml, /npr-lobby\.png/);
+  assert.match(nprHtml, /npr-org-desktop\.png/);
+  assert.match(nprHtml, /npr-org-tablet\.png/);
+  assert.match(nprHtml, /npr-org-mobile\.png/);
+  assert.match(nprHtml, /image-grid/);
+  assert.match(nprHtml, /The npr\.org rebuild reorganized complex editorial pages/);
+  assert.match(nprHtml, /I designed the NPR One mark/);
+  assert.doesNotMatch(nprHtml, /ifElv18k2O8|I Am Easy To Find|\/images\/unsplash\//);
+  assert.match(sandsHtml, /Two directions for a global ESG reporting system/);
+  assert.match(sandsHtml, /Details of Progress/);
+  assert.match(sandsHtml, /Places That Thrive/);
+  assert.match(sandsHtml, /sands-details-cover\.png/);
+  assert.match(sandsHtml, /sands-thrive-impact\.png/);
+  assert.equal((sandsHtml.match(/class="media-caption"/g) ?? []).length, 2);
   assert.match(johnsonHtml, /Johnson &amp; Johnson/);
   assert.match(johnsonHtml, /project-layout color-media/);
   assert.match(johnsonHtml, /jj-gif-01\.gif/);
@@ -108,14 +152,14 @@ test("server-renders project and about routes", async () => {
   assert.match(johnsonHtml, /playsInline=""/);
   assert.match(hollandKnightHtml, /Holland &amp; Knight/);
   assert.match(hollandKnightHtml, /hk-16\.png/);
-  assert.match(hollandKnightHtml, /The system remained recognizable across informal, physical brand touchpoints\./);
+  assert.match(hollandKnightHtml, /The visual language remained recognizable across informal and promotional touchpoints\./);
   assert.match(ibmHtml, /IBM/);
   assert.match(ibmHtml, /project-layout color-media/);
   assert.match(ibmHtml, /ibm-33\.png/);
   assert.match(ibmHtml, /The interaction model carried into a live executive presentation/);
   assert.doesNotMatch(ibmHtml, /ibm-(01|02|03|06|12|14|16|18|19|20|21|23|24|25|29|32)\.png/);
   assert.match(aboutHtml, />About &amp; contact<\/a>/);
-  assert.match(aboutHtml, /senior creative leader with more than 25 years of experience/);
+  assert.match(aboutHtml, /senior creative and design leader with more than two decades of experience/);
 });
 
 test("defines search-engine discovery routes", async () => {
@@ -160,7 +204,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);
   assert.match(styles, /\.project-gallery > \.media-item:last-child:not\(:has\(\.media-caption\)\)\s*\{[^}]*margin-bottom: var\(--rail-height\)/s);
-  assert.match(styles, /\.project-gallery > \.media-item:last-child:has\(\.media-caption\)\s*\{[^}]*calc\(var\(--spacing-3\) \+ var\(--rail-height\)\)/s);
+  assert.match(styles, /\.project-gallery > \.media-item:last-child:has\(\.media-caption\)\s*\{[^}]*margin-bottom: var\(--rail-height\)/s);
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);

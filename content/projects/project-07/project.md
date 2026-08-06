@@ -1,62 +1,75 @@
 ---
-title: "Project 07 — Platform"
-homepageLabel: "Platform"
-seoDescription: "A brand platform supporting a broad family of communications while retaining a recognizable point of view."
+title: "NPR"
+homepageLabel: "NPR"
+seoDescription: "Interaction design leadership across npr.org, NPR News, NPR Music, NPR One, mobile apps, and a digital platform serving more than 250 member stations."
+socialImage: "/images/projects/npr/npr-ux.png"
+colorMedia: true
 order: 7
 published: true
 thumbnail:
-  src: "/images/unsplash/vUwJ8uu_C1M.jpg"
-  alt: "Angular glass facade disappearing into white sky"
+  src: "/images/projects/npr/npr-ux.png"
+  alt: "NPR One identity and digital product system"
   focalX: 50
-  focalY: 50
+  focalY: 29
+  scale: 2
   tone: 1
 media:
   - kind: image
-    id: "07-a"
-    src: "/images/unsplash/vUwJ8uu_C1M.jpg"
-    ratio: "3 / 2"
-    alt: "Angular glass facade disappearing into white sky"
-    tone: 1
-  - kind: youtube
-    id: "07-youtube"
+    id: "npr-one-identity"
+    src: "/images/projects/npr/npr-ux.png"
+    ratio: "3 / 1"
+    alt: "NPR One circular identity mark in the NPR color palette"
+    position: "50% 29%"
+    scale: 1.25
+    detail: false
+    caption: "I designed the NPR One mark, extending NPR’s core color system into a distinct identity for personalized, on-demand listening."
+  - kind: image
+    id: "npr-one-experience"
+    src: "/images/projects/npr/npr-ux.png"
     ratio: "16 / 9"
-    youtubeId: "ifElv18k2O8"
-    poster: "/images/unsplash/vUwJ8uu_C1M.jpg"
-    title: "I Am Easy To Find, a film by Mike Mills and The National"
-    caption: "Black-and-white film by Mike Mills for The National."
-  - kind: image
-    id: "07-b"
-    src: "/images/unsplash/h2coDswHOAw.jpg"
-    ratio: "1 / 1"
-    alt: "Night street with a seated figure, dog, and passing traffic"
-    tone: 2
-  - kind: image
-    id: "07-c"
-    src: "/images/unsplash/Qt0ogPnhGWY.jpg"
-    ratio: "4 / 5"
-    alt: "Studio portrait against a pale background"
-    tone: 3
-  - kind: image
-    id: "07-d"
-    src: "/images/unsplash/_OYIxRbFBNw.jpg"
+    alt: "NPR One product screens across mobile and web with the Public radio made personal launch campaign"
+    position: "50% 60%"
+    scale: 1.12
+    detail: false
+    caption: "NPR One transformed the continuous radio stream into a personalized, segment-by-segment experience built around listening, discovery, and feedback."
+  - kind: image-grid
+    id: "npr-responsive-system"
     ratio: "16 / 9"
-    alt: "Manhattan Bridge framed by buildings in Brooklyn"
-    caption: "Selected application from the platform."
-    tone: 1
+    images:
+      - src: "/images/projects/npr/npr-org-desktop.png"
+        alt: "NPR story page on desktop"
+        position: "50% 0%"
+      - src: "/images/projects/npr/npr-org-tablet.png"
+        alt: "NPR story page on tablet"
+        position: "50% 0%"
+      - src: "/images/projects/npr/npr-org-mobile.png"
+        alt: "NPR story page on mobile"
+        position: "50% 0%"
+    caption: "The npr.org rebuild reorganized complex editorial pages around a responsive system that preserved hierarchy, audio, related coverage, and member support across screen sizes."
   - kind: image
-    id: "07-e"
-    src: "/images/unsplash/8roGGOgcVfg.jpg"
-    ratio: "2 / 3"
-    alt: "Downtown towers rising along an empty street"
-    tone: 2
+    id: "npr-product-family"
+    src: "/images/projects/npr/npr-ux.png"
+    ratio: "16 / 9"
+    alt: "NPR News, NPR Music, NPR One, tablet, web, and automotive applications"
+    position: "50% 87%"
+    scale: 1.3
+    detail: false
+    caption: "A shared interaction language connected NPR’s expanding product suite while adapting to different listening contexts, devices, and audience needs."
   - kind: image
-    id: "07-f"
-    src: "/images/unsplash/aGVx6_UFkO0.jpg"
-    ratio: "5 / 4"
-    alt: "Skyscrapers viewed from the street in heavy fog"
-    tone: 3
+    id: "npr-lobby"
+    src: "/images/projects/npr/npr-lobby.png"
+    ratio: "16 / 9"
+    alt: "NPR headquarters lobby with live media, archival stories, and an interactive member-station map"
+    position: "50% 29%"
+    scale: 1.08
+    detail: false
+    caption: "Later, the headquarters lobby extended NPR’s storytelling into a public-facing experience built from live feeds, archival material, and participation from member stations."
 ---
 
-# Project 07 — Platform
+# NPR
 
-A brand platform designed to support a broad family of communications while retaining a recognizable point of view.
+Designing public radio for a multi-platform world
+
+At a pivotal moment as NPR moved beyond broadcast, I led interaction design across three Agile teams, helping unify npr.org, NPR News, NPR Music, mobile and tablet apps, in-car experiences, and a digital platform serving more than 250 member stations.
+
+I also created the product concept and experience framework for NPR One and designed its logo and identity—bringing personalized, on-demand listening into a coherent public-media ecosystem.

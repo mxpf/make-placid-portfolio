@@ -1,14 +1,14 @@
 ---
 title: "Synchrony"
 homepageLabel: "Synchrony"
-seoDescription: "Enterprise brand leadership for Synchrony across identity systems, voice, illustration, digital and partner experiences, and the TogetherWe inclusion platform."
-socialImage: "/images/projects/synchrony/synchrony-01.png"
+seoDescription: "Enterprise brand leadership for Synchrony across identity systems, illustration, voice, digital and partner experiences, editorial platforms, and TogetherWe."
+socialImage: "/images/projects/synchrony/synchrony-home.png"
 colorMedia: true
 order: 3
 published: true
 thumbnail:
-  src: "/images/projects/synchrony/synchrony-01.png"
-  alt: "Synchrony illustration system spanning people, business, collaboration, and wellness"
+  src: "/images/projects/synchrony/synchrony-home.png"
+  alt: "Portrait from Synchrony’s Business Schooled editorial platform against a yellow field"
   focalX: 50
   focalY: 50
   tone: 1
@@ -18,7 +18,7 @@ media:
     src: "/images/projects/synchrony/synchrony-01.png"
     ratio: "2422 / 1363"
     alt: "Synchrony illustration system spanning people, business, collaboration, and wellness"
-    caption: "A coordinated illustration toolkit gave teams representational and abstract styles that could work independently or together."
+    caption: "A coordinated illustration toolkit gave teams representational and abstract modes that could stand alone or work together."
   - kind: image
     id: "synchrony-02"
     src: "/images/projects/synchrony/synchrony-02.png"
@@ -29,18 +29,30 @@ media:
     src: "/images/projects/synchrony/synchrony-03.png"
     ratio: "1176 / 678"
     alt: "Synchrony guidance combining abstract and representational illustration styles"
+    caption: "Rules for combining the two modes preserved flexibility without turning variation into inconsistency."
+  - kind: image
+    id: "synchrony-04"
+    src: "/images/projects/synchrony/synchrony-04.png"
+    ratio: "2422 / 1366"
+    alt: "Synchrony Sans type specimen"
   - kind: image
     id: "synchrony-05"
     src: "/images/projects/synchrony/synchrony-05.png"
     ratio: "1167 / 609"
     alt: "Synchrony brand voice framework connecting role, intent, and personality"
-    caption: "Voice principles connected the brand’s role, content intent, and personality to everyday writing decisions."
+    caption: "Custom type and a practical voice framework aligned how the brand looked and sounded."
   - kind: image
     id: "synchrony-08"
     src: "/images/projects/synchrony/synchrony-08.png"
     ratio: "1167 / 609"
     alt: "Synchrony event communication templates using the abstract pattern system"
-    caption: "Application guidance showed how one system could flex between representational and abstract expression without losing coherence."
+    caption: "Reusable templates extended the system into event communications without locking teams into one composition."
+  - kind: image
+    id: "synchrony-13"
+    src: "/images/projects/synchrony/synchrony-13.png"
+    ratio: "1584 / 2376"
+    alt: "Desktop view of the Synchrony enterprise website"
+    caption: "The enterprise site translated the brand into a clear, shared digital experience for consumers, businesses, and partners."
   - kind: image
     id: "synchrony-10"
     src: "/images/projects/synchrony/synchrony-10.png"
@@ -52,24 +64,24 @@ media:
     src: "/images/projects/synchrony/synchrony-12.png"
     ratio: "2422 / 1964"
     alt: "Synchrony Business Schooled sponsored entrepreneur series"
-    caption: "Business Schooled extended the brand into sponsored editorial content with its own voice and visual world."
-  - kind: image
-    id: "synchrony-13"
-    src: "/images/projects/synchrony/synchrony-13.png"
-    ratio: "1584 / 2376"
-    alt: "Desktop view of the Synchrony enterprise website"
-    caption: "A shared strategic foundation carried across enterprise and partner-facing digital experiences."
+    caption: "Business Schooled extended the brand into sponsored editorial content with a distinct voice and visual world."
   - kind: image
     id: "synchrony-15"
     src: "/images/projects/synchrony/synchrony-15.png"
     ratio: "2420 / 1562"
     alt: "TogetherWe layout guidance and diversity and inclusion campaign applications"
-    caption: "TogetherWe brought diversity and inclusion initiatives into one flexible verbal and visual platform."
+    caption: "TogetherWe unified diversity and inclusion initiatives through a simple verbal and visual platform built to support distinct messages."
   - kind: image
     id: "synchrony-17"
     src: "/images/projects/synchrony/synchrony-17.png"
     ratio: "1026 / 660"
     alt: "Overview of the TogetherWe creative platform including typography, gradients, symbols, and layouts"
+  - kind: image
+    id: "synchrony-18"
+    src: "/images/projects/synchrony/synchrony-18.png"
+    ratio: "1026 / 660"
+    alt: "TogetherWe guidance for the Synchrony pillars symbol and bridge graphic"
+    caption: "A concise set of typographic, color, symbol, and layout rules made the platform easy for teams to use consistently."
   - kind: image
     id: "synchrony-19"
     src: "/images/projects/synchrony/synchrony-19.png"
@@ -80,11 +92,13 @@ media:
     src: "/images/projects/synchrony/synchrony-20.png"
     ratio: "749 / 1010"
     alt: "TogetherWe social post celebrating Hispanic Heritage Month"
-    caption: "The platform supported social communications, cultural moments, and community-specific messages without flattening their individuality."
+    caption: "The system flexed across enterprise commitments and cultural moments while allowing each message to retain its specificity."
 ---
 
 # Synchrony
 
-Enterprise brand leadership across systems, platforms, and culture
+Enterprise brand leadership, systems, and culture
 
-At Synchrony, I led enterprise brand creative across the core identity, digital and partner experiences, and the TogetherWe diversity and inclusion platform. By setting strategy and directing internal teams and external partners, I helped turn a complex brand into a coherent, flexible system—one that could scale across guidance, communications, editorial platforms, and culture.
+At Synchrony, I led enterprise brand creative across the core identity, digital and partner experiences, and TogetherWe, the company’s diversity and inclusion platform. I set creative strategy and directed internal teams and external partners, translating a complex organization into a coherent, flexible brand system.
+
+The work connected verbal and visual guidance with real applications—from illustration and voice to editorial platforms, enterprise websites, partner experiences, and culture—giving teams a shared foundation without forcing every audience or initiative into the same expression.

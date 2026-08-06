@@ -1,38 +1,45 @@
 ---
 title: "Johnson & Johnson"
 homepageLabel: "Johnson & Johnson"
-seoDescription: "Corporate brand stewardship and enterprise transformation spanning identity governance, digital experiences, communications, environments, motion, and rebrand strategy."
+seoDescription: "Creative leadership for Johnson & Johnson’s corporate brand, spanning identity governance, design systems, digital experiences, communications, environments, motion, and enterprise rebrand strategy."
 colorMedia: true
 order: 1
 published: true
 thumbnail:
-  src: "/images/projects/jj/jj-07.png"
-  alt: "Johnson & Johnson identity applications across objects and environments"
+  src: "/images/projects/jj/jj-home.png"
+  alt: "Red Johnson & Johnson umbrella against a blue background"
   focalX: 50
   focalY: 50
   tone: 1
 media:
+  - kind: image
+    id: "jj-07"
+    src: "/images/projects/jj/jj-07.png"
+    ratio: "16 / 9"
+    alt: "Johnson & Johnson identity applications across objects and environments"
+    caption: "A consistent visual language made the identity recognizable across applications while leaving room for different audiences and contexts."
   - kind: image
     id: "jj-02"
     src: "/images/projects/jj/jj-02.png"
     ratio: "16 / 9"
     alt: "Johnson & Johnson brand purpose applied across print and digital media"
   - kind: image
-    id: "jj-07"
-    src: "/images/projects/jj/jj-07.png"
-    ratio: "16 / 9"
-    alt: "Johnson & Johnson identity applications across objects and environments"
-  - kind: image
     id: "jj-01"
     src: "/images/projects/jj/jj-01.png"
     ratio: "1600 / 909"
     alt: "Overview of the Johnson & Johnson identity toolkit assets"
-    caption: "Logo, color, type, imagery, illustration, voice, and composition came together in one flexible toolkit."
+    caption: "The toolkit unified logo, color, typography, imagery, illustration, voice, and composition without reducing the brand to a single expression."
   - kind: image
     id: "jj-03"
     src: "/images/projects/jj/jj-03.png"
     ratio: "16 / 9"
     alt: "Johnson & Johnson brand color palette guidelines"
+  - kind: image
+    id: "jj-04"
+    src: "/images/projects/jj/jj-04.png"
+    ratio: "16 / 9"
+    alt: "Johnson & Johnson typographic spacing guidance"
+    caption: "Color and typography rules created consistency while preserving expressive scale and hierarchy."
   - kind: image
     id: "jj-10"
     src: "/images/projects/jj/jj-10.png"
@@ -50,6 +57,7 @@ media:
     src: "/images/projects/jj/jj-05.png"
     ratio: "16 / 9"
     alt: "Johnson & Johnson campaign posters and communications"
+    caption: "A shared composition system gave corporate communications a recognizable voice across formats."
   - kind: image
     id: "jj-06"
     src: "/images/projects/jj/jj-06.png"
@@ -67,6 +75,11 @@ media:
     alt: "Johnson & Johnson MedTech webpage"
     caption: "Shared digital guidance created recognizable experiences across Innovation, MedTech, and other business contexts."
   - kind: image
+    id: "jj-09"
+    src: "/images/projects/jj/jj-09.png"
+    ratio: "16 / 9"
+    alt: "Johnson & Johnson environmental signage system"
+  - kind: image
     id: "jj-12"
     src: "/images/projects/jj/jj-12.png"
     ratio: "16 / 9"
@@ -76,6 +89,7 @@ media:
     src: "/images/projects/jj/jj-13.png"
     ratio: "1500 / 997"
     alt: "Johnson & Johnson reception area with illuminated architectural details"
+    caption: "The identity extended into workplaces through signage, materials, environmental graphics, and branded spaces."
   - kind: image
     id: "jj-gif-01"
     src: "/images/projects/jj/jj-gif-01.gif"
@@ -94,18 +108,19 @@ media:
     ratio: "16 / 9"
     title: "Johnson & Johnson brand film"
     autoplay: true
+    caption: "The final two examples reflect the new Johnson & Johnson brand, developed by the selected external design partner."
   - kind: image
     id: "jj-17"
     src: "/images/projects/jj/jj-17.png"
     ratio: "2000 / 1333"
     alt: "Johnson & Johnson reception space with a red feature wall"
-    caption: "The enterprise rebrand marked the company’s next chapter; my role focused on transformation strategy and partner selection."
+    caption: "My role focused on transformation strategy and partner selection."
 ---
 
 # Johnson & Johnson
 
-Corporate brand stewardship and enterprise transformation
+Corporate brand leadership, systems, and transformation
 
-At Johnson & Johnson, I led creative for the corporate brand, guiding a five-person design team and an extended team of twelve. The work encompassed identity standards, governance systems, specialized playbooks, digital experiences, communications, environments, and motion—helping a complex global organization keep its brand coherent, usable, and scalable.
+At Johnson & Johnson, I led creative direction for the corporate brand, guiding a five-person design team and an extended team of twelve. We built and governed the systems that carried the identity across a complex global organization—from master standards and specialized playbooks to digital experiences, corporate communications, environments, and motion.
 
-My role also included transformation strategy and partner selection for the enterprise rebrand, helping shape the company’s next chapter.
+I also helped define the transformation strategy for the enterprise rebrand and select the external design partner, establishing the foundation for the company’s next visual identity.

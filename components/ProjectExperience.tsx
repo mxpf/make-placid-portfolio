@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import type { ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
+import type { ImageGridItem, ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
 import { columnImageSizes, detailImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
 
 type ViewTransitionDocument = Document & {
@@ -24,13 +24,17 @@ function ImageVisual({
   className = "",
   sizes = columnImageSizes,
   priority = false,
+  crop = true,
 }: {
   media: ImageMedia;
   className?: string;
   sizes?: string;
   priority?: boolean;
+  crop?: boolean;
 }) {
   if (media.src) {
+    const position = media.position ?? "50% 50%";
+
     return (
       <ResponsiveImage
         className={className}
@@ -38,6 +42,12 @@ function ImageVisual({
         alt={media.alt}
         sizes={sizes}
         priority={priority}
+        style={crop ? {
+          objectFit: media.fit ?? "cover",
+          objectPosition: position,
+          scale: media.scale ?? 1,
+          transformOrigin: position,
+        } : undefined}
       />
     );
   }
@@ -99,6 +109,31 @@ function HostedVideo({ media }: { media: VideoMedia }) {
   );
 }
 
+function ImageGrid({ media }: { media: Extract<ProjectMedia, { kind: "image-grid" }> }) {
+  return (
+    <div
+      className="media-frame image-grid"
+      style={{
+        ...ratioStyle(media.ratio),
+        gridTemplateColumns: `repeat(${media.images.length}, minmax(0, 1fr))`,
+      }}
+    >
+      {media.images.map((image, index) => (
+        <span className="image-grid-cell" key={`${media.id}-${index}`}>
+          <ImageVisual
+            media={{
+              kind: "image",
+              id: `${media.id}-${index}`,
+              ratio: "1 / 1",
+              ...image,
+            } satisfies ImageMedia & ImageGridItem}
+          />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function YouTubeVideo({ media }: { media: YouTubeMedia }) {
   const [playing, setPlaying] = useState(false);
 
@@ -150,7 +185,9 @@ function GalleryMedia({
 
   if (media.kind === "youtube") return <YouTubeVideo media={media} />;
 
-  if (!canOpenDetail) {
+  if (media.kind === "image-grid") return <ImageGrid media={media} />;
+
+  if (!canOpenDetail || media.detail === false) {
     return (
       <div className="media-frame" style={ratioStyle(media.ratio)}>
         <ImageVisual media={media} priority={priority} />
@@ -291,7 +328,7 @@ export function ProjectExperience({ project }: { project: Project }) {
               key={detailImage.id}
               style={{ viewTransitionName: transitionId ?? undefined } as ViewTransitionStyle}
             >
-              <ImageVisual media={detailImage} sizes={detailImageSizes} priority />
+              <ImageVisual media={detailImage} sizes={detailImageSizes} priority crop={false} />
             </div>
           </button>
         </div>

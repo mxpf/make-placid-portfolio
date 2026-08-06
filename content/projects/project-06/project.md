@@ -1,55 +1,43 @@
 ---
-title: "Project 06 — Environment"
-homepageLabel: "Environment"
-seoDescription: "An environmental graphics program connecting orientation, information, and identity across a physical space."
+title: "Times Insider"
+homepageLabel: "Times Insider"
+seoDescription: "Identity, launch campaign, editorial applications, and subscription experience for Times Insider, a New York Times product built around access to the newsroom."
+socialImage: "/images/projects/nyt/nyt-insider-product.jpg"
+colorMedia: true
 order: 6
 published: true
 thumbnail:
-  src: "/images/unsplash/Afqw8XrP1V8.jpg"
-  alt: "Foggy waterfront promenade lined with street lamps"
+  src: "/images/projects/nyt/nyt-insider-product.jpg"
+  alt: "Times Insider subscription product overview"
   focalX: 50
   focalY: 50
-  tone: 3
+  fit: "contain"
+  tone: 1
 media:
   - kind: image
-    id: "06-a"
-    src: "/images/unsplash/Afqw8XrP1V8.jpg"
-    ratio: "5 / 4"
-    alt: "Foggy waterfront promenade lined with street lamps"
-    tone: 3
+    id: "nyt-insider"
+    src: "/images/projects/nyt/nyt-insider.png"
+    ratio: "3360 / 15196"
+    alt: "Times Insider launch campaign, identity system, editorial applications, and digital experiences"
+    caption: "Times Insider turned access to the newsroom into a subscriber proposition, extending a distinctive identity across launch advertising, editorial storytelling, and product."
   - kind: image
-    id: "06-b"
-    src: "/images/unsplash/b0eg-PYGICQ.jpg"
-    ratio: "16 / 9"
-    alt: "City skyline dissolving vertically into mist"
-    tone: 1
+    id: "nyt-insider-site"
+    src: "/images/projects/nyt/nyt-insider-site.png"
+    ratio: "1280 / 4257"
+    alt: "Times Insider website bringing together reporting, events, podcasts, books, and newsroom stories"
+    caption: "The digital experience brought reporting, events, podcasts, books, and behind-the-scenes access into one subscriber destination."
   - kind: image
-    id: "06-c"
-    src: "/images/unsplash/K7oqWgDJQ6E.jpg"
-    ratio: "4 / 5"
-    alt: "Pedestrian casting a long shadow on a downtown street"
-    caption: "Detail from the environmental graphics program."
-    tone: 2
-  - kind: image
-    id: "06-d"
-    src: "/images/unsplash/a4gn0tegY_g.jpg"
-    ratio: "1 / 1"
-    alt: "Pedestrians and shadows crossing a striped street"
-    tone: 1
-  - kind: image
-    id: "06-e"
-    src: "/images/unsplash/y03Eh7H-dqQ.jpg"
-    ratio: "3 / 2"
-    alt: "Cable-car tracks receding through a sunlit city street"
-    tone: 3
-  - kind: image
-    id: "06-f"
-    src: "/images/unsplash/JMD2xOvcLVw.jpg"
-    ratio: "2 / 3"
-    alt: "Silhouetted figure climbing an outdoor staircase"
-    tone: 2
+    id: "nyt-insider-subscription"
+    src: "/images/projects/nyt/nyt-insider-subscription.png"
+    ratio: "1280 / 3394"
+    alt: "Times Insider All Access subscription experience"
+    caption: "The subscription experience translated the editorial promise into a clear All Access upgrade path connecting stories, events, podcasts, newsletters, and TBooks."
 ---
 
-# Project 06 — Environment
+# Times Insider
 
-An environmental graphics program connecting orientation, information, and identity across a physical space.
+Behind the reporting, built as a subscriber experience
+
+Times Insider was a subscription product built around access to the newsroom. I led the creative development of its identity, launch campaign, and digital experience—connecting behind-the-scenes journalism, events, podcasts, newsletters, and books into a clear subscriber proposition.
+
+The work gave Insider a distinctive voice within The Times while extending coherently across marketing, editorial storytelling, product, and subscription.

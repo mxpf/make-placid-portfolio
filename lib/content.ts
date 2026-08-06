@@ -8,6 +8,7 @@ import project04Source from "../content/projects/project-04/project.md?raw";
 import project05Source from "../content/projects/project-05/project.md?raw";
 import project06Source from "../content/projects/project-06/project.md?raw";
 import project07Source from "../content/projects/project-07/project.md?raw";
+import project08Source from "../content/projects/project-08/project.md?raw";
 import siteSource from "../content/site.yml?raw";
 
 export type ImageMedia = {
@@ -18,6 +19,26 @@ export type ImageMedia = {
   alt: string;
   caption?: string;
   tone?: number;
+  fit?: "cover" | "contain";
+  position?: string;
+  scale?: number;
+  detail?: boolean;
+};
+
+export type ImageGridItem = {
+  src: string;
+  alt: string;
+  fit?: "cover" | "contain";
+  position?: string;
+  scale?: number;
+};
+
+export type ImageGridMedia = {
+  kind: "image-grid";
+  id: string;
+  ratio: string;
+  images: ImageGridItem[];
+  caption?: string;
 };
 
 export type VideoMedia = {
@@ -41,7 +62,7 @@ export type YouTubeMedia = {
   caption?: string;
 };
 
-export type ProjectMedia = ImageMedia | VideoMedia | YouTubeMedia;
+export type ProjectMedia = ImageMedia | ImageGridMedia | VideoMedia | YouTubeMedia;
 
 export type Project = {
   slug: string;
@@ -57,6 +78,8 @@ export type Project = {
     alt: string;
     focalX: number;
     focalY: number;
+    fit: "cover" | "contain";
+    scale: number;
     tone: number;
   };
   media: ProjectMedia[];
@@ -90,6 +113,7 @@ const projectFiles: Record<string, string> = {
   "project-05": project05Source,
   "project-06": project06Source,
   "project-07": project07Source,
+  "project-08": project08Source,
 };
 
 function renderMarkdown(source: string) {
@@ -125,6 +149,8 @@ function readProject(slug: string): Project {
       alt: data.thumbnail.alt,
       focalX: data.thumbnail.focalX ?? 50,
       focalY: data.thumbnail.focalY ?? 50,
+      fit: data.thumbnail.fit ?? "cover",
+      scale: data.thumbnail.scale ?? 1,
       tone: data.thumbnail.tone ?? 1,
     },
     media: data.media,

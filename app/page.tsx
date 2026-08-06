@@ -29,6 +29,9 @@ export default function Home() {
                 priority={index < 2}
                 style={{
                   objectPosition: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
+                  objectFit: project.thumbnail.fit,
+                  scale: project.thumbnail.scale,
+                  transformOrigin: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
                 }}
               />
             ) : (

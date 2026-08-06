@@ -287,6 +287,24 @@
       }
     ]
   },
+  "/images/projects/hk/hk-home.png": {
+    "width": 984,
+    "height": 656,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/hk/hk-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/hk/hk-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/hk/hk-home-984.webp",
+        "width": 984
+      }
+    ]
+  },
   "/images/projects/ibm/ibm-01.png": {
     "width": 2422,
     "height": 1366,
@@ -1197,6 +1215,24 @@
       }
     ]
   },
+  "/images/projects/jj/jj-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/jj/jj-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/jj/jj-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/jj/jj-home-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/jj/jj-video-01-poster.png": {
     "width": 1200,
     "height": 675,
@@ -1212,6 +1248,336 @@
       {
         "src": "/images/responsive/projects/jj/jj-video-01-poster-1200.webp",
         "width": 1200
+      }
+    ]
+  },
+  "/images/projects/npr/npr-lobby.png": {
+    "width": 3360,
+    "height": 7758,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/npr/npr-org-desktop.png": {
+    "width": 1804,
+    "height": 15761,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-org-desktop-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-org-desktop-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-org-desktop-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/npr/npr-org-mobile.png": {
+    "width": 400,
+    "height": 5227,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-org-mobile-400.webp",
+        "width": 400
+      }
+    ]
+  },
+  "/images/projects/npr/npr-org-tablet.png": {
+    "width": 768,
+    "height": 4567,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-org-tablet-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-org-tablet-768.webp",
+        "width": 768
+      }
+    ]
+  },
+  "/images/projects/npr/npr-ux.png": {
+    "width": 3360,
+    "height": 4830,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-ux-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-ux-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-ux-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-01.png": {
+    "width": 2422,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-01-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-01-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-01-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-campaign.png": {
+    "width": 3360,
+    "height": 7856,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider-product.jpg": {
+    "width": 1394,
+    "height": 2051,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-product-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-product-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-product-1394.webp",
+        "width": 1394
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider-site.png": {
+    "width": 1280,
+    "height": 4257,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider-subscription.png": {
+    "width": 1280,
+    "height": 3394,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider.png": {
+    "width": 3360,
+    "height": 15196,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-international-banners.png": {
+    "width": 1920,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-banners-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-banners-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-banners-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-international-print.png": {
+    "width": 1920,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-print-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-print-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-international-print-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-details-cover.png": {
+    "width": 2550,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-details-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-details-environment.png": {
+    "width": 5100,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-details-environment-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-environment-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-environment-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-details-performance.png": {
+    "width": 5100,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-details-performance-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-performance-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-details-performance-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-thrive-cover.png": {
+    "width": 2550,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-thrive-destination.png": {
+    "width": 5100,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-destination-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-destination-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-destination-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-thrive-impact.png": {
+    "width": 5100,
+    "height": 3300,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-impact-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-impact-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-thrive-impact-1440.webp",
+        "width": 1440
       }
     ]
   },
@@ -1570,6 +1936,20 @@
       {
         "src": "/images/responsive/projects/synchrony/synchrony-21-749.webp",
         "width": 749
+      }
+    ]
+  },
+  "/images/projects/synchrony/synchrony-home.png": {
+    "width": 900,
+    "height": 600,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/synchrony/synchrony-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/synchrony/synchrony-home-900.webp",
+        "width": 900
       }
     ]
   },
