@@ -9,6 +9,7 @@ import project05Source from "../content/projects/project-05/project.md?raw";
 import project06Source from "../content/projects/project-06/project.md?raw";
 import project07Source from "../content/projects/project-07/project.md?raw";
 import project08Source from "../content/projects/project-08/project.md?raw";
+import project09Source from "../content/projects/project-09/project.md?raw";
 import siteSource from "../content/site.yml?raw";
 
 export type ImageMedia = {
@@ -114,6 +115,7 @@ const projectFiles: Record<string, string> = {
   "project-06": project06Source,
   "project-07": project07Source,
   "project-08": project08Source,
+  "project-09": project09Source,
 };
 
 function renderMarkdown(source: string) {

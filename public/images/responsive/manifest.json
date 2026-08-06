@@ -1,4 +1,184 @@
 {
+  "/images/projects/amazon/amazon-carbon.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-carbon-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-carbon-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-carbon-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-community-impact.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-community-impact-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-community-impact-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-community-impact-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-contents.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-contents-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-contents-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-contents-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-cover.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-environment.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-environment-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-environment-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-environment-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-health-safety.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-health-safety-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-health-safety-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-health-safety-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-order-journey.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-order-journey-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-order-journey-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-order-journey-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-packaging.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-packaging-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-packaging-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-packaging-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-people.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-people-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-people-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-people-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/amazon/amazon-value-chain.png": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-value-chain-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-value-chain-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-value-chain-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/hk/hk-01.png": {
     "width": 2422,
     "height": 1363,
