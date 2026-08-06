@@ -191,10 +191,12 @@ test("defines search-engine discovery routes", async () => {
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, layout, chrome, transitionLink, styles, siteConfig, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
+  const [page, layout, chrome, projectExperience, contentLibrary, transitionLink, styles, siteConfig, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/ProjectExperience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
     readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
@@ -214,6 +216,11 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(siteConfig, /socialImageAlt:/);
   assert.doesNotMatch(`${page}${layout}${chrome}`, /Max Pfennighaus/);
   assert.match(transitionLink, /router\.push\(href\)/);
+  assert.match(contentLibrary, /marked\.parseInline/);
+  assert.match(contentLibrary, /captionHtml:/);
+  assert.match(projectExperience, /dangerouslySetInnerHTML=\{\{ __html: media\.captionHtml \}\}/);
+  assert.match(styles, /UntitledSansWeb-RegularItalic\.woff/);
+  assert.match(styles, /\.media-caption a\s*\{/);
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);

@@ -13,7 +13,7 @@ The distributable template includes Instrument Sans Regular as its default typef
 
 The complete font license is included at `public/fonts/OFL.txt`.
 
-The optional file `public/fonts/portfolio-custom.woff2` is intentionally excluded from version control. It is reserved for a font that an individual site owner is independently licensed to use and distribute through their own website. It is not part of the template.
+The optional files `public/fonts/portfolio-custom.woff2` and `public/fonts/UntitledSansWeb-RegularItalic.woff` are intentionally excluded from version control. They are reserved for fonts that an individual site owner is independently licensed to use and distribute through their own website. They are not part of the template.
 
 ## Unsplash demonstration photographs
 

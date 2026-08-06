@@ -7,6 +7,14 @@
 }
 
 @font-face {
+  font-family: "mxpf-sans";
+  src: url("/fonts/UntitledSansWeb-RegularItalic.woff") format("woff");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Instrument Sans";
   src: url("/fonts/InstrumentSans-Regular.woff2") format("woff2");
   font-style: normal;
@@ -308,17 +316,24 @@ iframe {
 }
 
 .project-summary a,
-.about-copy a {
+.about-copy a,
+.media-caption a {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
   transition: color 180ms ease;
 }
 
 .project-summary a:hover,
-.about-copy a:hover {
+.about-copy a:hover,
+.media-caption a:hover {
   color: var(--link);
 }
 
 .project-summary a:focus-visible,
-.about-copy a:focus-visible {
+.about-copy a:focus-visible,
+.media-caption a:focus-visible {
   outline: 1px solid var(--link);
   outline-offset: 3px;
 }

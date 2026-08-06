@@ -258,6 +258,17 @@ function GalleryMedia({
 
 type ProjectNavigationItem = Pick<Project, "slug" | "title">;
 
+function MediaCaption({ media }: { media: ProjectMedia }) {
+  if (!media.captionHtml) return null;
+
+  return (
+    <figcaption
+      className="media-caption"
+      dangerouslySetInnerHTML={{ __html: media.captionHtml }}
+    />
+  );
+}
+
 function splitDescriptionHtml(html: string) {
   const match = html.match(/^(\s*<h1[\s\S]*?<\/h1>\s*<p>[\s\S]*?<\/p>)([\s\S]*)$/);
   return match
@@ -395,7 +406,7 @@ export function ProjectExperience({
           priority
           transitionName={transitionId === `project-image-${leadMedia.id}` ? transitionId : undefined}
         />
-        {leadMedia.caption && <figcaption className="media-caption">{leadMedia.caption}</figcaption>}
+        <MediaCaption media={leadMedia} />
       </figure>
 
       <section className="project-gallery" aria-label={`${project.title} media`}>
@@ -408,7 +419,7 @@ export function ProjectExperience({
               priority={false}
               transitionName={transitionId === `project-image-${media.id}` ? transitionId : undefined}
             />
-            {media.caption && <figcaption className="media-caption">{media.caption}</figcaption>}
+            <MediaCaption media={media} />
           </figure>
         ))}
       </section>

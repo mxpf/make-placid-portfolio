@@ -21,6 +21,7 @@ export type ImageMedia = {
   ratio: string;
   alt: string;
   caption?: string;
+  captionHtml?: string;
   tone?: number;
   fit?: "cover" | "contain";
   position?: string;
@@ -42,6 +43,7 @@ export type ImageGridMedia = {
   ratio: string;
   images: ImageGridItem[];
   caption?: string;
+  captionHtml?: string;
 };
 
 export type VideoMedia = {
@@ -53,6 +55,7 @@ export type VideoMedia = {
   title: string;
   autoplay?: boolean;
   caption?: string;
+  captionHtml?: string;
 };
 
 export type YouTubeMedia = {
@@ -63,6 +66,7 @@ export type YouTubeMedia = {
   ratio: string;
   title: string;
   caption?: string;
+  captionHtml?: string;
 };
 
 export type ProjectMedia = ImageMedia | ImageGridMedia | VideoMedia | YouTubeMedia;
@@ -130,6 +134,10 @@ function renderMarkdown(source: string) {
   );
 }
 
+function renderInlineMarkdown(source: string) {
+  return marked.parseInline(source, { async: false }) as string;
+}
+
 function parseProjectFile(source: string) {
   const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) throw new Error("Project files must begin with YAML frontmatter.");
@@ -159,7 +167,10 @@ function readProject(slug: string): Project {
       scale: data.thumbnail.scale ?? 1,
       tone: data.thumbnail.tone ?? 1,
     },
-    media: data.media,
+    media: data.media.map((media: ProjectMedia) => ({
+      ...media,
+      captionHtml: media.caption ? renderInlineMarkdown(media.caption) : undefined,
+    })),
     descriptionHtml: renderMarkdown(content),
   };
 }
