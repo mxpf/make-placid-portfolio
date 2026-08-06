@@ -11,7 +11,7 @@
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
     "images": "node scripts/generate-responsive-images.mjs",
     "prebuild": "npm run images",
-    "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
+    "build": "node scripts/build-site.mjs",
     "build:pages": "npm run images && next build --webpack",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",

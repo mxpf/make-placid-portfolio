@@ -33,13 +33,14 @@ export function ResponsiveImage({
 }: ResponsiveImageProps) {
   const entry = manifest[src];
   const srcSet = entry?.sources.map((source) => `${source.src} ${source.width}w`).join(", ");
+  const fallbackSrc = entry?.sources.at(-1)?.src ?? src;
 
   return (
     // A build-time WebP/srcset pipeline replaces Next's runtime image service.
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className={className}
-      src={src}
+      src={fallbackSrc}
       srcSet={srcSet}
       sizes={srcSet ? sizes : undefined}
       width={entry?.width}
