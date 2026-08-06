@@ -179,6 +179,222 @@
       }
     ]
   },
+  "/images/projects/caterpillar/caterpillar-2024-annual-cover-profile.png": {
+    "width": 3630,
+    "height": 2365,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-cover-profile-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-cover-profile-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-cover-profile-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2024-annual-performance-strategy.png": {
+    "width": 3630,
+    "height": 2365,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-performance-strategy-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-performance-strategy-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-annual-performance-strategy-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2024-sustainability-circularity.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-circularity-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-circularity-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-circularity-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2024-sustainability-cover.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2024-sustainability-goals.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-goals-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-goals-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-goals-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2024-sustainability-workforce.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-workforce-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-workforce-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2024-sustainability-workforce-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-annual-centennial-strategy.png": {
+    "width": 3630,
+    "height": 2365,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-centennial-strategy-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-centennial-strategy-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-centennial-strategy-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-annual-cover-overview.png": {
+    "width": 3630,
+    "height": 2365,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-cover-overview-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-cover-overview-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-annual-cover-overview-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-sustainability-circularity.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-circularity-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-circularity-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-circularity-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-sustainability-cover.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-sustainability-goals.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-goals-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-goals-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-goals-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-2025-sustainability-governance.png": {
+    "width": 2420,
+    "height": 1870,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-governance-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-governance-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-governance-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/hk/hk-01.png": {
     "width": 2422,
     "height": 1363,
