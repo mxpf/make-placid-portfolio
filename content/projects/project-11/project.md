@@ -7,11 +7,10 @@ colorMedia: true
 order: 11
 published: true
 thumbnail:
-  src: "/images/projects/caterpillar/caterpillar-2025-sustainability-cover.png"
-  alt: "Cover of Caterpillar’s 2025 Sustainability Report, combining a wheel loader photograph with a technical line rendering"
+  src: "/images/projects/caterpillar/caterpillar-home.png"
+  alt: "Caterpillar wheel loader transitioning from photograph to technical line rendering"
   focalX: 50
   focalY: 50
-  fit: "cover"
   tone: 1
 media:
   - kind: image

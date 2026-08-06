@@ -7,8 +7,8 @@ colorMedia: true
 order: 5
 published: true
 thumbnail:
-  src: "/images/projects/nyt/nyt-01.png"
-  alt: "The New York Times editorial typeface system across three guideline pages"
+  src: "/images/projects/nyt/nyt-home.png"
+  alt: "The New York Times editorial typeface system"
   focalX: 50
   focalY: 50
   tone: 1

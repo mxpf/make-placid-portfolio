@@ -7,11 +7,10 @@ colorMedia: true
 order: 8
 published: true
 thumbnail:
-  src: "/images/projects/sands/sands-details-environment.png"
-  alt: "Sands ESG report spread combining environmental photography, editorial typography, and performance data"
+  src: "/images/projects/sands/sands-home.png"
+  alt: "Macro fern detail from the Sands ESG report cover"
   focalX: 50
   focalY: 50
-  fit: "cover"
   tone: 1
 media:
   - kind: image

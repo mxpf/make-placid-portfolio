@@ -7,11 +7,10 @@ colorMedia: true
 order: 9
 published: true
 thumbnail:
-  src: "/images/projects/amazon/amazon-cover.png"
-  alt: "Cover of Amazon’s 2023 Sustainability Report featuring a solar farm"
+  src: "/images/projects/amazon/amazon-home.png"
+  alt: "Two people walking through a solar field"
   focalX: 50
   focalY: 50
-  fit: "cover"
   tone: 1
 media:
   - kind: image

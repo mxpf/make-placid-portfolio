@@ -7,11 +7,10 @@ colorMedia: true
 order: 7
 published: true
 thumbnail:
-  src: "/images/projects/npr/npr-ux.png"
-  alt: "NPR One identity and digital product system"
+  src: "/images/projects/npr/npr-home.png"
+  alt: "NPR One circular identity mark"
   focalX: 50
-  focalY: 29
-  scale: 2
+  focalY: 50
   tone: 1
 media:
   - kind: image

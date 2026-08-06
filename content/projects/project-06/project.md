@@ -7,11 +7,10 @@ colorMedia: true
 order: 6
 published: true
 thumbnail:
-  src: "/images/projects/nyt/nyt-insider-product.jpg"
-  alt: "Times Insider subscription product overview"
+  src: "/images/projects/nyt/nyt-insider-home.png"
+  alt: "Times Insider wordmark"
   focalX: 50
   focalY: 50
-  fit: "contain"
   tone: 1
 media:
   - kind: image

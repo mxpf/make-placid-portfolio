@@ -107,6 +107,24 @@
       }
     ]
   },
+  "/images/projects/amazon/amazon-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/amazon/amazon-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/amazon/amazon-home-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/amazon/amazon-order-journey.png": {
     "width": 2400,
     "height": 1350,
@@ -391,6 +409,24 @@
       },
       {
         "src": "/images/responsive/projects/caterpillar/caterpillar-2025-sustainability-governance-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/caterpillar/caterpillar-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/caterpillar/caterpillar-home-1440.webp",
         "width": 1440
       }
     ]
@@ -1259,6 +1295,24 @@
       }
     ]
   },
+  "/images/projects/ibm/ibm-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/ibm/ibm-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/ibm/ibm-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/ibm/ibm-home-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/jj/jj-01.png": {
     "width": 1600,
     "height": 909,
@@ -1647,6 +1701,24 @@
       }
     ]
   },
+  "/images/projects/npr/npr-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-home-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/npr/npr-lobby.png": {
     "width": 3360,
     "height": 7758,
@@ -1757,6 +1829,42 @@
       },
       {
         "src": "/images/responsive/projects/nyt/nyt-campaign-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-home-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-home-1440.webp",
         "width": 1440
       }
     ]
@@ -1919,6 +2027,24 @@
       },
       {
         "src": "/images/responsive/projects/sands/sands-details-performance-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/sands/sands-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/sands/sands-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/sands/sands-home-1440.webp",
         "width": 1440
       }
     ]
@@ -2561,6 +2687,24 @@
       },
       {
         "src": "/images/responsive/projects/ussteel/ussteel-2024-tree-planting-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/ussteel/ussteel-home.png": {
+    "width": 1500,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/ussteel/ussteel-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/ussteel/ussteel-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/ussteel/ussteel-home-1440.webp",
         "width": 1440
       }
     ]

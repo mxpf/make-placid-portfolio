@@ -7,11 +7,10 @@ colorMedia: true
 order: 10
 published: true
 thumbnail:
-  src: "/images/projects/ussteel/ussteel-2024-cover.png"
-  alt: "Cover of U. S. Steel’s 2024 Sustainability Report featuring workers installing solar panels"
+  src: "/images/projects/ussteel/ussteel-home.png"
+  alt: "U. S. Steel worker beside a glowing industrial production line"
   focalX: 50
   focalY: 50
-  fit: "cover"
   tone: 1
 media:
   - kind: image

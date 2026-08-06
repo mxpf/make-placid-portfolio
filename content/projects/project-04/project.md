@@ -7,8 +7,8 @@ colorMedia: true
 order: 4
 published: true
 thumbnail:
-  src: "/images/projects/ibm/ibm-04.png"
-  alt: "IBM enterprise operating model illustrated as a network of people, services, and technology"
+  src: "/images/projects/ibm/ibm-home.png"
+  alt: "IBM network sphere drawn in white lines against a blue field"
   focalX: 50
   focalY: 50
   tone: 1
