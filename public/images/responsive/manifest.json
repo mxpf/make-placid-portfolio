@@ -433,7 +433,7 @@
   },
   "/images/projects/hk/hk-01.png": {
     "width": 2422,
-    "height": 1363,
+    "height": 1362,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-01-480.webp",
@@ -450,8 +450,8 @@
     ]
   },
   "/images/projects/hk/hk-02.png": {
-    "width": 1177,
-    "height": 614,
+    "width": 1176,
+    "height": 613,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-02-480.webp",
@@ -462,14 +462,14 @@
         "width": 960
       },
       {
-        "src": "/images/responsive/projects/hk/hk-02-1177.webp",
-        "width": 1177
+        "src": "/images/responsive/projects/hk/hk-02-1176.webp",
+        "width": 1176
       }
     ]
   },
   "/images/projects/hk/hk-03.png": {
-    "width": 1158,
-    "height": 609,
+    "width": 1157,
+    "height": 608,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-03-480.webp",
@@ -480,14 +480,14 @@
         "width": 960
       },
       {
-        "src": "/images/responsive/projects/hk/hk-03-1158.webp",
-        "width": 1158
+        "src": "/images/responsive/projects/hk/hk-03-1157.webp",
+        "width": 1157
       }
     ]
   },
   "/images/projects/hk/hk-04.png": {
     "width": 2422,
-    "height": 1366,
+    "height": 1361,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-04-480.webp",
@@ -505,7 +505,7 @@
   },
   "/images/projects/hk/hk-05.png": {
     "width": 1167,
-    "height": 657,
+    "height": 656,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-05-480.webp",
@@ -523,7 +523,7 @@
   },
   "/images/projects/hk/hk-06.png": {
     "width": 1167,
-    "height": 657,
+    "height": 656,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-06-480.webp",
@@ -541,7 +541,7 @@
   },
   "/images/projects/hk/hk-07.png": {
     "width": 2422,
-    "height": 1262,
+    "height": 1261,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-07-480.webp",
@@ -559,7 +559,7 @@
   },
   "/images/projects/hk/hk-08.png": {
     "width": 1214,
-    "height": 471,
+    "height": 469,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-08-480.webp",
@@ -595,7 +595,7 @@
   },
   "/images/projects/hk/hk-10.png": {
     "width": 2422,
-    "height": 1156,
+    "height": 1154,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-10-480.webp",
@@ -649,7 +649,7 @@
   },
   "/images/projects/hk/hk-13.png": {
     "width": 1167,
-    "height": 656,
+    "height": 655,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-13-480.webp",
@@ -667,7 +667,7 @@
   },
   "/images/projects/hk/hk-14.png": {
     "width": 1167,
-    "height": 655,
+    "height": 654,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-14-480.webp",
@@ -703,7 +703,7 @@
   },
   "/images/projects/hk/hk-16.png": {
     "width": 1167,
-    "height": 655,
+    "height": 654,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-16-480.webp",
@@ -721,7 +721,7 @@
   },
   "/images/projects/hk/hk-home.png": {
     "width": 984,
-    "height": 656,
+    "height": 655,
     "sources": [
       {
         "src": "/images/responsive/projects/hk/hk-home-480.webp",
@@ -802,7 +802,7 @@
     ]
   },
   "/images/projects/ibm/ibm-05.png": {
-    "width": 2422,
+    "width": 2421,
     "height": 1362,
     "sources": [
       {
@@ -834,8 +834,8 @@
     ]
   },
   "/images/projects/ibm/ibm-07.png": {
-    "width": 1498,
-    "height": 845,
+    "width": 1497,
+    "height": 844,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-07-480.webp",
@@ -852,8 +852,8 @@
     ]
   },
   "/images/projects/ibm/ibm-08.png": {
-    "width": 1498,
-    "height": 845,
+    "width": 1497,
+    "height": 843,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-08-480.webp",
@@ -888,8 +888,8 @@
     ]
   },
   "/images/projects/ibm/ibm-10.png": {
-    "width": 1498,
-    "height": 999,
+    "width": 1497,
+    "height": 998,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-10-480.webp",
@@ -906,8 +906,8 @@
     ]
   },
   "/images/projects/ibm/ibm-11.png": {
-    "width": 1498,
-    "height": 999,
+    "width": 1497,
+    "height": 998,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-11-480.webp",
@@ -975,7 +975,7 @@
   },
   "/images/projects/ibm/ibm-15.png": {
     "width": 1167,
-    "height": 779,
+    "height": 778,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-15-480.webp",
@@ -1010,8 +1010,8 @@
     ]
   },
   "/images/projects/ibm/ibm-17.png": {
-    "width": 1498,
-    "height": 999,
+    "width": 1497,
+    "height": 899,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-17-480.webp",
@@ -1085,7 +1085,7 @@
   },
   "/images/projects/ibm/ibm-22.png": {
     "width": 1498,
-    "height": 999,
+    "height": 899,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-22-480.webp",
@@ -1157,7 +1157,7 @@
   },
   "/images/projects/ibm/ibm-26.png": {
     "width": 1167,
-    "height": 779,
+    "height": 700,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-26-480.webp",
@@ -1175,7 +1175,7 @@
   },
   "/images/projects/ibm/ibm-27.png": {
     "width": 1167,
-    "height": 779,
+    "height": 700,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-27-480.webp",
@@ -1224,8 +1224,8 @@
     ]
   },
   "/images/projects/ibm/ibm-30.png": {
-    "width": 1498,
-    "height": 999,
+    "width": 1497,
+    "height": 998,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-30-480.webp",
@@ -1242,8 +1242,8 @@
     ]
   },
   "/images/projects/ibm/ibm-31.png": {
-    "width": 1498,
-    "height": 999,
+    "width": 1497,
+    "height": 998,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-31-480.webp",
@@ -1279,7 +1279,7 @@
   },
   "/images/projects/ibm/ibm-33.png": {
     "width": 1167,
-    "height": 779,
+    "height": 699,
     "sources": [
       {
         "src": "/images/responsive/projects/ibm/ibm-33-480.webp",
@@ -1638,30 +1638,30 @@
     ]
   },
   "/images/projects/jj/jj-19.png": {
-    "width": 876,
-    "height": 2040,
+    "width": 875,
+    "height": 2039,
     "sources": [
       {
         "src": "/images/responsive/projects/jj/jj-19-480.webp",
         "width": 480
       },
       {
-        "src": "/images/responsive/projects/jj/jj-19-876.webp",
-        "width": 876
+        "src": "/images/responsive/projects/jj/jj-19-875.webp",
+        "width": 875
       }
     ]
   },
   "/images/projects/jj/jj-20.png": {
-    "width": 876,
-    "height": 2040,
+    "width": 875,
+    "height": 2039,
     "sources": [
       {
         "src": "/images/responsive/projects/jj/jj-20-480.webp",
         "width": 480
       },
       {
-        "src": "/images/responsive/projects/jj/jj-20-876.webp",
-        "width": 876
+        "src": "/images/responsive/projects/jj/jj-20-875.webp",
+        "width": 875
       }
     ]
   },
@@ -1719,6 +1719,24 @@
       }
     ]
   },
+  "/images/projects/npr/npr-lobby-work.png": {
+    "width": 2302,
+    "height": 1296,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-work-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-work-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-lobby-work-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/npr/npr-lobby.png": {
     "width": 3360,
     "height": 7758,
@@ -1733,6 +1751,24 @@
       },
       {
         "src": "/images/responsive/projects/npr/npr-lobby-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/npr/npr-one-experience.png": {
+    "width": 2365,
+    "height": 1330,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-one-experience-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-one-experience-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-one-experience-1440.webp",
         "width": 1440
       }
     ]
@@ -1779,6 +1815,24 @@
       }
     ]
   },
+  "/images/projects/npr/npr-product-family.png": {
+    "width": 2365,
+    "height": 1330,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/npr/npr-product-family-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-product-family-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/npr/npr-product-family-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/npr/npr-ux.png": {
     "width": 3360,
     "height": 4830,
@@ -1811,6 +1865,42 @@
       },
       {
         "src": "/images/responsive/projects/nyt/nyt-01-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-campaign-products.png": {
+    "width": 2304,
+    "height": 1536,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-products-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-products-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-products-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-campaign-t.png": {
+    "width": 2301,
+    "height": 1534,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-t-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-t-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-campaign-t-1440.webp",
         "width": 1440
       }
     ]
@@ -1869,6 +1959,24 @@
       }
     ]
   },
+  "/images/projects/nyt/nyt-insider-launch.png": {
+    "width": 2052,
+    "height": 1376,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-launch-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-launch-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-launch-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "/images/projects/nyt/nyt-insider-product.jpg": {
     "width": 1394,
     "height": 2051,
@@ -1887,6 +1995,24 @@
       }
     ]
   },
+  "/images/projects/nyt/nyt-insider-site-home.png": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-site-home-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
   "/images/projects/nyt/nyt-insider-site.png": {
     "width": 1280,
     "height": 4257,
@@ -1901,6 +2027,24 @@
       },
       {
         "src": "/images/responsive/projects/nyt/nyt-insider-site-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/images/projects/nyt/nyt-insider-subscription-home.png": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-home-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-home-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/images/responsive/projects/nyt/nyt-insider-subscription-home-1280.webp",
         "width": 1280
       }
     ]
@@ -1978,8 +2122,8 @@
     ]
   },
   "/images/projects/sands/sands-details-cover.png": {
-    "width": 2550,
-    "height": 3300,
+    "width": 2546,
+    "height": 3296,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-details-cover-480.webp",
@@ -1996,8 +2140,8 @@
     ]
   },
   "/images/projects/sands/sands-details-environment.png": {
-    "width": 5100,
-    "height": 3300,
+    "width": 5096,
+    "height": 3296,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-details-environment-480.webp",
@@ -2014,8 +2158,8 @@
     ]
   },
   "/images/projects/sands/sands-details-performance.png": {
-    "width": 5100,
-    "height": 3300,
+    "width": 5096,
+    "height": 3296,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-details-performance-480.webp",
@@ -2050,8 +2194,8 @@
     ]
   },
   "/images/projects/sands/sands-thrive-cover.png": {
-    "width": 2550,
-    "height": 3300,
+    "width": 2546,
+    "height": 3296,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-thrive-cover-480.webp",
@@ -2068,8 +2212,8 @@
     ]
   },
   "/images/projects/sands/sands-thrive-destination.png": {
-    "width": 5100,
-    "height": 3300,
+    "width": 5091,
+    "height": 3292,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-thrive-destination-480.webp",
@@ -2086,8 +2230,8 @@
     ]
   },
   "/images/projects/sands/sands-thrive-impact.png": {
-    "width": 5100,
-    "height": 3300,
+    "width": 5096,
+    "height": 3296,
     "sources": [
       {
         "src": "/images/responsive/projects/sands/sands-thrive-impact-480.webp",
@@ -2105,7 +2249,7 @@
   },
   "/images/projects/synchrony/synchrony-01.png": {
     "width": 2422,
-    "height": 1363,
+    "height": 1362,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-01-480.webp",
@@ -2177,7 +2321,7 @@
   },
   "/images/projects/synchrony/synchrony-05.png": {
     "width": 1167,
-    "height": 609,
+    "height": 608,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-05-480.webp",
@@ -2231,7 +2375,7 @@
   },
   "/images/projects/synchrony/synchrony-08.png": {
     "width": 1167,
-    "height": 609,
+    "height": 608,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-08-480.webp",
@@ -2266,7 +2410,7 @@
     ]
   },
   "/images/projects/synchrony/synchrony-10.png": {
-    "width": 1586,
+    "width": 1584,
     "height": 1834,
     "sources": [
       {
@@ -2298,7 +2442,7 @@
     ]
   },
   "/images/projects/synchrony/synchrony-12.png": {
-    "width": 2422,
+    "width": 2420,
     "height": 1964,
     "sources": [
       {
@@ -2348,7 +2492,7 @@
     ]
   },
   "/images/projects/synchrony/synchrony-15.png": {
-    "width": 2420,
+    "width": 2416,
     "height": 1562,
     "sources": [
       {
@@ -2385,7 +2529,7 @@
   },
   "/images/projects/synchrony/synchrony-17.png": {
     "width": 1026,
-    "height": 660,
+    "height": 659,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-17-480.webp",
@@ -2403,7 +2547,7 @@
   },
   "/images/projects/synchrony/synchrony-18.png": {
     "width": 1026,
-    "height": 660,
+    "height": 659,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-18-480.webp",
@@ -2421,7 +2565,7 @@
   },
   "/images/projects/synchrony/synchrony-19.png": {
     "width": 749,
-    "height": 1010,
+    "height": 1008,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-19-480.webp",
@@ -2434,16 +2578,16 @@
     ]
   },
   "/images/projects/synchrony/synchrony-20.png": {
-    "width": 749,
-    "height": 1010,
+    "width": 748,
+    "height": 965,
     "sources": [
       {
         "src": "/images/responsive/projects/synchrony/synchrony-20-480.webp",
         "width": 480
       },
       {
-        "src": "/images/responsive/projects/synchrony/synchrony-20-749.webp",
-        "width": 749
+        "src": "/images/responsive/projects/synchrony/synchrony-20-748.webp",
+        "width": 748
       }
     ]
   },
