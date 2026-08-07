@@ -4,7 +4,7 @@ homepageLabel: "The New York Times"
 seoDescription: "Brand creative leadership for The New York Times across design systems, product launches, acquisition campaigns, and digital subscription experiences."
 socialImage: "/images/projects/nyt/nyt-01.png"
 colorMedia: true
-order: 5
+order: 2
 published: true
 thumbnail:
   src: "/images/projects/nyt/nyt-home.png"

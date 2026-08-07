@@ -113,17 +113,17 @@ export type SiteConfig = {
 };
 
 const projectFiles: Record<string, string> = {
-  "project-01": project01Source,
-  "project-02": project02Source,
-  "project-03": project03Source,
-  "project-04": project04Source,
-  "project-05": project05Source,
-  "project-06": project06Source,
-  "project-07": project07Source,
-  "project-08": project08Source,
-  "project-09": project09Source,
-  "project-10": project10Source,
-  "project-11": project11Source,
+  "johnson-johnson": project01Source,
+  "holland-knight": project02Source,
+  synchrony: project03Source,
+  ibm: project04Source,
+  "new-york-times": project05Source,
+  "times-insider": project06Source,
+  npr: project07Source,
+  sands: project08Source,
+  amazon: project09Source,
+  "us-steel": project10Source,
+  caterpillar: project11Source,
 };
 
 function renderMarkdown(source: string) {

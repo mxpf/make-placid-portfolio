@@ -3,7 +3,7 @@ title: "Holland & Knight"
 homepageLabel: "Holland & Knight"
 seoDescription: "Visual identity expansion for Holland & Knight, translating a flexible graphic system into presentations, digital communications, publications, stationery, and branded applications."
 colorMedia: true
-order: 2
+order: 3
 published: true
 thumbnail:
   src: "/images/projects/hk/hk-home.png"

@@ -47,7 +47,26 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, /<title>Max Pfennighaus<\/title>/i);
   assert.match(html, />Max Pfennighaus<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
-  assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 11);
+  const expectedProjectLinks = [
+    ["johnson-johnson", "Johnson &amp; Johnson"],
+    ["new-york-times", "The New York Times"],
+    ["holland-knight", "Holland &amp; Knight"],
+    ["npr", "NPR"],
+    ["synchrony", "Synchrony"],
+    ["sands", "Sands"],
+    ["ibm", "IBM"],
+    ["amazon", "Amazon"],
+    ["times-insider", "Times Insider"],
+    ["us-steel", "U. S. Steel"],
+    ["caterpillar", "Caterpillar"],
+  ];
+  assert.equal((html.match(/class="home-project(?: color-media)?"/g) ?? []).length, 11);
+  let previousLinkIndex = -1;
+  for (const [slug, label] of expectedProjectLinks) {
+    const linkIndex = html.indexOf(`href="/projects/${slug}"`);
+    assert.ok(linkIndex > previousLinkIndex, `${label} should appear in the requested sequence`);
+    previousLinkIndex = linkIndex;
+  }
   assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 0);
   assert.match(html, /src="\/images\/responsive\/projects\/jj\/jj-home-1440\.webp"/);
   assert.match(html, /src="\/images\/responsive\/projects\/hk\/hk-home-984\.webp"/);
@@ -71,14 +90,14 @@ test("server-renders the portfolio home page", async () => {
 
 test("server-renders project and about routes", async () => {
   const [synchronyResponse, johnsonResponse, hollandKnightResponse, ibmResponse, nytResponse, insiderResponse, nprResponse, sandsResponse, aboutResponse] = await Promise.all([
-    render("/projects/project-03"),
-    render("/projects/project-01"),
-    render("/projects/project-02"),
-    render("/projects/project-04"),
-    render("/projects/project-05"),
-    render("/projects/project-06"),
-    render("/projects/project-07"),
-    render("/projects/project-08"),
+    render("/projects/synchrony"),
+    render("/projects/johnson-johnson"),
+    render("/projects/holland-knight"),
+    render("/projects/ibm"),
+    render("/projects/new-york-times"),
+    render("/projects/times-insider"),
+    render("/projects/npr"),
+    render("/projects/sands"),
     render("/about"),
   ]);
 
@@ -119,7 +138,9 @@ test("server-renders project and about routes", async () => {
   assert.match(nytHtml, /first comprehensive system connecting editorial and marketing expression/);
   assert.match(nytHtml, /surpass one million digital subscribers/);
   assert.doesNotMatch(nytHtml, /nyt-insider(?:-site|-subscription)?\.png/);
-  assert.doesNotMatch(nytHtml, /Johnson &amp; Johnson|Letter spacing is tight/);
+  assert.doesNotMatch(nytHtml, /Letter spacing is tight/);
+  assert.match(nytHtml, /href="\/projects\/johnson-johnson"[^>]*>Previous/);
+  assert.match(nytHtml, /href="\/projects\/holland-knight"[^>]*>Next/);
   assert.match(insiderHtml, /Times Insider/);
   assert.match(insiderHtml, /project-layout color-media/);
   assert.match(insiderHtml, /nyt-insider-launch\.png/);

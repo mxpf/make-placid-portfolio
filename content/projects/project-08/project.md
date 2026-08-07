@@ -4,7 +4,7 @@ homepageLabel: "Sands"
 seoDescription: "Two editorial design directions for Sands ESG reporting, connecting operational precision and place-based impact to clear, measurable progress."
 socialImage: "/images/projects/sands/sands-details-environment.png"
 colorMedia: true
-order: 8
+order: 6
 published: true
 thumbnail:
   src: "/images/projects/sands/sands-home.png"

@@ -4,7 +4,7 @@ homepageLabel: "Amazon"
 seoDescription: "Amazon’s 2023 Sustainability Report, redesigned as a clearer editorial system spanning environment, value chain, people, and performance data."
 socialImage: "/images/projects/amazon/amazon-cover.png"
 colorMedia: true
-order: 9
+order: 8
 published: true
 thumbnail:
   src: "/images/projects/amazon/amazon-home.png"

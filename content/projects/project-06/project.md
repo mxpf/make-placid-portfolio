@@ -4,7 +4,7 @@ homepageLabel: "Times Insider"
 seoDescription: "Identity, launch campaign, editorial applications, and subscription experience for Times Insider, a New York Times product built around access to the newsroom."
 socialImage: "/images/projects/nyt/nyt-insider-launch.png"
 colorMedia: true
-order: 6
+order: 9
 published: true
 thumbnail:
   src: "/images/projects/nyt/nyt-insider-home.png"

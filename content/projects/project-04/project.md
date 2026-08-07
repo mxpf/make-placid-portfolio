@@ -4,7 +4,7 @@ homepageLabel: "IBM"
 seoDescription: "Creative leadership for IBM across enterprise communications, digital products, motion, recognition events, internal platforms, and Watson-enabled experiences."
 socialImage: "/images/projects/ibm/ibm-home.png"
 colorMedia: true
-order: 4
+order: 7
 published: true
 thumbnail:
   src: "/images/projects/ibm/ibm-home.png"

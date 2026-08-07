@@ -4,7 +4,7 @@ homepageLabel: "Synchrony"
 seoDescription: "Enterprise brand leadership for Synchrony across identity systems, illustration, voice, digital and partner experiences, editorial platforms, and TogetherWe."
 socialImage: "/images/projects/synchrony/synchrony-home.png"
 colorMedia: true
-order: 3
+order: 5
 published: true
 thumbnail:
   src: "/images/projects/synchrony/synchrony-home.png"

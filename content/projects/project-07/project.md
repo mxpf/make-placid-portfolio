@@ -4,7 +4,7 @@ homepageLabel: "NPR"
 seoDescription: "Interaction design leadership across npr.org, NPR News, NPR Music, NPR One, mobile apps, and a digital platform serving more than 250 member stations."
 socialImage: "/images/projects/npr/npr-home.png"
 colorMedia: true
-order: 7
+order: 4
 published: true
 thumbnail:
   src: "/images/projects/npr/npr-home.png"
