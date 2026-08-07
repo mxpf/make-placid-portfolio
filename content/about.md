@@ -4,9 +4,11 @@ I work comfortably between strategy and execution—clarifying the problem, esta
 
 I’m drawn to work that feels simple without being simplistic—clear enough to understand, flexible enough to use, and distinctive enough to remember. I value thoughtful collaboration, direct communication, and design that continues to work after the presentation is over.
 
-I’m based in Katonah, New York, with my wife and our four children. Away from work, I’m usually reading, drawing, making things, exploring new creative tools, or developing overly elaborate tabletop games with my son.
+I’m based in Katonah, New York, with my wife and our four children. Away from work, I’m usually reading, [writing](http://thinking.haus/), drawing, making things, exploring new creative tools, or developing overly elaborate tabletop games with my son.
 
-I’m currently open to senior creative leadership roles, consulting engagements, and selected project collaborations.
+I’m currently open to senior creative leadership roles, consulting engagements, and project collaborations.
+
+[I have chosen](http://thinking.haus/#:~:text=A%20Pretty%20Normal%20Typeface) Untitled Sans for the site's typography.
 
 [LinkedIn](https://www.linkedin.com/in/mxpfe/)<br>
 [Résumé](/max-pfennighaus-resume.pdf)<br>
