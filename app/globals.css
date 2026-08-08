@@ -44,6 +44,7 @@ html {
   font-size: 18px;
   line-height: 24px;
   scroll-behavior: auto;
+  overscroll-behavior-y: none;
 }
 
 html.custom-font {
@@ -51,10 +52,11 @@ html.custom-font {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--light);
   color: var(--dark);
+  overscroll-behavior-y: none;
 }
 
 html:has(body.detail-open),
@@ -240,7 +242,7 @@ iframe {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-2);
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--header-height) 24px 0;
   animation: project-page-in 320ms ease both;
 }
@@ -254,7 +256,7 @@ iframe {
   position: fixed;
   bottom: var(--rail-height);
   width: calc((100vw - 72px) / 2 + var(--spacing-1));
-  max-height: calc(100vh - var(--header-height) - var(--rail-height));
+  max-height: calc(100dvh - var(--header-height) - var(--rail-height));
   margin-left: calc(var(--spacing-1) * -1);
   padding-left: var(--spacing-1);
   overflow: auto;
@@ -583,7 +585,7 @@ iframe {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-2);
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--header-height) 24px calc(var(--rail-height) * 2);
   animation: page-in 320ms ease both;
 }
@@ -597,7 +599,7 @@ iframe {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-2);
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--header-height) 24px var(--rail-height);
   animation: page-in 320ms ease both;
 }
@@ -753,7 +755,7 @@ iframe {
 
   .not-found-layout {
     display: block;
-    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100dvh - var(--header-height));
     padding-top: 0;
   }
 
