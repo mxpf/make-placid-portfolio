@@ -12,43 +12,60 @@ export default function Home() {
   const site = getSiteConfig();
 
   return (
-    <main className="home-grid" aria-label={site.projectsLabel}>
-      <h1 className="visually-hidden">{site.projectsLabel}</h1>
-      {projects.map((project, index) => (
-        <TransitionLink
-          className={`home-project${project.colorMedia ? " color-media" : ""}`}
-          href={`/projects/${project.slug}`}
-          key={project.slug}
-          ariaLabel={`View ${project.title}`}
-        >
-          <span className="home-project-media">
-            {project.thumbnail.src ? (
-              <ResponsiveImage
-                src={project.thumbnail.src}
-                alt={project.thumbnail.alt}
-                sizes={columnImageSizes}
-                priority={index < 2}
-                style={{
-                  objectPosition: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
-                  objectFit: project.thumbnail.fit,
-                  scale: project.thumbnail.scale,
-                  transformOrigin: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
-                }}
-              />
-            ) : (
-              <span
-                className="placeholder"
-                role="img"
-                aria-label={project.thumbnail.alt}
-                data-tone={project.thumbnail.tone}
-              />
-            )}
-          </span>
-          {site.showProjectLabels ? (
-            <span className="home-project-label">{project.homepageLabel ?? project.title}</span>
-          ) : null}
-        </TransitionLink>
-      ))}
-    </main>
+    <>
+      <main className="home-grid" aria-label={site.projectsLabel}>
+        <h1 className="visually-hidden">{site.projectsLabel}</h1>
+        {projects.map((project, index) => {
+          const closingProject = index === projects.length - 1;
+
+          return (
+            <TransitionLink
+              className={[
+                "home-project",
+                project.colorMedia ? "color-media" : "",
+                closingProject ? "home-project--closing" : "",
+              ].filter(Boolean).join(" ")}
+              href={`/projects/${project.slug}`}
+              key={project.slug}
+              ariaLabel={`View ${project.title}`}
+            >
+              <span className="home-project-media">
+                {project.thumbnail.src ? (
+                  <ResponsiveImage
+                    src={project.thumbnail.src}
+                    alt={project.thumbnail.alt}
+                    sizes={closingProject ? "(min-width: 768px) calc(100vw - 48px), calc(100vw - 48px)" : columnImageSizes}
+                    priority={index < 2}
+                    style={{
+                      objectPosition: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
+                      objectFit: project.thumbnail.fit,
+                      scale: project.thumbnail.scale,
+                      transformOrigin: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
+                    }}
+                  />
+                ) : (
+                  <span
+                    className="placeholder"
+                    role="img"
+                    aria-label={project.thumbnail.alt}
+                    data-tone={project.thumbnail.tone}
+                  />
+                )}
+              </span>
+              {site.showProjectLabels ? (
+                <span className="home-project-label">{project.homepageLabel ?? project.title}</span>
+              ) : null}
+            </TransitionLink>
+          );
+        })}
+      </main>
+      <footer className="home-footer">
+        <span>{site.name}</span>
+        <nav className="home-footer-actions" aria-label="Portfolio footer">
+          <TransitionLink href="/about">{site.aboutLabel}</TransitionLink>
+          <a href={`mailto:${site.email}`}>Email</a>
+        </nav>
+      </footer>
+    </>
   );
 }

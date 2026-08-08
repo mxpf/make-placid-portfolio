@@ -143,6 +143,7 @@ iframe {
 
 .site-link:focus-visible,
 .home-project:focus-visible,
+.home-footer a:focus-visible,
 .gallery-image-button:focus-visible,
 .video-poster:focus-visible,
 .video-autoplay-toggle:focus-visible,
@@ -155,7 +156,7 @@ iframe {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-2);
-  padding: var(--header-height) 24px var(--rail-height);
+  padding: var(--header-height) 24px var(--spacing-3);
   animation: page-in 320ms ease both;
 }
 
@@ -190,6 +191,29 @@ iframe {
   display: block;
   margin-top: var(--spacing-1);
   text-wrap: balance;
+}
+
+.home-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--spacing-2);
+  align-items: end;
+  padding: 0 24px calc(var(--rail-height) + var(--spacing-2));
+  animation: page-in 320ms ease both;
+}
+
+.home-footer-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  justify-content: flex-end;
+}
+
+.home-footer a {
+  transition: color 180ms ease;
+}
+
+.home-footer a:hover {
+  color: var(--link);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -537,6 +561,29 @@ iframe {
   cursor: zoom-out;
 }
 
+.detail-close-control {
+  position: fixed;
+  z-index: 70;
+  top: var(--header-height);
+  right: 24px;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 10px 6px;
+  cursor: pointer;
+  background: var(--light);
+  transition: color 180ms ease;
+}
+
+.detail-close-control:hover {
+  color: var(--link);
+}
+
+.detail-close-control:focus-visible {
+  outline: 1px solid var(--link);
+  outline-offset: -3px;
+}
+
 .detail-media {
   width: 100%;
   animation: detail-crossfade 240ms ease both;
@@ -660,6 +707,14 @@ iframe {
 }
 
 @media (min-width: 768px) {
+  .home-project--closing {
+    grid-column: 1 / -1;
+  }
+
+  .home-project--closing .home-project-media {
+    aspect-ratio: 3 / 1;
+  }
+
   body.page-leaving .site-action {
     opacity: 0;
   }
@@ -682,6 +737,12 @@ iframe {
   .home-grid {
     grid-template-columns: 1fr;
     padding-top: 0;
+  }
+
+  .home-footer-actions {
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-end;
   }
 
   .project-layout {

@@ -297,6 +297,7 @@ export function ProjectExperience({
   const [transitionId, setTransitionId] = useState<string | null>(null);
   const [supportsDetail, setSupportsDetail] = useState(false);
   const detailScroller = useRef<HTMLDivElement>(null);
+  const detailCloseButton = useRef<HTMLButtonElement>(null);
   const detailTrigger = useRef<HTMLElement | null>(null);
 
   const detailImage = detailIndex === null ? null : staticImages[detailIndex];
@@ -360,7 +361,7 @@ export function ProjectExperience({
   useEffect(() => {
     if (detailIndex === null) return;
     const activeIndex = detailIndex;
-    detailScroller.current?.focus({ preventScroll: true });
+    detailCloseButton.current?.focus({ preventScroll: true });
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -439,6 +440,14 @@ export function ProjectExperience({
 
       {detailImage ? (
         <div className="detail-layer" ref={detailScroller} role="dialog" aria-modal="true" aria-label="Image detail" tabIndex={-1}>
+          <button
+            className="detail-close-control"
+            type="button"
+            onClick={closeDetail}
+            ref={detailCloseButton}
+          >
+            Close
+          </button>
           <button className="detail-close" type="button" onClick={closeDetail} aria-label="Close image detail">
             <div
               className="detail-media"

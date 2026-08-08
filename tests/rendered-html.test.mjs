@@ -60,7 +60,7 @@ test("server-renders the portfolio home page", async () => {
     ["us-steel", "U. S. Steel"],
     ["caterpillar", "Caterpillar"],
   ];
-  assert.equal((html.match(/class="home-project(?: color-media)?"/g) ?? []).length, 11);
+  assert.equal((html.match(/class="home-project(?: color-media)?(?: home-project--closing)?"/g) ?? []).length, 11);
   let previousLinkIndex = -1;
   for (const [slug, label] of expectedProjectLinks) {
     const linkIndex = html.indexOf(`href="/projects/${slug}"`);
@@ -82,6 +82,10 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, /class="home-project color-media"/);
   assert.match(html, /srcSet="\/images\/responsive\/projects\//);
   assert.equal((html.match(/class="home-project-label"/g) ?? []).length, 11);
+  assert.match(html, /class="home-project color-media home-project--closing"/);
+  assert.match(html, /class="home-footer"/);
+  assert.match(html, /aria-label="Portfolio footer"/);
+  assert.match(html, /href="mailto:maxpfennighaus@gmail\.com"/);
   assert.match(html, /<h1 class="visually-hidden">Selected projects<\/h1>/);
   assert.match(html, /rel="icon"/);
   assert.match(html, /property="og:image"/);
@@ -194,6 +198,8 @@ test("server-renders project and about routes", async () => {
   assert.match(aboutHtml, /href="\/max-pfennighaus-resume\.pdf"/);
   assert.match(aboutHtml, /mailto:maxpfennighaus@gmail\.com/);
   assert.match(aboutHtml, /<h1 class="visually-hidden">About &amp; contact<\/h1>/);
+  assert.ok(aboutHtml.indexOf("currently open") < aboutHtml.indexOf("I work comfortably"));
+  assert.ok(aboutHtml.indexOf("LinkedIn") < aboutHtml.indexOf("I work comfortably"));
   assert.match(nytHtml, /<nav class="project-navigation" aria-label="More projects">/);
 });
 
@@ -240,10 +246,16 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(contentLibrary, /marked\.parseInline/);
   assert.match(contentLibrary, /captionHtml:/);
   assert.match(projectExperience, /dangerouslySetInnerHTML=\{\{ __html: media\.captionHtml \}\}/);
+  assert.match(projectExperience, /className="detail-close-control"/);
+  assert.match(projectExperience, />\s*Close\s*<\/button>/);
   assert.match(styles, /UntitledSansWeb-RegularItalic\.woff/);
   assert.match(styles, /\.media-caption a\s*\{/);
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
-  assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);
+  assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--spacing-3\)/s);
+  assert.match(styles, /\.home-project--closing\s*\{[^}]*grid-column: 1 \/ -1/s);
+  assert.match(styles, /\.home-project--closing \.home-project-media\s*\{[^}]*aspect-ratio: 3 \/ 1/s);
+  assert.match(styles, /\.home-footer\s*\{/);
+  assert.match(styles, /\.detail-close-control\s*\{[^}]*position: fixed/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);
   assert.match(styles, /\.project-gallery > \.media-item:last-child\s*\{[^}]*margin-bottom: var\(--spacing-3\)/s);
