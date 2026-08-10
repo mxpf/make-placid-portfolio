@@ -45,7 +45,7 @@ test("server-renders the portfolio home page", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Max Pfennighaus<\/title>/i);
-  assert.match(html, />Max Pfennighaus<\/a>/);
+  assert.match(html, /class="letter-cascade is-in" aria-label="Max Pfennighaus"/);
   assert.match(html, />About &amp; contact<\/a>/);
   const expectedProjectLinks = [
     ["johnson-johnson", "Johnson &amp; Johnson"],

@@ -121,6 +121,40 @@ iframe {
   view-transition-name: site-name;
 }
 
+@keyframes letter-cascade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.letter-cascade {
+  display: inline-flex;
+  gap: 0.02em;
+  letter-spacing: 0.02em;
+}
+
+.letter-cascade b {
+  display: inline-block;
+  font: inherit;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.letter-cascade.is-in b {
+  animation: letter-cascade-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--letter-cascade-index) * 0.04s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-cascade b,
+  .letter-cascade.is-in b {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 .site-action {
   view-transition-name: site-action;
   transition: opacity 180ms ease;

@@ -3,6 +3,7 @@
 import { useLayoutEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
+import { LetterCascade } from "@/components/LetterCascade";
 
 const RETURN_KEY = "portfolio-about-return";
 
@@ -48,7 +49,7 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
     <header className="site-header">
       <div className="site-name">
         <TransitionLink className="site-link" href="/" beforeNavigate={clearReturnLocation}>
-          {name}
+          <LetterCascade text={name} />
         </TransitionLink>
       </div>
       <div className="site-action">
