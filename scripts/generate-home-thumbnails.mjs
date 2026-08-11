@@ -26,7 +26,7 @@ const jobs = [
   {
     input: "public/images/projects/sands/sands-details-cover.png",
     output: "public/images/projects/sands/sands-home.png",
-    extract: { left: 800, top: 250, width: 1700, height: 1133 },
+    extract: { left: 800, top: 0, width: 1700, height: 1133 },
   },
   {
     input: "public/images/projects/amazon/amazon-cover.png",
@@ -41,7 +41,7 @@ const jobs = [
   {
     input: "public/images/projects/caterpillar/caterpillar-2025-sustainability-cover.png",
     output: "public/images/projects/caterpillar/caterpillar-home.png",
-    extract: { left: 250, top: 550, width: 1800, height: 1200 },
+    extract: { left: 80, top: 550, width: 1950, height: 1300 },
   },
 ];
 
