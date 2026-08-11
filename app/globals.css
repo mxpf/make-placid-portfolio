@@ -31,6 +31,16 @@
   --link: #70706c;
   --header-height: 84px;
   --rail-height: 24px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark: #eeede9;
+    --light: #1c1c1a;
+    --link: #8f8f93;
+    color-scheme: dark;
+  }
 }
 
 * {
