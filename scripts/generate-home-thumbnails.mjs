@@ -26,7 +26,7 @@ const jobs = [
   {
     input: "public/images/projects/sands/sands-details-cover.png",
     output: "public/images/projects/sands/sands-home.png",
-    extract: { left: 800, top: 0, width: 1700, height: 1133 },
+    extract: { left: 1020, top: 180, width: 1500, height: 1000 },
   },
   {
     input: "public/images/projects/amazon/amazon-cover.png",
