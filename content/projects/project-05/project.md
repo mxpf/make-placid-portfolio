@@ -8,7 +8,7 @@ order: 2
 published: true
 thumbnail:
   src: "/images/projects/nyt/nyt-home.png"
-  alt: "The New York Times editorial typeface system"
+  alt: "T Magazine campaign portrait with an oversized white T"
   focalX: 50
   focalY: 50
   tone: 1

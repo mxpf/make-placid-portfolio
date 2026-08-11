@@ -9,14 +9,14 @@ const jobs = [
     extract: { left: 58, top: 0, width: 1050, height: 700 },
   },
   {
-    input: "public/images/projects/nyt/nyt-01.png",
+    input: "public/images/projects/nyt/nyt-campaign-t.png",
     output: "public/images/projects/nyt/nyt-home.png",
-    extract: { left: 105, top: 190, width: 660, height: 440 },
+    extract: { left: 849, top: 310, width: 601, height: 401 },
   },
   {
     input: "public/images/projects/nyt/nyt-insider.png",
     output: "public/images/projects/nyt/nyt-insider-home.png",
-    extract: { left: 1090, top: 8730, width: 1008, height: 672 },
+    extract: { left: 1190, top: 8730, width: 1008, height: 672 },
   },
   {
     input: "public/images/projects/npr/npr-ux.png",
@@ -26,7 +26,7 @@ const jobs = [
   {
     input: "public/images/projects/sands/sands-details-cover.png",
     output: "public/images/projects/sands/sands-home.png",
-    extract: { left: 0, top: 2, width: 2546, height: 1700 },
+    extract: { left: 800, top: 250, width: 1700, height: 1133 },
   },
   {
     input: "public/images/projects/amazon/amazon-cover.png",
