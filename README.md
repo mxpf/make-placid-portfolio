@@ -4,6 +4,10 @@ An editorial portfolio template for designers, artists, photographers, architect
 
 The project is intentionally small. Its structure follows the visual system: a limited set of rules, applied consistently, with content kept separate from presentation. There is no dashboard, database, or component library to learn. Most portfolio updates happen in Markdown and YAML.
 
+**[View a live portfolio built with the system](https://maxpfennig.haus)**
+
+![Make Placid portfolio example](docs/preview.png)
+
 ## Design philosophy
 
 Minimalism here means clarity, not absence. The design creates rhythm through proportion, spacing, typography, and the relationship between image and text.
@@ -297,7 +301,6 @@ lib/content.ts        Content loading and Markdown rendering
 public/               Fonts, images, videos, and social assets
 scripts/              Authoring utilities, including image generation
 tests/                Rendered-route checks
-.openai/hosting.json  OpenAI Sites configuration
 ```
 
 ## Commands
@@ -306,16 +309,17 @@ tests/                Rendered-route checks
 | --- | --- |
 | `npm run dev` | Start the local development server |
 | `npm run images` | Generate responsive WebP image variants |
-| `npm run build` | Create a production build |
-| `npm start` | Run the production build locally |
+| `npm run build` | Create the static production export in `out/` |
 | `npm test` | Build and verify the rendered routes |
 | `npm run lint` | Check the source for common issues |
+| `npm run typecheck` | Check TypeScript without emitting files |
 
 Run the full verification sequence before publishing:
 
 ```bash
 npm test
 npm run lint
+npm run typecheck
 ```
 
 ## Publishing checklist
@@ -338,6 +342,4 @@ Instrument Sans is included under the SIL Open Font License 1.1. The Unsplash de
 
 ## Deployment
 
-The project uses [vinext](https://github.com/cloudflare/vinext) and produces a Cloudflare Worker-compatible build. It can be published directly with OpenAI Sites through the included `.openai/hosting.json` configuration.
-
-For another hosting provider, preserve the existing build process or adapt the generated Worker output to that provider's Cloudflare-compatible deployment workflow.
+`npm run build` produces a complete static site in `out/`. Publish that directory with GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any other static host. No server, database, or runtime image service is required.

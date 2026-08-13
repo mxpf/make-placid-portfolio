@@ -6,24 +6,18 @@ const templateRoot = new URL("../", import.meta.url);
 const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 
 async function render(pathname = "/") {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+  const relativePath = pathname === "/"
+    ? "index.html"
+    : pathname.includes(".")
+      ? pathname.replace(/^\/+/, "")
+      : `${pathname.replace(/^\/+|\/+$/g, "")}/index.html`;
+  const body = await readFile(new URL(`../out/${relativePath}`, import.meta.url), "utf8");
+  const contentType = pathname.endsWith(".xml")
+    ? "application/xml"
+    : pathname.endsWith(".txt")
+      ? "text/plain"
+      : "text/html";
+  return new Response(body, { status: 200, headers: { "content-type": contentType } });
 }
 
 test("server-renders the portfolio home page", async () => {
@@ -68,7 +62,7 @@ test("server-renders project and about routes", async () => {
   assert.match(projectHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
   assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
-  assert.match(aboutHtml, />Close<\/button>/);
+  assert.match(aboutHtml, /closeLabel.*Close/);
   assert.match(aboutHtml, /minimalist portfolio system for designers, artists, photographers, architects, and creative practices/);
   assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
 });

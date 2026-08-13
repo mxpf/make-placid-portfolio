@@ -1,5 +1,7 @@
 import { marked } from "marked";
 import { parse as parseYaml } from "yaml";
+import { readFileSync, readdirSync } from "node:fs";
+import path from "node:path";
 
 export type ImageMedia = {
   kind: "image";
@@ -71,23 +73,18 @@ export type SiteConfig = {
   appleTouchIcon: string;
 };
 
-const projectFiles = import.meta.glob("../content/projects/*/project.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
-const aboutFiles = import.meta.glob("../content/about.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
-const siteFiles = import.meta.glob("../content/site.yml", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+const contentRoot = path.join(process.cwd(), "content");
+const projectsRoot = path.join(contentRoot, "projects");
+const projectFiles = Object.fromEntries(
+  readdirSync(projectsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => [
+      entry.name,
+      readFileSync(path.join(projectsRoot, entry.name, "project.md"), "utf8"),
+    ]),
+);
+const aboutSource = readFileSync(path.join(contentRoot, "about.md"), "utf8");
+const siteSource = readFileSync(path.join(contentRoot, "site.yml"), "utf8");
 
 function renderMarkdown(source: string) {
   const html = marked.parse(source, { async: false }) as string;
@@ -104,9 +101,8 @@ function parseProjectFile(source: string) {
 }
 
 function readProject(slug: string): Project {
-  const key = Object.keys(projectFiles).find((file) => file.endsWith(`/${slug}/project.md`));
-  if (!key) throw new Error(`Unknown project: ${slug}`);
-  const source = projectFiles[key];
+  const source = projectFiles[slug];
+  if (!source) throw new Error(`Unknown project: ${slug}`);
   const { data, content } = parseProjectFile(source);
 
   return {
@@ -131,23 +127,19 @@ function readProject(slug: string): Project {
 
 export function getProjects() {
   return Object.keys(projectFiles)
-    .map((file) => file.match(/\/projects\/([^/]+)\/project\.md$/)?.[1])
-    .filter((slug): slug is string => Boolean(slug))
     .map((slug) => readProject(slug))
     .filter((project) => project.published)
     .sort((a, b) => a.order - b.order);
 }
 
 export function getProject(slug: string) {
-  if (!Object.keys(projectFiles).some((file) => file.endsWith(`/${slug}/project.md`))) return null;
+  if (!projectFiles[slug]) return null;
   const project = readProject(slug);
   return project.published ? project : null;
 }
 
 export function getSiteConfig(): SiteConfig {
-  const source = Object.values(siteFiles)[0];
-  if (!source) throw new Error("Missing content/site.yml.");
-  const data = parseYaml(source);
+  const data = parseYaml(siteSource);
   return {
     ...data,
     url: data.url ?? "",
@@ -166,7 +158,7 @@ export function getSiteConfig(): SiteConfig {
 
 export function getAboutHtml() {
   const config = getSiteConfig();
-  const source = Object.values(aboutFiles)[0]
+  const source = aboutSource
     .replaceAll("{{name}}", config.name)
     .replaceAll("{{email}}", config.email)
     .replaceAll("{{location}}", config.location);

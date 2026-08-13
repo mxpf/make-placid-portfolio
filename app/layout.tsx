@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { SiteChrome } from "@/components/SiteChrome";
 import { getSiteConfig } from "@/lib/content";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = getSiteConfig();
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const origin = site.url || `${protocol}://${host}`;
+  const origin = site.url || "https://portfolio.example.com";
   const socialImage = new URL(site.socialImage, origin).toString();
 
   return {
