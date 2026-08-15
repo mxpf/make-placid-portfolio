@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import imageManifest from "@/public/images/responsive/manifest.json";
+import { withBasePath } from "@/lib/base-path";
 
 type ManifestEntry = {
   width: number;
@@ -32,14 +33,17 @@ export function ResponsiveImage({
   ariaHidden = false,
 }: ResponsiveImageProps) {
   const entry = manifest[src];
-  const srcSet = entry?.sources.map((source) => `${source.src} ${source.width}w`).join(", ");
+  const srcSet = entry?.sources
+    .map((source) => `${withBasePath(source.src)} ${source.width}w`)
+    .join(", ");
+  const fallbackSrc = withBasePath(entry?.sources.at(-1)?.src ?? src);
 
   return (
     // A build-time WebP/srcset pipeline replaces Next's runtime image service.
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className={className}
-      src={src}
+      src={fallbackSrc}
       srcSet={srcSet}
       sizes={srcSet ? sizes : undefined}
       width={entry?.width}

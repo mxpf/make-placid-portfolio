@@ -4,9 +4,15 @@ An editorial portfolio template for designers, artists, photographers, architect
 
 The project is intentionally small. Its structure follows the visual system: a limited set of rules, applied consistently, with content kept separate from presentation. There is no dashboard, database, or component library to learn. Most portfolio updates happen in Markdown and YAML.
 
-**[View a live portfolio built with the system](https://maxpfennig.haus)**
+**[Open the template demo](https://mxpf.github.io/make-placid-portfolio/)** · **[View a live portfolio built with the system](https://maxpfennig.haus)** · **[Use this template](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
 
 ![Make Placid portfolio example](docs/preview.png)
+
+## Why it exists
+
+Make Placid grew out of the same content-first practice behind [Thinkinghaus](https://thinking.haus) and [Max Pfennighaus’s portfolio](https://maxpfennig.haus): keep the source portable, keep publishing explicit, and keep the interface quiet enough for the work to remain the subject.
+
+The template carries those production lessons into a reusable portfolio system. It is statically exported, independently hostable, free of runtime services, and designed to remain understandable after a long absence.
 
 ## Design philosophy
 
@@ -47,7 +53,7 @@ Minimalism here means clarity, not absence. The design creates rhythm through pr
 Clone the repository, install its dependencies, and start the local development server:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mxpf/make-placid-portfolio.git
 cd make-placid-portfolio
 npm install
 npm run dev
@@ -310,7 +316,8 @@ tests/                Rendered-route checks
 | `npm run dev` | Start the local development server |
 | `npm run images` | Generate responsive WebP image variants |
 | `npm run build` | Create the static production export in `out/` |
-| `npm test` | Build and verify the rendered routes |
+| `npm run verify:export` | Check the export for missing local routes and assets |
+| `npm test` | Build, verify the export, and check the rendered routes |
 | `npm run lint` | Check the source for common issues |
 | `npm run typecheck` | Check TypeScript without emitting files |
 
@@ -321,6 +328,8 @@ npm test
 npm run lint
 npm run typecheck
 ```
+
+The repository also runs a weekly dependency audit. Production dependency failures block publication; development-tool findings are reported separately so they can be addressed without quietly taking the demo offline.
 
 ## Publishing checklist
 
@@ -343,3 +352,20 @@ Instrument Sans is included under the SIL Open Font License 1.1. The Unsplash de
 ## Deployment
 
 `npm run build` produces a complete static site in `out/`. Publish that directory with GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any other static host. No server, database, or runtime image service is required.
+
+The included GitHub Actions workflow publishes the demonstration site whenever `main` changes. It tests the normal domain-root build first, then creates a second export configured for the repository subpath.
+
+For your own GitHub Pages project site, update the two values in `.github/workflows/publish-demo.yml`:
+
+```yaml
+NEXT_PUBLIC_BASE_PATH: /your-repository-name
+NEXT_PUBLIC_SITE_URL: https://your-account.github.io/your-repository-name
+```
+
+Then enable **Settings → Pages → GitHub Actions**. The workflow deploys `out/`, and the export verifier fails if any internal page, image, stylesheet, script, or responsive-image candidate is missing.
+
+When hosting at a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBLIC_SITE_URL` to the public origin. The same source can therefore serve a root domain, a GitHub project site, or another static host without rewriting content paths.
+
+## Release status
+
+Version 1.0.0 establishes the reusable deployment contract: static-export verification, project-subpath support, automated demo publishing, dependency checks, and the complete demonstration content set. See [CHANGELOG.md](CHANGELOG.md) for the release record.

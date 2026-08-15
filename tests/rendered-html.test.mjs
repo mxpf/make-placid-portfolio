@@ -30,7 +30,7 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, />Make Placid<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
-  assert.equal((html.match(/src="\/images\/unsplash\//g) ?? []).length, 7);
+  assert.equal((html.match(/src="\/images\/responsive\/unsplash\//g) ?? []).length, 7);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
   assert.doesNotMatch(html, /home-project-label/);
   assert.match(html, /rel="icon"/);
@@ -81,8 +81,32 @@ test("publishes search-engine discovery routes", async () => {
     sitemapResponse.text(),
   ]);
 
-  assert.match(robots, /Sitemap: https:\/\/max-pfennighaus-studio\.mxpf\.chatgpt\.site\/sitemap\.xml/);
-  assert.match(sitemap, /<loc>https:\/\/max-pfennighaus-studio\.mxpf\.chatgpt\.site\/projects\/project-03<\/loc>/);
+  assert.match(robots, /Sitemap: https:\/\/mxpf\.github\.io\/make-placid-portfolio\/sitemap\.xml/);
+  assert.match(sitemap, /<loc>https:\/\/mxpf\.github\.io\/make-placid-portfolio\/projects\/project-03<\/loc>/);
+});
+
+test("ships a verified and maintainable publication path", async () => {
+  const [packageJson, config, basePath, verifier, publishWorkflow, auditWorkflow, changelog] = await Promise.all([
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/base-path.ts", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/verify-static-export.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../.github/workflows/publish-demo.yml", import.meta.url), "utf8"),
+    readFile(new URL("../.github/workflows/dependency-audit.yml", import.meta.url), "utf8"),
+    readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(packageJson, /"version": "1\.0\.0"/);
+  assert.match(packageJson, /"verify:export": "node scripts\/verify-static-export\.mjs"/);
+  assert.match(packageJson, /"audit:production"/);
+  assert.match(config, /NEXT_PUBLIC_BASE_PATH/);
+  assert.match(basePath, /withBasePath/);
+  assert.match(verifier, /missing local links or assets/);
+  assert.match(publishWorkflow, /actions\/deploy-pages@v4/);
+  assert.match(publishWorkflow, /NEXT_PUBLIC_BASE_PATH: \/make-placid-portfolio/);
+  assert.match(auditWorkflow, /schedule:/);
+  assert.match(changelog, /1\.0\.0 — 2026-08-14/);
+  await access(new URL("../public/.nojekyll", import.meta.url));
 });
 
 test("keeps identity copy in the content layer", async () => {

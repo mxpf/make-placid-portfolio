@@ -3,6 +3,7 @@
 import { useLayoutEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
+import { withoutBasePath } from "@/lib/base-path";
 
 const RETURN_KEY = "portfolio-about-return";
 
@@ -15,7 +16,7 @@ type SiteChromeProps = {
 export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const isAbout = pathname === "/about";
+  const isAbout = withoutBasePath(pathname) === "/about";
 
   useLayoutEffect(() => {
     document.body.classList.remove("page-leaving");

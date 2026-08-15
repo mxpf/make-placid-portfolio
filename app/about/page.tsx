@@ -1,11 +1,12 @@
 import { getAboutHtml, getSiteConfig } from "@/lib/content";
+import { absoluteSiteUrl } from "@/lib/base-path";
 
 export function generateMetadata() {
   const site = getSiteConfig();
   return {
     title: site.aboutLabel,
     description: `About and contact information for ${site.name}.`,
-    alternates: { canonical: "/about" },
+    alternates: { canonical: absoluteSiteUrl(site.url, "/about") },
   };
 }
 

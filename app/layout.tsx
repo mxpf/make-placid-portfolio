@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { SiteChrome } from "@/components/SiteChrome";
 import { getSiteConfig } from "@/lib/content";
+import { absoluteSiteUrl, withBasePath } from "@/lib/base-path";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = getSiteConfig();
   const origin = site.url || "https://portfolio.example.com";
-  const socialImage = new URL(site.socialImage, origin).toString();
+  const socialImage = absoluteSiteUrl(origin, site.socialImage);
 
   return {
     metadataBase: new URL(origin),
@@ -16,10 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: site.description,
     keywords: site.keywords,
-    alternates: { canonical: "/" },
+    alternates: { canonical: origin },
     icons: {
-      icon: [{ url: site.favicon, type: "image/png", sizes: "64x64" }],
-      apple: [{ url: site.appleTouchIcon, type: "image/png", sizes: "180x180" }],
+      icon: [{ url: withBasePath(site.favicon), type: "image/png", sizes: "64x64" }],
+      apple: [{ url: withBasePath(site.appleTouchIcon), type: "image/png", sizes: "180x180" }],
     },
     robots: { index: true, follow: true },
     openGraph: {
