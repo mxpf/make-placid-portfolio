@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import type { ImageMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
 import { columnImageSizes, detailImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
+import { withBasePath } from "@/lib/base-path";
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => {
@@ -77,7 +78,7 @@ function HostedVideo({ media }: { media: VideoMedia }) {
         </button>
       )}
       {playing && (
-        <video src={media.src} controls autoPlay playsInline aria-label={media.title} />
+        <video src={withBasePath(media.src)} controls autoPlay playsInline aria-label={media.title} />
       )}
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectExperience } from "@/components/ProjectExperience";
 import { getProject, getProjects, getSiteConfig } from "@/lib/content";
+import { absoluteSiteUrl } from "@/lib/base-path";
 
 export function generateStaticParams() {
   return getProjects().map((project) => ({ slug: project.slug }));
@@ -18,23 +19,25 @@ export async function generateMetadata({
 
   const site = getSiteConfig();
   const socialImage = project.socialImage ?? project.thumbnail.src ?? site.socialImage;
+  const canonicalUrl = absoluteSiteUrl(site.url, `/projects/${project.slug}`);
+  const socialImageUrl = absoluteSiteUrl(site.url, socialImage);
 
   return {
     title: project.title,
     description: project.seoDescription,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: project.title,
       description: project.seoDescription,
       type: "article",
-      url: `/projects/${project.slug}`,
-      images: [{ url: socialImage, alt: project.thumbnail.alt }],
+      url: canonicalUrl,
+      images: [{ url: socialImageUrl, alt: project.thumbnail.alt }],
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
       description: project.seoDescription,
-      images: [socialImage],
+      images: [socialImageUrl],
     },
   };
 }

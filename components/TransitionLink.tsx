@@ -2,6 +2,7 @@
 
 import type { MouseEvent, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { withBasePath } from "@/lib/base-path";
 
 export function TransitionLink({
   href,
@@ -17,6 +18,7 @@ export function TransitionLink({
   beforeNavigate?: () => void;
 }) {
   const router = useRouter();
+  const renderedHref = withBasePath(href);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>) {
     if (
@@ -32,7 +34,7 @@ export function TransitionLink({
 
     event.preventDefault();
     beforeNavigate?.();
-    if (window.location.pathname === href) {
+    if (window.location.pathname === renderedHref) {
       window.scrollTo({ top: 0 });
       return;
     }
@@ -42,7 +44,7 @@ export function TransitionLink({
   }
 
   return (
-    <a className={className} href={href} aria-label={ariaLabel} onClick={navigate}>
+    <a className={className} href={renderedHref} aria-label={ariaLabel} onClick={navigate}>
       {children}
     </a>
   );

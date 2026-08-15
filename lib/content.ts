@@ -142,7 +142,7 @@ export function getSiteConfig(): SiteConfig {
   const data = parseYaml(siteSource);
   return {
     ...data,
-    url: data.url ?? "",
+    url: process.env.NEXT_PUBLIC_SITE_URL?.trim() || data.url || "",
     language: data.language ?? "en",
     locale: data.locale ?? "en_US",
     keywords: data.keywords ?? [],

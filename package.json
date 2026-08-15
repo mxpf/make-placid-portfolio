@@ -1,7 +1,7 @@
 {
   "name": "make-placid-portfolio",
   "description": "Make Placid, an elegant content-led portfolio template for creative practices.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "private": true,
   "engines": {
@@ -11,9 +11,12 @@
     "dev": "next dev --webpack",
     "images": "node scripts/generate-responsive-images.mjs",
     "build": "npm run images && next build --webpack && node scripts/prune-responsive-source-images.mjs out",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "verify:export": "node scripts/verify-static-export.mjs",
+    "test": "npm run build && npm run verify:export && node --test tests/rendered-html.test.mjs",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:production": "npm audit --omit=dev --audit-level=high",
+    "audit:full": "npm audit --audit-level=high"
   },
   "dependencies": {
     "marked": "^18.0.9",
