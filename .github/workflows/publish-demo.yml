@@ -39,7 +39,7 @@ jobs:
       - name: Build the project-site demo
         env:
           NEXT_PUBLIC_BASE_PATH: /make-placid-portfolio
-          NEXT_PUBLIC_SITE_URL: https://mxpf.github.io/make-placid-portfolio
+          NEXT_PUBLIC_SITE_URL: https://maxpfennig.haus/make-placid-portfolio
         run: |
           npm run build
           npm run verify:export

@@ -81,8 +81,8 @@ test("publishes search-engine discovery routes", async () => {
     sitemapResponse.text(),
   ]);
 
-  assert.match(robots, /Sitemap: https:\/\/mxpf\.github\.io\/make-placid-portfolio\/sitemap\.xml/);
-  assert.match(sitemap, /<loc>https:\/\/mxpf\.github\.io\/make-placid-portfolio\/projects\/project-03<\/loc>/);
+  assert.match(robots, /Sitemap: https:\/\/maxpfennig\.haus\/make-placid-portfolio\/sitemap\.xml/);
+  assert.match(sitemap, /<loc>https:\/\/maxpfennig\.haus\/make-placid-portfolio\/projects\/project-03<\/loc>/);
 });
 
 test("ships a verified and maintainable publication path", async () => {

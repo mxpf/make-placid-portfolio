@@ -4,7 +4,7 @@ An editorial portfolio template for designers, artists, photographers, architect
 
 The project is intentionally small. Its structure follows the visual system: a limited set of rules, applied consistently, with content kept separate from presentation. There is no dashboard, database, or component library to learn. Most portfolio updates happen in Markdown and YAML.
 
-**[Open the template demo](https://mxpf.github.io/make-placid-portfolio/)** · **[View a live portfolio built with the system](https://maxpfennig.haus)** · **[Use this template](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
+**[Open the template demo](https://maxpfennig.haus/make-placid-portfolio/)** · **[View a live portfolio built with the system](https://maxpfennig.haus)** · **[Use this template](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
 
 ![Make Placid portfolio example](docs/preview.png)
 
