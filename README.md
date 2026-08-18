@@ -19,7 +19,7 @@ The template carries those production lessons into a reusable portfolio system. 
 Minimalism here means clarity, not absence. The design creates rhythm through proportion, spacing, typography, and the relationship between image and text.
 
 - **One spatial language.** A 12-pixel base unit governs the interface. Margins, gutters, leading, and standard gaps are 24 pixels; selected editorial intervals use 36 pixels.
-- **Two columns, deliberately used.** On desktop, the project description remains anchored in the left column while the work scrolls in the right. The homepage uses the same grid without adding unnecessary navigation or decoration.
+- **Four columns, deliberately used.** On desktop, the project description remains anchored in the left column while the work scrolls in the right. The homepage uses the same grid without adding unnecessary navigation or decoration.
 - **Images retain their character.** Homepage thumbnails use a consistent 3:2 crop for rhythm. Project galleries accept varied proportions, allowing each asset to determine its own presence.
 - **Typography behaves editorially.** The layout favors readable measure, stable leading, balanced wrapping, and desktop-only hanging punctuation and bullets.
 - **Motion remains quiet.** Page transitions, link states, image enlargement, and thumbnail rollovers provide orientation without becoming the subject.
@@ -28,11 +28,11 @@ Minimalism here means clarity, not absence. The design creates rhythm through pr
 
 ## Features
 
-- Fluid two-column desktop and single-column mobile layouts
+- Fluid four-column desktop and single-column mobile layouts
 - Fixed desktop navigation and project description column
 - Strict 3:2 homepage thumbnails with adjustable focal points
 - Mixed-ratio project galleries
-- Static images, hosted video, and poster-led YouTube embeds
+- Static images, hosted video, web banners, and poster-led YouTube embeds
 - Optional image and video captions
 - Desktop image-detail view with click, Escape, and arrow-key controls
 - Subtle homepage image zoom on hover
