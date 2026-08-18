@@ -8,12 +8,6 @@ The project is intentionally small. Its structure follows the visual system: a l
 
 ![Make Placid portfolio example](docs/preview.png)
 
-## Why it exists
-
-Make Placid is the foundation for [Max Pfennighaus’s portfolio](https://maxpfennig.haus): keep the source portable, keep publishing explicit, and keep the interface quiet enough for the work to remain the subject.
-
-The template carries those production lessons into a reusable portfolio system. It is statically exported, independently hostable, free of runtime services, and designed to remain understandable after a long absence.
-
 ## Design philosophy
 
 Minimalism here means clarity, not absence. The design creates rhythm through proportion, spacing, typography, and the relationship between image and text.
