@@ -14,10 +14,8 @@ Minimalism here means clarity, not absence. The design creates rhythm through pr
 
 - **One spatial language.** A 12-pixel base unit governs the interface. Margins, gutters, leading, and standard gaps are 24 pixels; selected editorial intervals use 36 pixels.
 - **Four columns, deliberately used.** On desktop, the project description remains anchored in the left column while the work scrolls in the right. The homepage uses the same grid without adding unnecessary navigation or decoration.
-- **Images retain their character.** Homepage thumbnails use a consistent 3:2 crop for rhythm. Project galleries accept varied proportions, allowing each asset to determine its own presence.
 - **Typography behaves editorially.** The layout favors readable measure, stable leading, balanced wrapping, and desktop-only hanging punctuation and bullets.
 - **Motion remains quiet.** Page transitions, link states, image enlargement, and thumbnail rollovers provide orientation without becoming the subject.
-- **Mobile is its own mode.** The layout becomes a direct single-column sequence. Desktop image-detail behavior is removed rather than compressed into an awkward touch interaction.
 - **The content model stays visible.** One folder equals one project. One file contains the site's identity. The architecture is easy to understand by looking at it.
 
 ## Features
