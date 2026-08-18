@@ -10,7 +10,7 @@ The project is intentionally small. Its structure follows the visual system: a l
 
 ## Why it exists
 
-Make Placid grew out of the same content-first practice behind [Thinkinghaus](https://thinking.haus) and [Max Pfennighaus’s portfolio](https://maxpfennig.haus): keep the source portable, keep publishing explicit, and keep the interface quiet enough for the work to remain the subject.
+Make Placid is the foundation for [Max Pfennighaus’s portfolio](https://maxpfennig.haus): keep the source portable, keep publishing explicit, and keep the interface quiet enough for the work to remain the subject.
 
 The template carries those production lessons into a reusable portfolio system. It is statically exported, independently hostable, free of runtime services, and designed to remain understandable after a long absence.
 
