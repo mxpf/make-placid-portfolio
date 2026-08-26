@@ -1,4 +1,5 @@
-import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { access, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -25,11 +26,51 @@ async function collectImages(directory) {
   return files;
 }
 
-await rm(outputRoot, { recursive: true, force: true });
+async function exists(filePath) {
+  try {
+    await access(filePath);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+async function hashFile(filePath) {
+  const contents = await readFile(filePath);
+  return createHash("sha256").update(contents).digest("hex");
+}
+
+async function collectGeneratedImages(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const absolute = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...await collectGeneratedImages(absolute));
+    } else if (entry.name.endsWith(".webp")) {
+      files.push(absolute);
+    }
+  }
+
+  return files;
+}
+
 await mkdir(outputRoot, { recursive: true });
 
+const manifestPath = path.join(outputRoot, "manifest.json");
+const previousManifest = await readFile(manifestPath, "utf8")
+  .then(JSON.parse)
+  .catch((error) => {
+    if (error.code === "ENOENT") return {};
+    throw error;
+  });
 const manifest = {};
 const images = await collectImages(imagesRoot);
+const expectedOutputs = new Set();
+let generated = 0;
+let reused = 0;
 
 for (const sourcePath of images) {
   const metadata = await sharp(sourcePath).metadata();
@@ -42,31 +83,63 @@ for (const sourcePath of images) {
   await mkdir(targetDirectory, { recursive: true });
 
   const candidates = widths.filter((width) => width <= metadata.width);
+  const largestTarget = widths.at(-1);
+  if (
+    largestTarget &&
+    metadata.width < largestTarget &&
+    !candidates.includes(metadata.width)
+  ) {
+    candidates.push(metadata.width);
+  }
   if (candidates.length === 0) candidates.push(metadata.width);
-  const sources = [];
-
-  for (const width of candidates) {
+  const sources = candidates.map((width) => {
     const outputName = `${parsed.name}-${width}.webp`;
     const outputPath = path.join(targetDirectory, outputName);
-    await sharp(sourcePath)
-      .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 82, effort: 4 })
-      .toFile(outputPath);
-
     const outputRelative = path.relative(imagesRoot, outputPath).split(path.sep).join("/");
-    sources.push({ src: `/images/${outputRelative}`, width });
+    expectedOutputs.add(outputPath);
+    return { src: `/images/${outputRelative}`, width, outputPath };
+  });
+  const sourceHash = await hashFile(sourcePath);
+  const previous = previousManifest[sourceUrl];
+  const outputsExist = await Promise.all(sources.map(({ outputPath }) => exists(outputPath)));
+  const sameCandidates = previous?.sources?.length === sources.length && sources.every(
+    ({ src, width }, index) =>
+      previous.sources[index]?.src === src && previous.sources[index]?.width === width,
+  );
+  const canReuse = sameCandidates && outputsExist.every(Boolean) &&
+    previous.sourceHash === sourceHash;
+
+  if (canReuse) {
+    reused += 1;
+  } else {
+    for (const { width, outputPath } of sources) {
+      await sharp(sourcePath)
+        .resize({ width, withoutEnlargement: true })
+        .webp({ quality: 82, effort: 4 })
+        .toFile(outputPath);
+    }
+    generated += 1;
   }
 
   manifest[sourceUrl] = {
     width: metadata.width,
     height: metadata.height,
-    sources,
+    sourceHash,
+    sources: sources.map(({ src, width }) => ({ src, width })),
   };
 }
 
+const generatedImages = await collectGeneratedImages(outputRoot);
+await Promise.all(
+  generatedImages
+    .filter((filePath) => !expectedOutputs.has(filePath))
+    .map((filePath) => rm(filePath, { force: true })),
+);
 await writeFile(
-  path.join(outputRoot, "manifest.json"),
+  manifestPath,
   `${JSON.stringify(manifest, null, 2)}\n`,
 );
 
-console.log(`Generated responsive WebP variants for ${images.length} images.`);
+console.log(
+  `Responsive images ready: ${generated} regenerated, ${reused} reused, ${images.length} total.`,
+);
