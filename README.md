@@ -13,25 +13,27 @@ The project is intentionally small. Its structure follows the visual system: a l
 Minimalism here means clarity, not absence. The design creates rhythm through proportion, spacing, typography, and the relationship between image and text.
 
 - **One spatial language.** A 12-pixel base unit governs the interface. Margins, gutters, leading, and standard gaps are 24 pixels; selected editorial intervals use 36 pixels.
-- **Four columns, deliberately used.** On desktop, the project description remains anchored in the left column while the work scrolls in the right. The homepage uses the same grid without adding unnecessary navigation or decoration.
+- **One asymmetric grid, deliberately used.** On desktop, a quiet 38/62 split keeps context in the left column while projects and media occupy the right. The same relationship carries through the homepage, case studies, About page, and 404.
 - **Typography behaves editorially.** The layout favors readable measure, stable leading, balanced wrapping, and desktop-only hanging punctuation and bullets.
 - **Motion remains quiet.** Page transitions, link states, image enlargement, and thumbnail rollovers provide orientation without becoming the subject.
 - **The content model stays visible.** One folder equals one project. One file contains the site's identity. The architecture is easy to understand by looking at it.
 
 ## Features
 
-- Fluid four-column desktop and single-column mobile layouts
+- Fluid asymmetric desktop and single-column mobile layouts
 - Fixed desktop navigation and project description column
-- Strict 3:2 homepage thumbnails with adjustable focal points
-- Mixed-ratio project galleries
-- Static images, hosted video, web banners, and poster-led YouTube embeds
-- Optional image and video captions
-- Desktop image-detail view with click, Escape, and arrow-key controls
-- Subtle homepage image zoom on hover
+- Editorial homepage introduction with featured-project filtering
+- Responsive 1.618:1 thumbnails with focal points, fit, scale, subtitles, and rollover images
+- Static images, image grids, proportion-aware image rows, mixed-media rows, hosted video, HTML5 banners, and poster-led YouTube embeds
+- Inline-formatted captions above or below media
+- Optional project evidence for role, mandate, scale, and outcome
+- Desktop image-detail view with focus restoration, click, Escape, and arrow-key controls
+- Previous/next project navigation with keyboard shortcuts
+- Scroll reveals and thumbnail opacity transitions with reduced-motion fallbacks
 - Content-driven identity, metadata, About page, and projects
 - Configurable project-level search and social metadata
 - Responsive WebP image variants generated at build time
-- Optional homepage project labels, disabled by default
+- Configurable homepage project labels and subtitles
 - Reduced-motion support and visible keyboard focus states
 - Local image assets with no runtime image service dependency
 
@@ -62,6 +64,8 @@ Edit `content/site.yml`:
 ```yaml
 name: "Your Name"
 description: "Selected design and creative direction."
+homepageTitle: "Creative direction and selected work."
+homepageIntro: "A concise introduction to the practice and the work shown here."
 url: "https://portfolio.example.com"
 language: "en"
 locale: "en_US"
@@ -73,14 +77,14 @@ location: "City, Country"
 aboutLabel: "About & contact"
 closeLabel: "Close"
 projectsLabel: "Selected projects"
-showProjectLabels: false
+showProjectLabels: true
 socialImage: "/og.png"
 socialImageAlt: "Your Name — selected work"
 favicon: "/favicon.png"
 appleTouchIcon: "/apple-touch-icon.png"
 ```
 
-These values populate the navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. The project also generates `robots.txt` and `sitemap.xml` from this configuration.
+These values populate the homepage introduction, navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. Omit `homepageTitle` and `homepageIntro` to use the compact project-only homepage. The project also generates `robots.txt` and `sitemap.xml` from this configuration.
 
 ### 2. Write the About page
 
@@ -152,22 +156,35 @@ A complete project file looks like this:
 ---
 title: "Exhibition Identity"
 homepageLabel: "Exhibition"
+homepageSubtitle: "Identity and environmental graphics"
 seoDescription: "A concise exhibition identity across print and space."
 socialImage: "/images/exhibition/social.jpg"
 order: 1
 published: true
+featured: true
+colorMedia: false
 thumbnail:
   src: "/images/exhibition/thumbnail.jpg"
+  hoverSrc: "/images/exhibition/thumbnail-hover.jpg"
   alt: "Exhibition poster installed on a concrete wall"
   focalX: 50
   focalY: 42
+  fit: "cover"
+  scale: 1
+evidence:
+  role: "Creative direction and design"
+  mandate: "Create a recognizable exhibition identity"
+  scale: "Print, digital, and environmental applications"
+  outcome: "A reusable system for the full exhibition program"
 media:
   - kind: image
     id: "poster"
     src: "/images/exhibition/poster.jpg"
     ratio: "4 / 5"
     alt: "Black-and-white exhibition poster"
-    caption: "Poster, offset lithography, 2026."
+    caption: "Poster, **offset lithography**, 2026."
+    captionPosition: "below"
+    detail: true
 ---
 
 Exhibition Identity
@@ -175,23 +192,25 @@ Exhibition Identity
 A concise description of the project, its context, and the work shown.
 ```
 
-Use `order` to control homepage position. Set `published: false` to keep a project in the repository without displaying it on the site.
+Use `order` to control project order. Set `published: false` to keep a project in the repository without generating or displaying its route. Set `featured: false` to keep a published project accessible by URL while removing it from the homepage and previous/next sequence.
 
-`homepageLabel`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title, while the project social image falls back to its homepage thumbnail and then the site-wide social image.
+`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title, while the project social image falls back to its homepage thumbnail and then the site-wide social image. Set `colorMedia: true` when project imagery should bypass the default monochrome treatment.
 
 ### Homepage thumbnails
 
-Homepage thumbnails are always displayed at 3:2. Supply a dedicated 3:2 image when possible; other proportions are cropped automatically.
+Homepage thumbnails use the configurable `--thumbnail-ratio`, which defaults to the 1.618:1 proportion used by the reference portfolio. Supply a dedicated crop when possible; other proportions can be cropped or contained.
 
 Use `focalX` and `focalY` to position the crop. Both accept values from `0` to `100`, with `50` representing the center.
 
-Set `showProjectLabels: true` in `content/site.yml` to show the optional labels beneath homepage thumbnails. The default is `false`, preserving the image-only homepage.
+Use `fit: "cover"` or `fit: "contain"` to control cropping and `scale` for small optical adjustments. Add `hoverSrc` for a desktop rollover image; touch devices use that alternate image as the stable thumbnail instead of depending on hover.
 
-To preview labels privately without changing the distributable default, add `NEXT_PUBLIC_SHOW_PROJECT_LABELS=true` to `.env.local`.
+Set `showProjectLabels: true` in `content/site.yml` to show labels and optional `homepageSubtitle` values beneath thumbnails. Set it to `false` for an image-only homepage.
+
+When `showProjectLabels` is `false`, add `NEXT_PUBLIC_SHOW_PROJECT_LABELS=true` to `.env.local` for a temporary private preview without changing the content file.
 
 ### Project media
 
-Project galleries support three media types.
+Project galleries support seven media structures. Every top-level media item requires a unique `id`. Captions accept inline Markdown and can use `captionPosition: "above"` or `"below"`.
 
 #### Image
 
@@ -201,8 +220,84 @@ Project galleries support three media types.
   src: "/images/project/image.jpg"
   ratio: "4 / 5"
   alt: "A concise visual description"
-  caption: "An optional caption."
+  fit: "cover"
+  position: "50% 40%"
+  scale: 1
+  detail: true
+  border: false
+  caption: "An optional caption with **inline formatting**."
+  captionPosition: "below"
 ```
+
+Set `detail: false` to disable the desktop enlargement view. Existing image entries default to `true`. Use `fit`, `position`, and `scale` for optical control without preparing another source file.
+
+#### Image grid
+
+```yaml
+- kind: image-grid
+  id: "application-grid"
+  ratio: "16 / 10"
+  columns: 2
+  gap: "2px"
+  background: "#f0f0ed"
+  border: true
+  images:
+    - src: "/images/project/application-a.jpg"
+      alt: "First application"
+      label: "Print"
+    - src: "/images/project/application-b.jpg"
+      alt: "Second application"
+      label: "Digital"
+      fit: "contain"
+```
+
+Grids keep a fixed outer ratio and equal columns. Each cell can set its own fit, position, scale, and optional label.
+
+#### Image row
+
+```yaml
+- kind: image-row
+  id: "poster-row"
+  gap: "24px"
+  caption: "A proportion-aware row of related work."
+  images:
+    - src: "/images/project/poster-a.jpg"
+      alt: "First poster"
+      width: 1200
+      height: 1600
+      detail: true
+    - src: "/images/project/poster-b.jpg"
+      alt: "Second poster"
+      width: 1200
+      height: 1600
+```
+
+Rows use each source's width and height to preserve relative proportions. They collapse into a readable vertical sequence on small screens. Individual row images can opt into the desktop detail viewer.
+
+#### Mixed-media row
+
+```yaml
+- kind: media-row
+  id: "process-row"
+  gap: "24px"
+  items:
+    - kind: image
+      src: "/images/project/storyboard.jpg"
+      alt: "Storyboard sequence"
+      width: 16
+      height: 9
+    - kind: video
+      id: "motion-test"
+      src: "/videos/project/motion-test.mp4"
+      poster: "placeholder"
+      ratio: "16 / 9"
+      title: "Motion test"
+      autoplay: true
+      width: 16
+      height: 9
+```
+
+Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is muted, loops inline, and pauses when the visitor requests reduced motion.
 
 #### Hosted video
 
@@ -213,10 +308,12 @@ Project galleries support three media types.
   poster: "/images/project/film-poster.jpg"
   ratio: "16 / 9"
   title: "Film title"
+  controls: true
+  audioControls: true
   caption: "An optional caption."
 ```
 
-Hosted videos remain paused until selected and use a minimal play symbol over the poster image.
+Click-to-play videos show native browser controls by default after the poster is selected. Set `controls: true` for Make Placid's compact play/pause control and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback; autoplay is suppressed when reduced motion is enabled.
 
 #### YouTube
 
@@ -230,26 +327,39 @@ Hosted videos remain paused until selected and use a minimal play symbol over th
   caption: "An optional caption."
 ```
 
-The custom poster keeps YouTube chrome out of the composition until playback begins. If no poster is provided, the standard embed presentation is used.
+The custom poster keeps YouTube chrome out of the composition until playback begins. If no poster is provided, the privacy-enhanced embed loads immediately.
 
-Ratios use CSS aspect-ratio syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 / 9`. Captions are optional. When present, the layout applies the design's larger caption interval automatically.
+#### HTML5 banner
+
+```yaml
+- kind: html5
+  id: "campaign-banner"
+  src: "/embeds/project-banner/index.html"
+  width: 970
+  height: 250
+  title: "Animated campaign banner"
+```
+
+HTML5 media scales a local creative to its configured dimensions inside a sandboxed, non-interactive iframe. Keep the complete creative and its relative assets under `public/embeds/`.
+
+Ratios use CSS `aspect-ratio` syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 / 9`.
 
 ### Complete demonstration project
 
-`content/projects/project-03/project.md` demonstrates every supported content and media feature in one case study:
+`content/projects/project-03/project.md` demonstrates the core editorial system and several advanced media features in one case study:
 
 - Headings, paragraphs, lists, a block quotation, and an external link
-- Static images with and without captions
-- Hosted video with a poster
+- Project evidence and inline-formatted captions
+- Static images and a proportion-aware image row
+- Hosted video with a poster and compact controls
 - YouTube video with a custom poster
-- Multiple project-image proportions
-- Project-specific homepage and search metadata
+- A thumbnail rollover, subtitle, and project-specific social metadata
 
 Use it as a reference while creating a new project, then replace or remove it before launch.
 
 ## Responsive images
 
-The source photographs remain in their original locations. A build-time script creates optimized WebP candidates at several widths and records their dimensions in a generated manifest. The components use `srcset` and `sizes` so browsers download an appropriate file for mobile, a desktop column, or the full-width detail view.
+The source photographs remain in their original locations. A build-time script creates optimized WebP candidates at several widths and records their dimensions and SHA-256 source hash in a generated manifest. Unchanged images reuse verified output, changed images regenerate, and orphaned variants are removed. The components use `srcset` and context-specific `sizes` values so browsers download an appropriate file for a thumbnail, gallery column, or detail view.
 
 Generate variants manually after adding or replacing images:
 
@@ -267,6 +377,7 @@ On desktop:
 - Select a project image to open the full-width detail view.
 - Select the expanded image or press Escape to close it.
 - Use the left and right arrow keys to move between project images.
+- Outside the detail view, use the left and right arrow keys—or the visible Previous/Next links—to move between featured projects.
 - Select the name to return to the top of the homepage.
 - Open About and use Close to return to the previous page position.
 
@@ -278,6 +389,10 @@ Global design tokens and layout rules live in `app/globals.css`. The primary var
 
 ```css
 :root {
+  --page-gutter: 24px;
+  --column-gap: 24px;
+  --thumbnail-ratio: 1.618 / 1;
+  --homepage-project-start: calc(68dvh - var(--header-height));
   --spacing-1: 12px;
   --spacing-2: 24px;
   --spacing-3: 36px;
