@@ -1,6 +1,7 @@
 ---
 title: "Project 01 — Identity"
 homepageLabel: "Identity"
+homepageSubtitle: "Identity system"
 seoDescription: "A flexible identity system balancing recognition and variation across print, digital, and spatial applications."
 order: 1
 published: true

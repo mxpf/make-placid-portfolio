@@ -1,6 +1,7 @@
 ---
 title: "Project 04 — Digital"
 homepageLabel: "Digital"
+homepageSubtitle: "Digital design system"
 seoDescription: "A digital design system built from repeatable components and a concise set of interaction principles."
 order: 4
 published: true

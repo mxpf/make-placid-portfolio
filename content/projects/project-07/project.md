@@ -1,6 +1,7 @@
 ---
 title: "Project 07 — Platform"
 homepageLabel: "Platform"
+homepageSubtitle: "Brand platform"
 seoDescription: "A brand platform supporting a broad family of communications while retaining a recognizable point of view."
 order: 7
 published: true

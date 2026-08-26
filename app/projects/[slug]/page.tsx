@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectExperience } from "@/components/ProjectExperience";
-import { getProject, getProjects, getSiteConfig } from "@/lib/content";
+import { getFeaturedProjects, getProject, getProjects, getSiteConfig } from "@/lib/content";
 import { absoluteSiteUrl } from "@/lib/base-path";
 
 export function generateStaticParams() {
@@ -51,5 +51,18 @@ export default async function ProjectPage({
   const project = getProject(slug);
   if (!project) notFound();
 
-  return <ProjectExperience project={project} />;
+  const projects = getFeaturedProjects();
+  const projectIndex = projects.findIndex((item) => item.slug === project.slug);
+  const previous = projectIndex > 0 ? projects[projectIndex - 1] : null;
+  const next = projectIndex >= 0 && projectIndex < projects.length - 1
+    ? projects[projectIndex + 1]
+    : null;
+
+  return (
+    <ProjectExperience
+      project={project}
+      previousProject={previous ? { slug: previous.slug, title: previous.title } : null}
+      nextProject={next ? { slug: next.slug, title: next.title } : null}
+    />
+  );
 }

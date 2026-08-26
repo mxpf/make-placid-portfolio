@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const templateRoot = new URL("../", import.meta.url);
@@ -20,6 +20,23 @@ async function render(pathname = "/") {
   return new Response(body, { status: 200, headers: { "content-type": contentType } });
 }
 
+async function collectFiles(directory, extension) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const target = new URL(entry.name, directory);
+    if (entry.isDirectory()) {
+      target.pathname += "/";
+      files.push(...await collectFiles(target, extension));
+    } else if (entry.name.endsWith(extension)) {
+      files.push(target);
+    }
+  }
+
+  return files;
+}
+
 test("server-renders the portfolio home page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
@@ -30,26 +47,31 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, />Make Placid<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
   assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
-  assert.equal((html.match(/src="\/images\/responsive\/unsplash\//g) ?? []).length, 7);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
-  assert.doesNotMatch(html, /home-project-label/);
+  assert.match(html, /id="home-intro-title">A minimal portfolio for thoughtful creative work\.<\/h1>/);
+  assert.equal((html.match(/class="home-project-label"/g) ?? []).length, 7);
+  assert.equal((html.match(/class="home-project-subtitle"/g) ?? []).length, 7);
+  assert.equal((html.match(/class="home-project-image home-project-image--rollover"/g) ?? []).length, 1);
   assert.match(html, /rel="icon"/);
   assert.match(html, /property="og:image"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
-test("server-renders project and about routes", async () => {
-  const [projectResponse, aboutResponse] = await Promise.all([
+test("server-renders project, about, and not-found routes", async () => {
+  const [projectResponse, aboutResponse, notFoundResponse] = await Promise.all([
     render("/projects/project-03"),
     render("/about"),
+    render("/404.html"),
   ]);
 
   assert.equal(projectResponse.status, 200);
   assert.equal(aboutResponse.status, 200);
+  assert.equal(notFoundResponse.status, 200);
 
-  const [projectHtml, aboutHtml] = await Promise.all([
+  const [projectHtml, aboutHtml, notFoundHtml] = await Promise.all([
     projectResponse.text(),
     aboutResponse.text(),
+    notFoundResponse.text(),
   ]);
 
   assert.match(projectHtml, /Project 03 — Complete Case Study/);
@@ -59,12 +81,21 @@ test("server-renders project and about routes", async () => {
   assert.match(projectHtml, /<h2>Project information<\/h2>/);
   assert.match(projectHtml, /<blockquote>/);
   assert.match(projectHtml, /href="https:\/\/example\.com"/);
+  assert.match(projectHtml, /class="project-evidence"/);
+  assert.match(projectHtml, /class="media-frame image-row/);
+  assert.match(projectHtml, /accessible playback controls/);
+  assert.match(projectHtml, /selected detail views/);
+  assert.match(projectHtml, /href="\/projects\/project-02"[^>]*>Previous/);
+  assert.match(projectHtml, /href="\/projects\/project-04"[^>]*>Next/);
   assert.match(projectHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
   assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
-  assert.match(aboutHtml, /closeLabel.*Close/);
+  assert.match(aboutHtml, /<button class="site-link" type="button">Close<\/button>/);
   assert.match(aboutHtml, /minimalist portfolio system for designers, artists, photographers, architects, and creative practices/);
   assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
+  assert.match(aboutHtml, /<h1 class="visually-hidden">About &amp; contact<\/h1>/);
+  assert.match(notFoundHtml, /404 — Page not found\./);
+  assert.match(notFoundHtml, /Return to selected projects\./);
 });
 
 test("publishes search-engine discovery routes", async () => {
@@ -109,6 +140,32 @@ test("ships a verified and maintainable publication path", async () => {
   await access(new URL("../public/.nojekyll", import.meta.url));
 });
 
+test("keeps configured local media and responsive-image metadata valid", async () => {
+  const [projectFiles, manifestSource] = await Promise.all([
+    collectFiles(new URL("../content/projects/", import.meta.url), ".md"),
+    readFile(new URL("../public/images/responsive/manifest.json", import.meta.url), "utf8"),
+  ]);
+  const manifest = JSON.parse(manifestSource);
+
+  for (const projectFile of projectFiles) {
+    const source = await readFile(projectFile, "utf8");
+    const mediaPaths = [...source.matchAll(/(?:src|hoverSrc|poster|socialImage):\s*"(\/[^"]+)"/g)]
+      .map((match) => match[1]);
+
+    for (const mediaPath of mediaPaths) {
+      await access(new URL("../public" + mediaPath, import.meta.url));
+      if (/\.(?:jpe?g|png)$/i.test(mediaPath)) {
+        assert.ok(manifest[mediaPath], mediaPath + " should have responsive variants");
+      }
+    }
+  }
+
+  for (const [source, entry] of Object.entries(manifest)) {
+    assert.match(entry.sourceHash, /^[a-f0-9]{64}$/, source + " should record its source hash");
+    assert.ok(entry.sources.length > 0, source + " should have responsive candidates");
+  }
+});
+
 test("keeps identity copy in the content layer", async () => {
   const [page, layout, chrome, transitionLink, styles, siteConfig, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
@@ -125,19 +182,27 @@ test("keeps identity copy in the content layer", async () => {
     readFile(new URL("../THIRD_PARTY_NOTICES.md", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /getProjects\(\)/);
+  assert.match(page, /getFeaturedProjects\(\)/);
   assert.match(layout, /getSiteConfig\(\)/);
   assert.match(siteConfig, /name: "Make Placid"/);
-  assert.match(siteConfig, /showProjectLabels: false/);
+  assert.match(siteConfig, /homepageTitle:/);
+  assert.match(siteConfig, /homepageIntro:/);
+  assert.match(siteConfig, /showProjectLabels: true/);
   assert.match(siteConfig, /socialImageAlt:/);
   assert.doesNotMatch(`${page}${layout}${chrome}`, /Make Placid/);
   assert.match(transitionLink, /router\.push\(href\)/);
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
-  assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) 24px var\(--rail-height\)/s);
+  assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
+  assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
+  assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);
+  assert.match(styles, /\.home-project--has-rollover:hover/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
-  assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) 24px 0/s);
-  assert.match(styles, /\.project-gallery > \.media-item:last-child:not\(:has\(\.media-caption\)\)\s*\{[^}]*margin-bottom: var\(--rail-height\)/s);
-  assert.match(styles, /\.project-gallery > \.media-item:last-child:has\(\.media-caption\)\s*\{[^}]*calc\(var\(--spacing-3\) \+ var\(--rail-height\)\)/s);
+  assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
+  assert.match(styles, /\.project-navigation\s*\{/);
+  assert.match(styles, /\.image-grid\s*\{/);
+  assert.match(styles, /\.image-row-track\s*\{/);
+  assert.match(styles, /\.html5-banner-frame\s*\{/);
+  assert.match(styles, /\.reveal-ready \[data-reveal\]/);
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
@@ -147,6 +212,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(envExample, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=false/);
   assert.match(envExample, /NEXT_PUBLIC_SHOW_PROJECT_LABELS=false/);
   assert.match(manifest, /\/images\/responsive\/unsplash\//);
+  assert.match(manifest, /"sourceHash": "[a-f0-9]{64}"/);
   assert.match(license, /MIT License/);
   assert.match(notices, /SIL Open Font License 1\.1/);
   assert.match(packageJson, /"images": "node scripts\/generate-responsive-images\.mjs"/);

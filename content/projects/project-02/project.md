@@ -1,6 +1,7 @@
 ---
 title: "Project 02 — Editorial"
 homepageLabel: "Editorial"
+homepageSubtitle: "Editorial design"
 seoDescription: "An editorial program organized around hierarchy, pacing, and a restrained relationship between image and text."
 order: 2
 published: true

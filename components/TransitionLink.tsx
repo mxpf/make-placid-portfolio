@@ -10,12 +10,14 @@ export function TransitionLink({
   children,
   ariaLabel,
   beforeNavigate,
+  dataReveal = false,
 }: {
   href: string;
   className?: string;
   children: ReactNode;
   ariaLabel?: string;
   beforeNavigate?: () => void;
+  dataReveal?: boolean;
 }) {
   const router = useRouter();
   const renderedHref = withBasePath(href);
@@ -44,7 +46,13 @@ export function TransitionLink({
   }
 
   return (
-    <a className={className} href={renderedHref} aria-label={ariaLabel} onClick={navigate}>
+    <a
+      className={className}
+      href={renderedHref}
+      aria-label={ariaLabel}
+      data-reveal={dataReveal || undefined}
+      onClick={navigate}
+    >
       {children}
     </a>
   );

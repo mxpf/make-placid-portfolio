@@ -1,6 +1,7 @@
 ---
 title: "Project 05 — Campaign"
 homepageLabel: "Campaign"
+homepageSubtitle: "Integrated campaign"
 seoDescription: "A campaign expressed through still and moving image across audiences and formats."
 order: 5
 published: true

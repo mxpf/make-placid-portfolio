@@ -21,6 +21,7 @@ type ResponsiveImageProps = {
 const manifest = imageManifest as Record<string, ManifestEntry>;
 
 export const columnImageSizes = "(max-width: 767px) calc(100vw - 48px), calc((100vw - 72px) / 2)";
+export const galleryImageSizes = "(max-width: 1023px) calc(100vw - 48px), calc(62vw - 45px)";
 export const detailImageSizes = "calc(100vw - 48px)";
 
 export function ResponsiveImage({

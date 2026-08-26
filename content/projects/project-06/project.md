@@ -1,6 +1,7 @@
 ---
 title: "Project 06 — Environment"
 homepageLabel: "Environment"
+homepageSubtitle: "Environmental graphics"
 seoDescription: "An environmental graphics program connecting orientation, information, and identity across a physical space."
 order: 6
 published: true

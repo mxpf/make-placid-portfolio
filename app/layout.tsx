@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SiteChrome } from "@/components/SiteChrome";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { getSiteConfig } from "@/lib/content";
 import { absoluteSiteUrl, withBasePath } from "@/lib/base-path";
 import "./globals.css";
@@ -57,6 +58,7 @@ export default function RootLayout({
           aboutLabel={site.aboutLabel}
           closeLabel={site.closeLabel}
         />
+        <ScrollReveal />
         {children}
         <div className="bottom-rail" aria-hidden="true" />
       </body>
