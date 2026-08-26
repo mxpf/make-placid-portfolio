@@ -1,24 +1,24 @@
 # Make Placid
 
-An editorial portfolio template for designers, artists, photographers, architects, and creative practices.
+Make Placid is a quiet foundation for portfolios built around visual work. It is meant for designers, artists, photographers, architects, and creative practices, though the structure is simple enough to bend in other directions.
 
-The project is intentionally small. Its structure follows the visual system: a limited set of rules, applied consistently, with content kept separate from presentation. There is no dashboard, database, or component library to learn. Most portfolio updates happen in Markdown and YAML.
+I made it because a portfolio should not become another piece of software to maintain. The project stays deliberately small: a few visual rules, applied consistently, with the work kept separate from its presentation. There is no dashboard, database, or component library to learn. Most changes happen in Markdown and YAML, close to the material they describe.
 
-**[Open the template demo](https://maxpfennig.haus/make-placid-portfolio/)** · **[View a live portfolio based on the system](https://maxpfennig.haus)** · **[Use this template](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
+**[See the template](https://maxpfennig.haus/make-placid-portfolio/)** · **[See it in use](https://maxpfennig.haus)** · **[Start with this repository](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
 
 ![Make Placid portfolio example](docs/preview.png)
 
-## Design philosophy
+## The useful constraint
 
-Minimalism here means clarity, not absence. The design creates rhythm through proportion, spacing, typography, and the relationship between image and text.
+The site is quiet, but not empty. Its character comes from proportion, spacing, typography, and the changing relationship between image and text. The point is not to erase design. It is to make enough thoughtful decisions that the design can stop asking for attention.
 
-- **One spatial language.** A 12-pixel base unit governs the interface. Margins, gutters, leading, and standard gaps are 24 pixels; selected editorial intervals use 36 pixels.
-- **One asymmetric grid, deliberately used.** On desktop, a quiet 38/62 split keeps context in the left column while projects and media occupy the right. The same relationship carries through the homepage, case studies, About page, and 404.
-- **Typography behaves editorially.** The layout favors readable measure, stable leading, balanced wrapping, and desktop-only hanging punctuation and bullets.
-- **Motion remains quiet.** Page transitions, link states, image enlargement, and thumbnail rollovers provide orientation without becoming the subject.
-- **The content model stays visible.** One folder equals one project. One file contains the site's identity. The architecture is easy to understand by looking at it.
+- **A small spatial language.** A 12-pixel base unit governs the interface. Margins, gutters, leading, and standard gaps are 24 pixels; a few editorial intervals use 36 pixels.
+- **An asymmetric grid with a job to do.** On desktop, a 38/62 split keeps context in the left column and gives the work more room on the right. The same relationship continues through the homepage, projects, About page, and 404.
+- **Typography that helps with reading.** The layout favors a comfortable measure, steady leading, balanced wrapping, and desktop-only hanging punctuation and bullets.
+- **Motion that explains rather than performs.** Page transitions, link states, image enlargement, and thumbnail rollovers provide orientation without becoming the subject.
+- **A structure you can see.** One folder is one project. One file holds the site's identity. You should be able to understand the architecture by looking at it.
 
-## Features
+## What it does
 
 - Fluid asymmetric desktop and single-column mobile layouts
 - Fixed desktop navigation and project description column
@@ -44,7 +44,7 @@ Minimalism here means clarity, not absence. The design creates rhythm through pr
 
 ## Installation
 
-Clone the repository, install its dependencies, and start the local development server:
+Clone the repository, install the dependencies, and start the local development server:
 
 ```bash
 git clone https://github.com/mxpf/make-placid-portfolio.git
@@ -53,7 +53,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed in the terminal. Changes to content, components, and styles update during development.
+Open the local URL printed in the terminal. Changes to the content, components, and styles appear as you work.
 
 ## First-time setup
 
@@ -84,7 +84,7 @@ favicon: "/favicon.png"
 appleTouchIcon: "/apple-touch-icon.png"
 ```
 
-These values populate the homepage introduction, navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. Omit `homepageTitle` and `homepageIntro` to use the compact project-only homepage. The project also generates `robots.txt` and `sitemap.xml` from this configuration.
+This is the one file that tells the rest of the site who it belongs to. Its values fill the homepage introduction, navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. Omit `homepageTitle` and `homepageIntro` for the compact, project-only homepage. The same configuration also produces `robots.txt` and `sitemap.xml`.
 
 ### 2. Write the About page
 
@@ -94,11 +94,11 @@ Edit `content/about.md`. The following tokens are replaced with values from `con
 - `{{email}}`
 - `{{location}}`
 
-Standard Markdown is supported, including paragraphs, links, lists, and block quotations.
+The page accepts ordinary Markdown: paragraphs, links, lists, and block quotations.
 
 ### 3. Set the typography
 
-The distributable template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license is included at `public/fonts/OFL.txt`.
+The template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license lives at `public/fonts/OFL.txt`.
 
 For a privately licensed font, place a regular WOFF2 file at:
 
@@ -116,7 +116,7 @@ cp .env.example .env.local
 NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=true
 ```
 
-Both `.env.local` and `portfolio-custom.woff2` are ignored by Git and are never included in the distributable repository. With the flag left `false`, the template uses Instrument Sans and does not request the private font file. Confirm that your font license permits web embedding on your own deployment.
+Git ignores both `.env.local` and `portfolio-custom.woff2`, so neither becomes part of the public template. Leave the flag `false` to use Instrument Sans without requesting the private font file. If you add another typeface, make sure its license permits web embedding on your deployment.
 
 ### 4. Replace the social and icon images
 
@@ -126,7 +126,7 @@ Replace `public/favicon.png` and `public/apple-touch-icon.png` with your own squ
 
 ### 5. Replace the demonstration work
 
-Store portfolio assets under `public/`, organized however you prefer. For example:
+Keep portfolio assets under `public/`, organized in whatever way remains understandable to you. For example:
 
 ```text
 public/
@@ -136,7 +136,7 @@ public/
     project-name/
 ```
 
-Paths in project files begin at `public/`, so `public/images/project-name/cover.jpg` becomes `/images/project-name/cover.jpg`.
+Project paths begin after `public/`, so `public/images/project-name/cover.jpg` becomes `/images/project-name/cover.jpg`.
 
 ## Working with projects
 
@@ -148,7 +148,7 @@ content/projects/
     project.md
 ```
 
-The folder name becomes the URL slug. A project at `content/projects/exhibition/project.md` appears at `/projects/exhibition`.
+The folder name becomes the URL slug. A project stored at `content/projects/exhibition/project.md` appears at `/projects/exhibition`.
 
 A complete project file looks like this:
 
@@ -192,17 +192,17 @@ Exhibition Identity
 A concise description of the project, its context, and the work shown.
 ```
 
-Use `order` to control project order. Set `published: false` to keep a project in the repository without generating or displaying its route. Set `featured: false` to keep a published project accessible by URL while removing it from the homepage and previous/next sequence.
+`order` controls the sequence. Set `published: false` to keep a project in the repository without generating its route. Set `featured: false` to leave a published project available by URL while removing it from the homepage and the previous/next sequence.
 
-`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title, while the project social image falls back to its homepage thumbnail and then the site-wide social image. Set `colorMedia: true` when project imagery should bypass the default monochrome treatment.
+`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title. The social image falls back first to the homepage thumbnail, then to the site-wide image. Set `colorMedia: true` when the project should keep its original color instead of using the default monochrome treatment.
 
 ### Homepage thumbnails
 
-Homepage thumbnails use the configurable `--thumbnail-ratio`, which defaults to the 1.618:1 proportion used by the reference portfolio. Supply a dedicated crop when possible; other proportions can be cropped or contained.
+Homepage thumbnails use the configurable `--thumbnail-ratio`. It defaults to the 1.618:1 proportion used by the reference portfolio. A dedicated crop usually works best, though other proportions can be cropped or contained.
 
 Use `focalX` and `focalY` to position the crop. Both accept values from `0` to `100`, with `50` representing the center.
 
-Use `fit: "cover"` or `fit: "contain"` to control cropping and `scale` for small optical adjustments. Add `hoverSrc` for a desktop rollover image; touch devices use that alternate image as the stable thumbnail instead of depending on hover.
+Use `fit: "cover"` or `fit: "contain"` to control cropping, and `scale` for small optical corrections. Add `hoverSrc` for a desktop rollover; on touch devices, the alternate image becomes the stable thumbnail instead of waiting for a hover that never comes.
 
 Set `showProjectLabels: true` in `content/site.yml` to show labels and optional `homepageSubtitle` values beneath thumbnails. Set it to `false` for an image-only homepage.
 
@@ -210,7 +210,7 @@ When `showProjectLabels` is `false`, add `NEXT_PUBLIC_SHOW_PROJECT_LABELS=true` 
 
 ### Project media
 
-Project galleries support seven media structures. Every top-level media item requires a unique `id`. Captions accept inline Markdown and can use `captionPosition: "above"` or `"below"`.
+Project galleries support seven media structures. Every top-level item needs a unique `id`. Captions accept inline Markdown and can sit `"above"` or `"below"` the media.
 
 #### Image
 
@@ -229,7 +229,7 @@ Project galleries support seven media structures. Every top-level media item req
   captionPosition: "below"
 ```
 
-Set `detail: false` to disable the desktop enlargement view. Existing image entries default to `true`. Use `fit`, `position`, and `scale` for optical control without preparing another source file.
+Set `detail: false` to keep an image out of the desktop enlargement view. Existing image entries default to `true`. Use `fit`, `position`, and `scale` for optical adjustments without preparing another source file.
 
 #### Image grid
 
@@ -251,7 +251,7 @@ Set `detail: false` to disable the desktop enlargement view. Existing image entr
       fit: "contain"
 ```
 
-Grids keep a fixed outer ratio and equal columns. Each cell can set its own fit, position, scale, and optional label.
+Grids keep a fixed outer ratio and equal columns. Each cell can have its own fit, position, scale, and optional label.
 
 #### Image row
 
@@ -272,7 +272,7 @@ Grids keep a fixed outer ratio and equal columns. Each cell can set its own fit,
       height: 1600
 ```
 
-Rows use each source's width and height to preserve relative proportions. They collapse into a readable vertical sequence on small screens. Individual row images can opt into the desktop detail viewer.
+Rows use each source's width and height to preserve the relationship between their proportions. On small screens, they settle into a vertical sequence. Individual images can opt into the desktop detail viewer.
 
 #### Mixed-media row
 
@@ -297,7 +297,7 @@ Rows use each source's width and height to preserve relative proportions. They c
       height: 9
 ```
 
-Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is muted, loops inline, and pauses when the visitor requests reduced motion.
+Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is muted, loops inline, and pauses when a visitor requests reduced motion.
 
 #### Hosted video
 
@@ -313,7 +313,7 @@ Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is mu
   caption: "An optional caption."
 ```
 
-Click-to-play videos show native browser controls by default after the poster is selected. Set `controls: true` for Make Placid's compact play/pause control and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback; autoplay is suppressed when reduced motion is enabled.
+Click-to-play videos reveal the browser's native controls after the poster is selected. Set `controls: true` to use Make Placid's compact play/pause control, and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback. Autoplay stays off when reduced motion is enabled.
 
 #### YouTube
 
@@ -327,7 +327,7 @@ Click-to-play videos show native browser controls by default after the poster is
   caption: "An optional caption."
 ```
 
-The custom poster keeps YouTube chrome out of the composition until playback begins. If no poster is provided, the privacy-enhanced embed loads immediately.
+A custom poster keeps YouTube's interface out of the composition until playback begins. Without one, the privacy-enhanced embed loads immediately.
 
 #### HTML5 banner
 
@@ -340,13 +340,13 @@ The custom poster keeps YouTube chrome out of the composition until playback beg
   title: "Animated campaign banner"
 ```
 
-HTML5 media scales a local creative to its configured dimensions inside a sandboxed, non-interactive iframe. Keep the complete creative and its relative assets under `public/embeds/`.
+HTML5 media scales a local creative to its configured dimensions inside a sandboxed, non-interactive iframe. Keep the creative and all of its relative assets together under `public/embeds/`.
 
 Ratios use CSS `aspect-ratio` syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 / 9`.
 
 ### Complete demonstration project
 
-`content/projects/project-03/project.md` demonstrates the core editorial system and several advanced media features in one case study:
+`content/projects/project-03/project.md` gathers the core editorial system and several advanced media features into one case study:
 
 - Headings, paragraphs, lists, a block quotation, and an external link
 - Project evidence and inline-formatted captions
@@ -355,11 +355,11 @@ Ratios use CSS `aspect-ratio` syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 
 - YouTube video with a custom poster
 - A thumbnail rollover, subtitle, and project-specific social metadata
 
-Use it as a reference while creating a new project, then replace or remove it before launch.
+Use it to see how the pieces fit together. Replace or remove it before the portfolio becomes your own.
 
 ## Responsive images
 
-The source photographs remain in their original locations. A build-time script creates optimized WebP candidates at several widths and records their dimensions and SHA-256 source hash in a generated manifest. Unchanged images reuse verified output, changed images regenerate, and orphaned variants are removed. The components use `srcset` and context-specific `sizes` values so browsers download an appropriate file for a thumbnail, gallery column, or detail view.
+The source photographs stay where you put them. At build time, a script creates optimized WebP candidates at several widths and records their dimensions and SHA-256 source hash in a generated manifest. Images that have not changed reuse verified output. Changed images regenerate, and orphaned variants are removed. The components use `srcset` and context-specific `sizes` values so the browser can choose an appropriate file for a thumbnail, gallery column, or detail view.
 
 Generate variants manually after adding or replacing images:
 
@@ -367,7 +367,7 @@ Generate variants manually after adding or replacing images:
 npm run images
 ```
 
-The same command runs automatically before every production build. No runtime image service or third-party image request is required.
+The same command runs before every production build. Once the site is published, it does not need a runtime image service or third-party image request.
 
 ## Interaction
 
@@ -385,7 +385,7 @@ On mobile, the project gallery remains inline and image-detail mode is disabled.
 
 ## Styling
 
-Global design tokens and layout rules live in `app/globals.css`. The primary variables are defined at the top of the file:
+Most visual decisions begin in `app/globals.css`. The primary variables are defined at the top of the file:
 
 ```css
 :root {
@@ -402,7 +402,7 @@ Global design tokens and layout rules live in `app/globals.css`. The primary var
 }
 ```
 
-Changing these values updates the system globally. Preserve the relationships between them if you want to retain the original rhythm.
+Changing these values changes the system everywhere. The individual numbers matter less than the relationships between them; keep those relationships if you want to preserve the original rhythm.
 
 ## Project structure
 
@@ -428,7 +428,7 @@ tests/                Rendered-route checks
 | `npm run lint` | Check the source for common issues |
 | `npm run typecheck` | Check TypeScript without emitting files |
 
-Run the full verification sequence before publishing:
+Before publishing, run the full verification sequence:
 
 ```bash
 npm test
@@ -436,9 +436,9 @@ npm run lint
 npm run typecheck
 ```
 
-The repository also runs a weekly dependency audit. Production dependency failures block publication; development-tool findings are reported separately so they can be addressed without quietly taking the demo offline.
+The repository also runs a weekly dependency audit. Production dependency failures stop publication. Development-tool findings are reported separately, where they can be handled without quietly taking the demo offline.
 
-## Publishing checklist
+## Before it leaves the room
 
 - Replace the example name, biography, email address, and project copy.
 - Replace or approve the licensed demonstration images and example video embeds.
@@ -452,15 +452,15 @@ The repository also runs a weekly dependency audit. Production dependency failur
 
 ## Licensing
 
-The software is available under the [MIT License](LICENSE). Third-party fonts, photographs, and remote media retain their original licenses or terms and are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+The software is available under the [MIT License](LICENSE). Third-party fonts, photographs, and remote media keep their original licenses or terms; those details are collected in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Instrument Sans is included under the SIL Open Font License 1.1. The Unsplash demonstration credits are recorded in `content/image-credits.md`. The optional `portfolio-custom.woff2` file is deliberately excluded from the repository and the MIT-licensed distribution.
 
 ## Deployment
 
-`npm run build` produces a complete static site in `out/`. Publish that directory with GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any other static host. No server, database, or runtime image service is required.
+`npm run build` produces a complete static site in `out/`. That directory can be published with GitHub Pages, Cloudflare Pages, Netlify, Vercel, or another static host. The finished site does not need a server, database, or runtime image service.
 
-The included GitHub Actions workflow publishes the demonstration site whenever `main` changes. It tests the normal domain-root build first, then creates a second export configured for the repository subpath.
+The included GitHub Actions workflow publishes the demonstration site whenever `main` changes. It first tests the ordinary domain-root build, then creates a second export for the repository subpath.
 
 For your own GitHub Pages project site, update the two values in `.github/workflows/publish-demo.yml`:
 
@@ -469,10 +469,10 @@ NEXT_PUBLIC_BASE_PATH: /your-repository-name
 NEXT_PUBLIC_SITE_URL: https://your-account.github.io/your-repository-name
 ```
 
-Then enable **Settings → Pages → GitHub Actions**. The workflow deploys `out/`, and the export verifier fails if any internal page, image, stylesheet, script, or responsive-image candidate is missing.
+Then enable **Settings → Pages → GitHub Actions**. The workflow deploys `out/`. The export verifier stops it if an internal page, image, stylesheet, script, or responsive-image candidate is missing.
 
-When hosting at a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBLIC_SITE_URL` to the public origin. The same source can therefore serve a root domain, a GitHub project site, or another static host without rewriting content paths.
+When hosting at a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBLIC_SITE_URL` to the public origin. The same source can live at a root domain, a GitHub project site, or another static host without rewriting its content paths.
 
 ## Release status
 
-Version 1.0.0 establishes the reusable deployment contract: static-export verification, project-subpath support, automated demo publishing, dependency checks, and the complete demonstration content set. See [CHANGELOG.md](CHANGELOG.md) for the release record.
+Version 1.0.0 established the part that should remain boring: a dependable static export, project-subpath support, automated demo publishing, dependency checks, and a complete set of demonstration content. See [CHANGELOG.md](CHANGELOG.md) for the release record.
