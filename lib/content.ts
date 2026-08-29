@@ -160,6 +160,7 @@ export type SiteConfig = {
   description: string;
   homepageTitle?: string;
   homepageIntro?: string;
+  homepageIntroHtml: string;
   url: string;
   language: string;
   locale: string;
@@ -251,6 +252,10 @@ export function getProjects() {
 }
 
 export function getFeaturedProjects() {
+  return getCuratedProjects();
+}
+
+export function getCuratedProjects() {
   return getProjects().filter((project) => project.featured);
 }
 
@@ -268,6 +273,7 @@ export function getSiteConfig(): SiteConfig {
     language: data.language ?? "en",
     locale: data.locale ?? "en_US",
     keywords: data.keywords ?? [],
+    homepageIntroHtml: renderInlineMarkdown(data.homepageIntro ?? ""),
     showProjectLabels:
       process.env.NEXT_PUBLIC_SHOW_PROJECT_LABELS === "true"
         ? true

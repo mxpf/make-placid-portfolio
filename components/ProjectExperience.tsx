@@ -131,7 +131,7 @@ function HostedVideo({
         <video
           ref={videoRef}
           src={withBasePath(media.src)}
-          poster={media.poster === "placeholder" ? undefined : media.poster}
+          poster={media.poster === "placeholder" ? undefined : withBasePath(media.poster)}
           autoPlay={autoplayAllowed}
           muted={muted}
           loop
@@ -656,6 +656,7 @@ export function ProjectExperience({
 
   const detailImage = detailIndex === null ? null : staticImages[detailIndex];
   const [leadMedia, ...remainingMedia] = project.media;
+  const hasProjectNavigation = Boolean(previousProject || nextProject);
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
@@ -893,18 +894,20 @@ export function ProjectExperience({
           ))}
         </section>
 
-        <nav className="project-navigation" aria-label="More projects" data-reveal>
-          {previousProject ? (
-            <TransitionLink href={`/projects/${previousProject.slug}`}>
-              Previous — {previousProject.title}
-            </TransitionLink>
-          ) : <span />}
-          {nextProject ? (
-            <TransitionLink href={`/projects/${nextProject.slug}`}>
-              Next — {nextProject.title}
-            </TransitionLink>
-          ) : <span />}
-        </nav>
+        {hasProjectNavigation ? (
+          <nav className="project-navigation" aria-label="More projects" data-reveal>
+            {previousProject ? (
+              <TransitionLink href={`/projects/${previousProject.slug}`}>
+                Previous — {previousProject.title}
+              </TransitionLink>
+            ) : <span />}
+            {nextProject ? (
+              <TransitionLink href={`/projects/${nextProject.slug}`}>
+                Next — {nextProject.title}
+              </TransitionLink>
+            ) : <span />}
+          </nav>
+        ) : null}
       </div>
 
       {detailImage ? (

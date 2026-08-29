@@ -3,7 +3,7 @@ title: "Project 03 — Complete Case Study"
 homepageLabel: "Complete case study"
 homepageSubtitle: "Identity, editorial, digital, and motion"
 seoDescription: "A complete demonstration project combining editorial copy, still images, hosted video, YouTube, varied image ratios, and captions."
-socialImage: "/images/unsplash/xVyR9Tkl23c.jpg"
+socialImage: "/social/projects/project-03.png"
 order: 3
 published: true
 thumbnail:

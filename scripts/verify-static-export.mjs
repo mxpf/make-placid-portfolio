@@ -42,7 +42,7 @@ async function visit(directory) {
 
     htmlFiles += 1;
     const html = await readFile(location, "utf8");
-    for (const match of html.matchAll(/(?:href|src)="([^"#]+)(?:#[^"]*)?"/g)) {
+    for (const match of html.matchAll(/(?:href|src|poster)="([^"#]+)(?:#[^"]*)?"/g)) {
       await verifyReference(match[1]);
     }
     for (const match of html.matchAll(/srcSet="([^"]+)"/g)) {

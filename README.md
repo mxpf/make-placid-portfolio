@@ -22,7 +22,7 @@ The site is quiet, but not empty. Its character comes from proportion, spacing, 
 
 - Fluid asymmetric desktop and single-column mobile layouts
 - Fixed desktop navigation and project description column
-- Editorial homepage introduction with featured-project filtering
+- Editorial homepage introduction with inline Markdown links and curated-project filtering
 - Responsive 1.618:1 thumbnails with focal points, fit, scale, subtitles, and rollover images
 - Static images, image grids, proportion-aware image rows, mixed-media rows, hosted video, HTML5 banners, and poster-led YouTube embeds
 - Inline-formatted captions above or below media
@@ -65,7 +65,7 @@ Edit `content/site.yml`:
 name: "Your Name"
 description: "Selected design and creative direction."
 homepageTitle: "Creative direction and selected work."
-homepageIntro: "A concise introduction to the practice and the work shown here."
+homepageIntro: "A concise introduction to the practice and [selected work](https://portfolio.example.com)."
 url: "https://portfolio.example.com"
 language: "en"
 locale: "en_US"
@@ -84,7 +84,7 @@ favicon: "/favicon.png"
 appleTouchIcon: "/apple-touch-icon.png"
 ```
 
-This is the one file that tells the rest of the site who it belongs to. Its values fill the homepage introduction, navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. Omit `homepageTitle` and `homepageIntro` for the compact, project-only homepage. The same configuration also produces `robots.txt` and `sitemap.xml`.
+This is the one file that tells the rest of the site who it belongs to. Its values fill the homepage introduction, navigation, canonical URLs, search metadata, link previews, icons, accessibility labels, and reusable fields on the About page. `homepageIntro` accepts inline Markdown links. Omit `homepageTitle` and `homepageIntro` for the compact, project-only homepage. The same configuration also produces `robots.txt` and `sitemap.xml`.
 
 ### 2. Write the About page
 
@@ -120,7 +120,7 @@ Git ignores both `.env.local` and `portfolio-custom.woff2`, so neither becomes p
 
 ### 4. Replace the social and icon images
 
-Replace `public/og.png` with a landscape preview image for link sharing. If the filename changes, update `socialImage` in `content/site.yml`.
+Replace `public/og.png` with a 1200x630 landscape preview image for link sharing. If the filename changes, update `socialImage` in `content/site.yml`.
 
 Replace `public/favicon.png` and `public/apple-touch-icon.png` with your own square brand assets, then update their paths in `content/site.yml` if necessary.
 
@@ -158,7 +158,7 @@ title: "Exhibition Identity"
 homepageLabel: "Exhibition"
 homepageSubtitle: "Identity and environmental graphics"
 seoDescription: "A concise exhibition identity across print and space."
-socialImage: "/images/exhibition/social.jpg"
+socialImage: "/social/projects/exhibition.png"
 order: 1
 published: true
 featured: true
@@ -194,7 +194,7 @@ A concise description of the project, its context, and the work shown.
 
 `order` controls the sequence. Set `published: false` to keep a project in the repository without generating its route. Set `featured: false` to leave a published project available by URL while removing it from the homepage and the previous/next sequence.
 
-`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title. The social image falls back first to the homepage thumbnail, then to the site-wide image. Set `colorMedia: true` when the project should keep its original color instead of using the default monochrome treatment.
+`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The label falls back to the full project title. Use `socialImage` for a project-specific 1200x630 link-preview card, often stored at `public/social/projects/project-slug.png` and referenced as `/social/projects/project-slug.png`. When absent, the project falls back to the site-wide `socialImage`. Set `colorMedia: true` when the project should keep its original color instead of using the default monochrome treatment.
 
 ### Homepage thumbnails
 
@@ -353,7 +353,7 @@ Ratios use CSS `aspect-ratio` syntax, such as `3 / 2`, `4 / 5`, `1 / 1`, or `16 
 - Static images and a proportion-aware image row
 - Hosted video with a poster and compact controls
 - YouTube video with a custom poster
-- A thumbnail rollover, subtitle, and project-specific social metadata
+- A thumbnail rollover, subtitle, and project-specific 1200x630 social metadata
 
 Use it to see how the pieces fit together. Replace or remove it before the portfolio becomes your own.
 
@@ -377,7 +377,7 @@ On desktop:
 - Select a project image to open the full-width detail view.
 - Select the expanded image or press Escape to close it.
 - Use the left and right arrow keys to move between project images.
-- Outside the detail view, use the left and right arrow keys—or the visible Previous/Next links—to move between featured projects.
+- Outside the detail view, use the left and right arrow keys—or the visible Previous/Next links—to move through the curated project sequence.
 - Select the name to return to the top of the homepage.
 - Open About and use Close to return to the previous page position.
 
@@ -392,7 +392,7 @@ Most visual decisions begin in `app/globals.css`. The primary variables are defi
   --page-gutter: 24px;
   --column-gap: 24px;
   --thumbnail-ratio: 1.618 / 1;
-  --homepage-project-start: calc(68dvh - var(--header-height));
+  --homepage-project-start: calc(56dvh - var(--header-height));
   --spacing-1: 12px;
   --spacing-2: 24px;
   --spacing-3: 36px;

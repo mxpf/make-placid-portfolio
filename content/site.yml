@@ -1,7 +1,7 @@
 name: "Make Placid"
 description: "An elegant, minimalist portfolio template for creative practices."
 homepageTitle: "A minimal portfolio for thoughtful creative work."
-homepageIntro: "Make Placid pairs a quiet editorial system with flexible case studies, responsive media, and static deployment."
+homepageIntro: "Make Placid pairs a quiet editorial system with flexible case studies, responsive media, and [static deployment](https://nextjs.org/docs/app/guides/static-exports)."
 url: "https://maxpfennig.haus/make-placid-portfolio"
 language: "en"
 locale: "en_US"

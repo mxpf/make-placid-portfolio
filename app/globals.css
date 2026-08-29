@@ -21,7 +21,7 @@
   --thumbnail-ratio: 1.618 / 1;
   --thumbnail-radius: 2px;
   --homepage-content-opacity-start: 0.1;
-  --homepage-project-start: calc(68dvh - var(--header-height));
+  --homepage-project-start: calc(56dvh - var(--header-height));
   --homepage-mobile-project-start-offset: clamp(120px, 21svh, 192px);
   --homepage-content-fade-viewport: 12;
   --homepage-thumbnail-hover-opacity: 1;
@@ -29,6 +29,12 @@
   --reveal-opacity-duration: 640ms;
   --reveal-movement-duration: 880ms;
   --reveal-stagger: 90ms;
+  --homepage-lead-reveal-distance: 38vh;
+  --homepage-lead-opacity-rest: 1;
+  --homepage-lead-reveal-delay: 360ms;
+  --homepage-lead-reveal-easing: cubic-bezier(0.45, 0, 0.2, 1);
+  --homepage-lead-reveal-opacity-duration: 1200ms;
+  --homepage-lead-reveal-movement-duration: 1800ms;
   --subhead-size: 14px;
   --subhead-line-height: 24px;
   --title-subhead-gap: 0;
@@ -233,6 +239,13 @@ iframe {
     filter 360ms ease,
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 180ms ease;
+}
+
+.home-project--lead .home-project-image--base {
+  opacity: max(
+    var(--homepage-lead-opacity-rest),
+    var(--homepage-content-opacity-current, var(--homepage-content-opacity-start))
+  );
 }
 
 .home-project-label {
@@ -480,7 +493,8 @@ iframe {
 
 .project-summary a,
 .about-copy a,
-.media-caption a {
+.media-caption a,
+.home-intro a {
   text-decoration-line: underline;
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
   text-decoration-thickness: 1px;
@@ -490,13 +504,15 @@ iframe {
 
 .project-summary a:hover,
 .about-copy a:hover,
-.media-caption a:hover {
+.media-caption a:hover,
+.home-intro a:hover {
   color: var(--link);
 }
 
 .project-summary a:focus-visible,
 .about-copy a:focus-visible,
-.media-caption a:focus-visible {
+.media-caption a:focus-visible,
+.home-intro a:focus-visible {
   outline: 1px solid var(--link);
   outline-offset: 3px;
 }
@@ -909,11 +925,16 @@ iframe {
 
 .project-navigation a {
   width: fit-content;
-  transition: color 180ms ease;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
 }
 
 .project-navigation a:hover {
   color: var(--link);
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
 }
 
 .project-navigation a:last-child {
@@ -1000,6 +1021,26 @@ iframe {
 @keyframes project-page-in {
   from {
     opacity: 0;
+  }
+}
+
+@keyframes homepage-lead-opacity-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes homepage-lead-movement-in {
+  from { transform: translateY(var(--homepage-lead-reveal-distance)); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .home-project--lead {
+    backface-visibility: hidden;
+    will-change: opacity, transform;
+    animation:
+      homepage-lead-opacity-in var(--homepage-lead-reveal-opacity-duration) var(--homepage-lead-reveal-easing) var(--homepage-lead-reveal-delay) both,
+      homepage-lead-movement-in var(--homepage-lead-reveal-movement-duration) var(--homepage-lead-reveal-easing) var(--homepage-lead-reveal-delay) both;
   }
 }
 

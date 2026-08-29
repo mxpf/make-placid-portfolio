@@ -1,4 +1,4 @@
-import { getFeaturedProjects, getSiteConfig } from "@/lib/content";
+import { getCuratedProjects, getSiteConfig } from "@/lib/content";
 import { TransitionLink } from "@/components/TransitionLink";
 import { columnImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
 
@@ -7,7 +7,7 @@ export function generateMetadata() {
   return { title: { absolute: site.name }, description: site.description };
 }
 export default function Home() {
-  const projects = getFeaturedProjects();
+  const projects = getCuratedProjects();
   const site = getSiteConfig();
   const hasIntro = Boolean(site.homepageTitle || site.homepageIntro);
 
@@ -17,7 +17,9 @@ export default function Home() {
         <section className="home-intro" aria-labelledby="home-intro-title" data-reveal>
           <div className="home-intro-copy">
             <h1 id="home-intro-title">{site.homepageTitle ?? site.name}</h1>
-            {site.homepageIntro ? <p>{site.homepageIntro}</p> : null}
+            {site.homepageIntro ? (
+              <p dangerouslySetInnerHTML={{ __html: site.homepageIntroHtml }} />
+            ) : null}
           </div>
         </section>
       ) : (
@@ -31,6 +33,7 @@ export default function Home() {
           <TransitionLink
             className={[
               "home-project",
+              index === 0 ? "home-project--lead" : "",
               project.homepageWide ? "home-project--wide" : "",
               project.colorMedia ? "color-media" : "",
               project.thumbnail.hoverSrc ? "home-project--has-rollover" : "",
