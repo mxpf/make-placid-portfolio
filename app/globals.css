@@ -378,7 +378,7 @@ iframe {
   grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
   column-gap: var(--column-gap);
   min-height: 100vh;
-  padding: var(--header-height) var(--page-gutter) var(--rail-height);
+  padding: var(--header-height) var(--page-gutter) 0;
   animation: project-page-in 320ms ease both;
 }
 
@@ -389,9 +389,9 @@ iframe {
 
 .project-summary {
   position: fixed;
-  bottom: var(--rail-height);
+  bottom: 0;
   width: calc((100vw - (2 * var(--page-gutter)) - var(--column-gap)) * 0.38);
-  max-height: calc(100vh - var(--header-height) - var(--rail-height));
+  max-height: calc(100dvh - var(--header-height));
   overflow: auto;
   scrollbar-width: thin;
   text-wrap: pretty;
@@ -852,7 +852,7 @@ iframe {
 .detail-layer {
   position: fixed;
   z-index: 40;
-  inset: var(--header-height) 0 var(--rail-height);
+  inset: var(--header-height) 0 0;
   overflow: hidden;
   overscroll-behavior: none;
   padding: var(--spacing-1) var(--page-gutter);
@@ -900,8 +900,8 @@ iframe {
 .detail-media {
   display: flex;
   width: 100%;
-  height: calc(100vh - var(--header-height) - var(--rail-height) - (2 * var(--spacing-1)));
-  max-height: calc(100vh - var(--header-height) - var(--rail-height) - (2 * var(--spacing-1)));
+  height: calc(100dvh - var(--header-height) - (2 * var(--spacing-1)));
+  max-height: calc(100dvh - var(--header-height) - (2 * var(--spacing-1)));
   align-items: center;
   justify-content: center;
   animation: detail-crossfade 240ms ease both;
@@ -949,6 +949,10 @@ iframe {
   height: var(--rail-height);
   background: var(--light);
   pointer-events: none;
+}
+
+body:has(.project-layout) .bottom-rail {
+  display: none;
 }
 
 .about-layout {

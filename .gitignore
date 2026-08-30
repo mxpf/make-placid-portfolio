@@ -43,6 +43,7 @@ next-env.d.ts
 /outputs/
 /work/
 /.audit/
+/tmp/
 
 # Optional licensed typeface for private/personal builds.
 /public/fonts/portfolio-custom.woff2

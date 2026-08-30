@@ -12,10 +12,9 @@ export default function NotFound() {
       <section className="not-found-copy" aria-labelledby="not-found-title">
         <h1 id="not-found-title">404 — Page not found.</h1>
         <TransitionLink className="not-found-link" href="/">
-          Return to selected projects.
+          Return home.
         </TransitionLink>
       </section>
     </main>
   );
 }
-

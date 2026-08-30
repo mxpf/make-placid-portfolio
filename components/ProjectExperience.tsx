@@ -65,6 +65,51 @@ function ImageVisual({
   );
 }
 
+function VideoControls({
+  title,
+  playing,
+  muted,
+  showAudioControls,
+  onTogglePlayback,
+  onToggleMuted,
+}: {
+  title: string;
+  playing: boolean;
+  muted: boolean;
+  showAudioControls: boolean;
+  onTogglePlayback: () => void;
+  onToggleMuted: () => void;
+}) {
+  return (
+    <div className="video-control-group">
+      <button
+        type="button"
+        className="video-autoplay-toggle"
+        aria-label={`${playing ? "Pause" : "Play"} ${title}`}
+        onClick={(event) => {
+          event.stopPropagation();
+          onTogglePlayback();
+        }}
+      >
+        <span className={playing ? "pause-icon" : "play-icon"} aria-hidden="true" />
+      </button>
+      {showAudioControls ? (
+        <button
+          type="button"
+          className="video-autoplay-toggle"
+          aria-label={`${muted ? "Unmute" : "Mute"} ${title}`}
+          onClick={(event) => {
+            event.stopPropagation();
+            onToggleMuted();
+          }}
+        >
+          <span className={muted ? "mute-icon" : "sound-icon"} aria-hidden="true" />
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 function HostedVideo({
   media,
   onIntentionalPlay,
@@ -142,32 +187,14 @@ function HostedVideo({
           onPause={() => setPlaying(false)}
         />
         {media.controls === true ? (
-          <div className="video-control-group">
-            <button
-              type="button"
-              className="video-autoplay-toggle"
-              aria-label={`${playing ? "Pause" : "Play"} ${media.title}`}
-              onClick={(event) => {
-                event.stopPropagation();
-                toggleVideoPlayback();
-              }}
-            >
-              <span className={playing ? "pause-icon" : "play-icon"} aria-hidden="true" />
-            </button>
-            {media.audioControls === true ? (
-              <button
-                type="button"
-                className="video-autoplay-toggle"
-                aria-label={`${muted ? "Unmute" : "Mute"} ${media.title}`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  toggleMuted();
-                }}
-              >
-                <span className={muted ? "mute-icon" : "sound-icon"} aria-hidden="true" />
-              </button>
-            ) : null}
-          </div>
+          <VideoControls
+            title={media.title}
+            playing={playing}
+            muted={muted}
+            showAudioControls={media.audioControls === true}
+            onTogglePlayback={toggleVideoPlayback}
+            onToggleMuted={toggleMuted}
+          />
         ) : null}
       </div>
     );
@@ -216,32 +243,14 @@ function HostedVideo({
             onVolumeChange={(event) => setMuted(event.currentTarget.muted)}
           />
           {media.controls === true ? (
-            <div className="video-control-group">
-              <button
-                type="button"
-                className="video-autoplay-toggle"
-                aria-label={`${playing ? "Pause" : "Play"} ${media.title}`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  toggleVideoPlayback();
-                }}
-              >
-                <span className={playing ? "pause-icon" : "play-icon"} aria-hidden="true" />
-              </button>
-              {media.audioControls === true ? (
-                <button
-                  type="button"
-                  className="video-autoplay-toggle"
-                  aria-label={`${muted ? "Unmute" : "Mute"} ${media.title}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    toggleMuted();
-                  }}
-                >
-                  <span className={muted ? "mute-icon" : "sound-icon"} aria-hidden="true" />
-                </button>
-              ) : null}
-            </div>
+            <VideoControls
+              title={media.title}
+              playing={playing}
+              muted={muted}
+              showAudioControls={media.audioControls === true}
+              onTogglePlayback={toggleVideoPlayback}
+              onToggleMuted={toggleMuted}
+            />
           ) : null}
         </>
       )}

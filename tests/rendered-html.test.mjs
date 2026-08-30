@@ -142,7 +142,7 @@ test("server-renders project, about, and not-found routes", async () => {
   assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
   assert.match(aboutHtml, /<h1 class="visually-hidden">About &amp; contact<\/h1>/);
   assert.match(notFoundHtml, /404 — Page not found\./);
-  assert.match(notFoundHtml, /Return to selected projects\./);
+  assert.match(notFoundHtml, /Return home\./);
 });
 
 test("publishes search-engine discovery routes", async () => {
@@ -241,12 +241,13 @@ test("keeps configured local media and responsive-image metadata valid", async (
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, projectPage, layout, chrome, transitionLink, styles, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
+  const [page, projectPage, layout, chrome, transitionLink, projectExperience, styles, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/ProjectExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
     readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
@@ -283,22 +284,28 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.home-project--lead\s*\{[^}]*will-change: opacity, transform[^}]*homepage-lead-opacity-in[^}]*homepage-lead-movement-in/s);
   assert.doesNotMatch(styles, /\.home-project--lead \.home-project-media\s*\{[^}]*homepage-lead-movement-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
-  assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
+  assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) 0/s);
+  assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)/s);
+  assert.match(styles, /body:has\(\.project-layout\) \.bottom-rail\s*\{[^}]*display: none/s);
   assert.match(styles, /\.project-navigation\s*\{/);
   assert.match(styles, /\.image-grid\s*\{/);
   assert.match(styles, /\.image-row-track\s*\{/);
   assert.match(styles, /\.html5-banner-frame\s*\{/);
   assert.match(styles, /\.reveal-ready \[data-reveal\]/);
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
-  assert.match(styles, /\.detail-layer\s*\{[^}]*overscroll-behavior: none/s);
+  assert.match(styles, /\.detail-layer\s*\{[^}]*inset: var\(--header-height\) 0 0[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
   assert.match(styles, /\.media-caption a,\s*\.home-intro a\s*\{[^}]*text-decoration-line: underline/s);
   assert.match(styles, /\.project-navigation a\s*\{[^}]*text-decoration-color: transparent[^}]*text-decoration-color 180ms ease/s);
   assert.match(styles, /\.project-navigation a:hover\s*\{[^}]*text-decoration-color: color-mix\(in srgb, currentColor 45%, transparent\)/s);
   assert.doesNotMatch(styles, /\.project-navigation a\s*\{[^}]*transform:/s);
   assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", "Instrument Sans"/s);
+  assert.match(projectExperience, /function VideoControls/);
+  assert.equal((projectExperience.match(/<VideoControls/g) ?? []).length, 2);
+  assert.equal((projectExperience.match(/className="video-control-group"/g) ?? []).length, 1);
   assert.match(layout, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT/);
   assert.match(gitignore, /public\/fonts\/portfolio-custom\.woff2/);
+  assert.match(gitignore, /\/tmp\//);
   assert.match(envExample, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=false/);
   assert.match(envExample, /NEXT_PUBLIC_SHOW_PROJECT_LABELS=false/);
   assert.match(manifest, /\/images\/responsive\/unsplash\//);
