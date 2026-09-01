@@ -303,11 +303,15 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.home-project--lead \.home-project-image--base\s*\{[^}]*opacity: max\([^}]*var\(--homepage-lead-opacity-rest\)[^}]*var\(--homepage-content-opacity-current/s);
   assert.match(styles, /\.home-project--lead\s*\{[^}]*will-change: opacity, transform[^}]*homepage-lead-opacity-in[^}]*homepage-lead-movement-in/s);
   assert.doesNotMatch(styles, /\.home-project--lead \.home-project-media\s*\{[^}]*homepage-lead-movement-in/s);
+  assert.match(styles, /\.site-header\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\) max-content[^}]*gap: var\(--spacing-1\)/s);
+  assert.match(styles, /\.site-name,\s*\.site-action\s*\{[^}]*min-width: 0/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) 0/s);
-  assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)[^}]*padding-bottom: var\(--spacing-1\)/s);
+  assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)[^}]*padding-bottom: var\(--spacing-2\)/s);
   assert.match(styles, /body:has\(\.project-layout\) \.bottom-rail\s*\{[^}]*display: none/s);
-  assert.equal((styles.match(/\.project-media-column > \.project-lead-media\s*\{[^}]*order: 2[^}]*margin-bottom: var\(--spacing-2\)/gs) ?? []).length, 2);
+  assert.equal((styles.match(/\.project-layout\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)[^}]*grid-auto-rows: min-content[^}]*row-gap: var\(--spacing-3\)/gs) ?? []).length, 2);
+  assert.equal((styles.match(/\.project-media-column > \.project-lead-media\s*\{[^}]*order: 2[^}]*margin-bottom: 0/gs) ?? []).length, 2);
+  assert.equal((styles.match(/\.project-evidence\s*\{[^}]*order: 3[^}]*margin: 0/gs) ?? []).length, 2);
   assert.equal((styles.match(/\.project-summary-body\s*\{[^}]*order: 4[^}]*text-wrap: pretty/gs) ?? []).length, 2);
   assert.match(styles, /\.project-navigation\s*\{/);
   assert.match(styles, /\.image-grid\s*\{/);
