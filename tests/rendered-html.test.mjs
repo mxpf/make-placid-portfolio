@@ -285,6 +285,11 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
   assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);
   assert.match(styles, /\.home-project--has-rollover:hover/s);
+  assert.match(styles, /\.home-project-media img\s*\{[^}]*transition:\s*filter 480ms ease,\s*transform 520ms cubic-bezier\(0\.22, 1, 0\.36, 1\),\s*opacity 420ms ease/s);
+  assert.match(styles, /\.home-project:hover \.home-project-media img,\s*\.home-project:focus-visible \.home-project-media img\s*\{[^}]*opacity: var\(--homepage-thumbnail-hover-opacity\)[^}]*transform: scale\(1\.025\)[^}]*transition-duration: 240ms, 360ms, 240ms/s);
+  assert.match(styles, /\.home-project-subtitle\s*\{[^}]*transition: color 360ms ease/s);
+  assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)\s*\{[\s\S]*?\.home-project img,[\s\S]*?\.home-project-media img\s*\{[^}]*filter: none[^}]*opacity: 1/s);
+  assert.doesNotMatch(styles, /\.home-project:hover \.home-project-media img\s*\{[^}]*opacity: 0\.9/s);
   assert.match(styles, /--homepage-project-start: calc\(56dvh - var\(--header-height\)\)/);
   assert.match(styles, /--reveal-distance: 4px/);
   assert.match(styles, /--reveal-opacity-duration: 180ms/);
@@ -300,8 +305,10 @@ test("keeps identity copy in the content layer", async () => {
   assert.doesNotMatch(styles, /\.home-project--lead \.home-project-media\s*\{[^}]*homepage-lead-movement-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) 0/s);
-  assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)/s);
+  assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)[^}]*padding-bottom: var\(--spacing-1\)/s);
   assert.match(styles, /body:has\(\.project-layout\) \.bottom-rail\s*\{[^}]*display: none/s);
+  assert.equal((styles.match(/\.project-media-column > \.project-lead-media\s*\{[^}]*order: 2[^}]*margin-bottom: var\(--spacing-2\)/gs) ?? []).length, 2);
+  assert.equal((styles.match(/\.project-summary-body\s*\{[^}]*order: 4[^}]*text-wrap: pretty/gs) ?? []).length, 2);
   assert.match(styles, /\.project-navigation\s*\{/);
   assert.match(styles, /\.image-grid\s*\{/);
   assert.match(styles, /\.image-row-track\s*\{/);
