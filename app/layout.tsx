@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { getSiteConfig } from "@/lib/content";
 import { absoluteSiteUrl, withBasePath } from "@/lib/base-path";
 import "./globals.css";
+
+const instrumentSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/InstrumentSans-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-instrument-sans",
+  fallback: ["Arial", "Helvetica"],
+  adjustFontFallback: "Arial",
+  display: "swap",
+  preload: true,
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = getSiteConfig();
@@ -49,9 +65,13 @@ export default function RootLayout({
 }>) {
   const site = getSiteConfig();
   const customFontEnabled = process.env.NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT === "true";
+  const htmlClassName = [
+    instrumentSans.variable,
+    customFontEnabled ? "custom-font" : "",
+  ].filter(Boolean).join(" ");
 
   return (
-    <html lang={site.language} className={customFontEnabled ? "custom-font" : undefined}>
+    <html lang={site.language} className={htmlClassName}>
       <body>
         <SiteChrome
           name={site.name}

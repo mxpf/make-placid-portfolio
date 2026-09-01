@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="home-grid" aria-label={site.projectsLabel}>
       {hasIntro ? (
-        <section className="home-intro" aria-labelledby="home-intro-title" data-reveal>
+        <section className="home-intro" aria-labelledby="home-intro-title">
           <div className="home-intro-copy">
             <h1 id="home-intro-title">{site.homepageTitle ?? site.name}</h1>
             {site.homepageIntro ? (

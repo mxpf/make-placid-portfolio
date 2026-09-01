@@ -55,7 +55,7 @@ export function ScrollReveal() {
       return cleanupHomepageOpacity;
     }
 
-    const stagger = Number.parseFloat(rootStyles.getPropertyValue("--reveal-stagger")) || 90;
+    const stagger = Number.parseFloat(rootStyles.getPropertyValue("--reveal-stagger")) || 20;
     const initialBoundary = window.innerHeight * 0.94;
     const initialItems = items
       .filter((item) => item.getBoundingClientRect().top < initialBoundary)
@@ -104,4 +104,3 @@ export function ScrollReveal() {
 
   return null;
 }
-

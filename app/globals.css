@@ -6,14 +6,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/InstrumentSans-Regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   --page-gutter: 24px;
   --column-gap: 24px;
@@ -25,10 +17,10 @@
   --homepage-mobile-project-start-offset: clamp(120px, 21svh, 192px);
   --homepage-content-fade-viewport: 12;
   --homepage-thumbnail-hover-opacity: 1;
-  --reveal-distance: 36px;
-  --reveal-opacity-duration: 640ms;
-  --reveal-movement-duration: 880ms;
-  --reveal-stagger: 90ms;
+  --reveal-distance: 4px;
+  --reveal-opacity-duration: 180ms;
+  --reveal-movement-duration: 180ms;
+  --reveal-stagger: 20ms;
   --homepage-lead-reveal-distance: 38vh;
   --homepage-lead-opacity-rest: 1;
   --homepage-lead-reveal-delay: 360ms;
@@ -59,14 +51,14 @@
 html {
   background: var(--light);
   color: var(--dark);
-  font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
+  font-family: var(--font-instrument-sans), Arial, Helvetica, sans-serif;
   font-size: 18px;
   line-height: 24px;
   scroll-behavior: auto;
 }
 
 html.custom-font {
-  font-family: "Portfolio Custom", "Instrument Sans", Arial, Helvetica, sans-serif;
+  font-family: "Portfolio Custom", var(--font-instrument-sans), Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -1038,6 +1030,18 @@ body:has(.project-layout) .bottom-rail {
   to { transform: translateY(0); }
 }
 
+@keyframes homepage-intro-entry-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
   .home-project--lead {
     backface-visibility: hidden;
@@ -1049,6 +1053,15 @@ body:has(.project-layout) .bottom-rail {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .home-intro h1,
+  .home-intro p {
+    animation: homepage-intro-entry-reveal var(--reveal-opacity-duration) ease-out both;
+  }
+
+  .home-intro p {
+    animation-delay: var(--reveal-stagger);
+  }
+
   .reveal-ready [data-reveal] {
     opacity: 0;
     transform: translateY(var(--reveal-distance));

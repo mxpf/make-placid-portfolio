@@ -69,7 +69,11 @@ test("server-renders the portfolio home page", async () => {
   assert.equal((html.match(/class="home-project-subtitle"/g) ?? []).length, 7);
   assert.equal((html.match(/class="home-project-image home-project-image--rollover"/g) ?? []).length, 1);
   assert.match(html, /rel="icon"/);
+  assert.match(html, /<html lang="en" class="[^"]*__variable_[a-z0-9]+[^"]*">/);
+  assert.match(html, /<link rel="preload" href="\/_next\/static\/media\/[^"]+\.woff2" as="font" crossorigin="" type="font\/woff2"\/>/);
   assert.match(html, /property="og:image"/);
+  assert.match(html, /<section class="home-intro" aria-labelledby="home-intro-title">/);
+  assert.doesNotMatch(html, /<section class="home-intro"[^>]*data-reveal/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
@@ -241,12 +245,13 @@ test("keeps configured local media and responsive-image metadata valid", async (
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, projectPage, layout, chrome, transitionLink, projectExperience, styles, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
+  const [page, projectPage, layout, chrome, transitionLink, scrollReveal, projectExperience, styles, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/ScrollReveal.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/ProjectExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
@@ -274,11 +279,21 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(contentLibrary, /getCuratedProjects/);
   assert.match(contentLibrary, /homepageIntroHtml:/);
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
+  assert.match(page, /<section className="home-intro" aria-labelledby="home-intro-title">/);
+  assert.doesNotMatch(page, /className="home-intro"[^>]*data-reveal/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
   assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
   assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);
   assert.match(styles, /\.home-project--has-rollover:hover/s);
   assert.match(styles, /--homepage-project-start: calc\(56dvh - var\(--header-height\)\)/);
+  assert.match(styles, /--reveal-distance: 4px/);
+  assert.match(styles, /--reveal-opacity-duration: 180ms/);
+  assert.match(styles, /--reveal-movement-duration: 180ms/);
+  assert.match(styles, /--reveal-stagger: 20ms/);
+  assert.match(scrollReveal, /getPropertyValue\("--reveal-stagger"\)\) \|\| 20/);
+  assert.match(styles, /@keyframes homepage-intro-entry-reveal\s*\{[\s\S]*?opacity: 0[\s\S]*?transform: translateY\(var\(--reveal-distance\)\)[\s\S]*?opacity: 1[\s\S]*?transform: translateY\(0\)/s);
+  assert.match(styles, /@media \(prefers-reduced-motion: no-preference\)\s*\{[\s\S]*?\.home-intro h1,\s*\.home-intro p\s*\{[^}]*animation: homepage-intro-entry-reveal var\(--reveal-opacity-duration\) ease-out both/s);
+  assert.match(styles, /\.home-intro p\s*\{[^}]*animation-delay: var\(--reveal-stagger\)/s);
   assert.match(styles, /--homepage-lead-opacity-rest: 1/);
   assert.match(styles, /\.home-project--lead \.home-project-image--base\s*\{[^}]*opacity: max\([^}]*var\(--homepage-lead-opacity-rest\)[^}]*var\(--homepage-content-opacity-current/s);
   assert.match(styles, /\.home-project--lead\s*\{[^}]*will-change: opacity, transform[^}]*homepage-lead-opacity-in[^}]*homepage-lead-movement-in/s);
@@ -299,7 +314,19 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-navigation a\s*\{[^}]*text-decoration-color: transparent[^}]*text-decoration-color 180ms ease/s);
   assert.match(styles, /\.project-navigation a:hover\s*\{[^}]*text-decoration-color: color-mix\(in srgb, currentColor 45%, transparent\)/s);
   assert.doesNotMatch(styles, /\.project-navigation a\s*\{[^}]*transform:/s);
-  assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", "Instrument Sans"/s);
+  assert.match(layout, /import localFont from "next\/font\/local"/);
+  assert.match(layout, /const instrumentSans = localFont/);
+  assert.match(layout, /path: "\.\.\/public\/fonts\/InstrumentSans-Regular\.woff2"/);
+  assert.match(layout, /variable: "--font-instrument-sans"/);
+  assert.match(layout, /fallback: \["Arial", "Helvetica"\]/);
+  assert.match(layout, /adjustFontFallback: "Arial"/);
+  assert.match(layout, /display: "swap"/);
+  assert.match(layout, /preload: true/);
+  assert.match(layout, /instrumentSans\.variable/);
+  assert.match(layout, /className=\{htmlClassName\}/);
+  assert.match(styles, /html\s*\{[^}]*font-family: var\(--font-instrument-sans\), Arial, Helvetica, sans-serif/s);
+  assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", var\(--font-instrument-sans\)/s);
+  assert.doesNotMatch(styles, /font-family: "Instrument Sans";[\s\S]*?InstrumentSans-Regular\.woff2/s);
   assert.match(projectExperience, /function VideoControls/);
   assert.equal((projectExperience.match(/<VideoControls/g) ?? []).length, 2);
   assert.equal((projectExperience.match(/className="video-control-group"/g) ?? []).length, 1);
