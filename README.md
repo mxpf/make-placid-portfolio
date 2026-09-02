@@ -2,7 +2,7 @@
 
 Make Placid is a quiet static portfolio template for creative practices that want the work to stay in front.
 
-It is not a CMS, a dashboard, or a design-system showroom. It is a small Next.js export with a deliberate spatial language, Markdown and YAML content, local media, and enough verification to make publishing feel boring in the best possible way.
+It is not a CMS, a dashboard, or a design-system showroom. It is a small [Next.js](https://nextjs.org/) export with a deliberate spatial language, Markdown and YAML content, local media, and enough verification to make publishing feel boring in the best possible way.
 
 The template gives you a frame strong enough to keep a portfolio coherent, and simple enough that replacing the work still feels like editing the work.
 
@@ -50,13 +50,13 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed in the terminal. Most portfolio edits happen in `content/` and `public/`.
+Open the local URL printed in the terminal. Most portfolio edits happen in [`content/`](content/) and [`public/`](public/).
 
 ## Make It Yours
 
 ### Set the site identity
 
-Edit `content/site.yml`:
+Edit [`content/site.yml`](content/site.yml):
 
 ```yaml
 name: "Your Name"
@@ -87,7 +87,7 @@ These values feed navigation, homepage copy, metadata, `robots.txt`, `sitemap.xm
 
 ### Write the About page
 
-Edit `content/about.md`. These tokens are replaced from `content/site.yml`:
+Edit [`content/about.md`](content/about.md). These tokens are replaced from [`content/site.yml`](content/site.yml):
 
 - `{{name}}`
 - `{{email}}`
@@ -97,9 +97,9 @@ The About page accepts ordinary Markdown: paragraphs, links, lists, and block qu
 
 ### Replace social and icon images
 
-Replace `public/og.png` with a 1200x630 image for link sharing. If you change the filename, update `socialImage` in `content/site.yml`.
+Replace [`public/og.png`](public/og.png) with a 1200x630 image for link sharing. If you change the filename, update `socialImage` in [`content/site.yml`](content/site.yml).
 
-Replace `public/favicon.png` and `public/apple-touch-icon.png` with square brand assets, then update their paths if needed.
+Replace [`public/favicon.png`](public/favicon.png) and [`public/apple-touch-icon.png`](public/apple-touch-icon.png) with square brand assets, then update their paths if needed.
 
 Projects can also define their own `socialImage`. Use the same 1200x630 size. A good convention is:
 
@@ -117,7 +117,7 @@ If a project does not define `socialImage`, its Open Graph and Twitter metadata 
 
 ### Choose typography
 
-The template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license lives at `public/fonts/OFL.txt`.
+The template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license lives at [`public/fonts/OFL.txt`](public/fonts/OFL.txt).
 
 For a privately licensed font, place a regular WOFF2 file here:
 
@@ -139,7 +139,7 @@ Git ignores both `.env.local` and `portfolio-custom.woff2`, so the public templa
 
 ### Replace the demonstration assets
 
-Keep portfolio assets under `public/`, organized in a way you will still understand later:
+Keep portfolio assets under [`public/`](public/), organized in a way you will still understand later:
 
 ```text
 public/
@@ -221,7 +221,7 @@ Use `focalX` and `focalY` to position a cropped image. Both accept values from `
 
 Use `fit: "cover"` or `fit: "contain"` to control cropping, and `scale` for small optical corrections. Add `hoverSrc` for a desktop rollover. On touch devices, the alternate image becomes the stable thumbnail because there is no reliable hover state.
 
-Set `showProjectLabels: true` in `content/site.yml` to show labels and optional subtitles beneath thumbnails. Set it to `false` for an image-only homepage.
+Set `showProjectLabels: true` in [`content/site.yml`](content/site.yml) to show labels and optional subtitles beneath thumbnails. Set it to `false` for an image-only homepage.
 
 For a private labels-on preview without changing content, add this to `.env.local`:
 
@@ -365,7 +365,7 @@ HTML5 media scales a local creative to its configured dimensions inside a sandbo
 
 ## Responsive Images
 
-Source images stay where you put them. During the build, `npm run images` creates optimized WebP candidates at several widths and records dimensions and SHA-256 source hashes in `public/images/responsive/manifest.json`.
+Source images stay where you put them. During the build, `npm run images` creates optimized WebP candidates at several widths and records dimensions and SHA-256 source hashes in [`public/images/responsive/manifest.json`](public/images/responsive/manifest.json).
 
 Images that have not changed reuse verified output. Changed images regenerate. Orphaned generated variants are removed.
 
@@ -395,7 +395,7 @@ On mobile, the project gallery remains inline and image-detail mode is disabled.
 
 ## Styling
 
-Most visual decisions begin in `app/globals.css`:
+Most visual decisions begin in [`app/globals.css`](app/globals.css):
 
 ```css
 :root {
@@ -460,7 +460,7 @@ npm run typecheck
 
 ## Deployment
 
-`npm run build` produces a complete static site in `out/`. That directory can be published with GitHub Pages, Cloudflare Pages, Netlify, Vercel, or another static host.
+`npm run build` produces a complete static site in `out/`. That directory can be published with [GitHub Pages](https://pages.github.com/), [Cloudflare Pages](https://pages.cloudflare.com/), [Netlify](https://www.netlify.com/), [Vercel](https://vercel.com/), or another static host.
 
 This repository includes a GitHub Actions workflow that publishes the demo whenever `main` changes. It first tests the ordinary domain-root build, then creates a second export for the repository subpath:
 
@@ -469,7 +469,7 @@ NEXT_PUBLIC_BASE_PATH: /make-placid-portfolio
 NEXT_PUBLIC_SITE_URL: https://maxpfennig.haus/make-placid-portfolio
 ```
 
-For your own GitHub Pages project site, update those values in `.github/workflows/publish-demo.yml`, then enable `Settings > Pages > GitHub Actions`.
+For your own GitHub Pages project site, update those values in [`.github/workflows/publish-demo.yml`](.github/workflows/publish-demo.yml), then enable `Settings > Pages > GitHub Actions`.
 
 For a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBLIC_SITE_URL` to the public origin.
 
@@ -477,7 +477,7 @@ For a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBL
 
 The software is available under the [MIT License](LICENSE). Third-party fonts, photographs, and remote media keep their original licenses or terms; those details are collected in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Instrument Sans is included under the SIL Open Font License 1.1. Unsplash demonstration credits are recorded in `content/image-credits.md`. The optional `portfolio-custom.woff2` file is deliberately excluded from the repository and the MIT-licensed distribution.
+Instrument Sans is included under the SIL Open Font License 1.1. Unsplash demonstration credits are recorded in [`content/image-credits.md`](content/image-credits.md). The optional `portfolio-custom.woff2` file is deliberately excluded from the repository and the MIT-licensed distribution.
 
 ## Release Status
 
