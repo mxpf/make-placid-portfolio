@@ -1,0 +1,19 @@
+/*
+ * Make Placid core tokens.
+ *
+ * Implementations supply their own values for these semantic variables. The
+ * aliases at the end preserve compatibility with existing Make Placid styles.
+ */
+:root {
+  --ground: #f7f6f2;
+  --ink: #1c1c1a;
+  --body-ink: #70706c;
+  --quiet-ink: #999992;
+  --link-ink: var(--body-ink);
+  --divider: color-mix(in srgb, var(--ink) 14%, transparent);
+  --selection: color-mix(in srgb, var(--ink) 12%, var(--ground));
+
+  --dark: var(--ink);
+  --light: var(--ground);
+  --link: var(--link-ink);
+}
