@@ -14,6 +14,8 @@
   --focus-ink: #785800;
   --divider: #cdc8bc;
   --selection: #cdc8bc;
+  --toggle-track: #d6d1c6;
+  --toggle-thumb: #7c766b;
 
   --dark: var(--ink);
   --light: var(--ground);
@@ -31,5 +33,7 @@
   --focus-ink: #d5ad52;
   --divider: #3b3c37;
   --selection: #454740;
+  --toggle-track: #38352e;
+  --toggle-thumb: #9a9285;
   color-scheme: dark;
 }

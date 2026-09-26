@@ -12,6 +12,7 @@
 - Added mobile image detail with visible navigation, position announcements, and WCAG-targeted browser coverage.
 - Added pull-request quality checks and stricter static-export asset and fragment verification.
 - Added a persistent, grid-aligned light/dark palette toggle using Thinkinghaus Light as the default.
+- Softened the palette toggle with borderless Thinkinghaus neutral roles and a one-pixel-taller track.
 - Corrected client navigation so project-subpath deployments apply the base path exactly once.
 
 ## 1.0.0 — 2026-08-14
