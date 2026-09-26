@@ -2,6 +2,7 @@ import { marked } from "marked";
 import { parse as parseYaml } from "yaml";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
+import { validateProjectData, validateSiteData } from "@/lib/content-schema";
 
 export type ImageMedia = {
   kind: "image";
@@ -61,12 +62,12 @@ export type MediaRowItem =
   | (ImageGridItem & {
       kind: "image";
     })
-  | (Omit<VideoMedia, "kind" | "caption" | "captionHtml" | "captionPosition"> & {
+  | (Omit<VideoMedia, "kind" | "id" | "ratio" | "caption" | "captionHtml" | "captionPosition"> & {
       kind: "video";
       width: number;
       height: number;
     })
-  | (Omit<YouTubeMedia, "kind" | "caption" | "captionHtml" | "captionPosition"> & {
+  | (Omit<YouTubeMedia, "kind" | "id" | "ratio" | "caption" | "captionHtml" | "captionPosition"> & {
       kind: "youtube";
       width: number;
       height: number;
@@ -210,7 +211,9 @@ function parseProjectFile(source: string) {
 function readProject(slug: string): Project {
   const source = projectFiles[slug];
   if (!source) throw new Error(`Unknown project: ${slug}`);
-  const { data, content } = parseProjectFile(source);
+  const parsed = parseProjectFile(source);
+  const data = validateProjectData(parsed.data, slug);
+  const content = parsed.content;
 
   return {
     slug,
@@ -245,10 +248,17 @@ function readProject(slug: string): Project {
 }
 
 export function getProjects() {
-  return Object.keys(projectFiles)
+  const projects = Object.keys(projectFiles)
     .map((slug) => readProject(slug))
     .filter((project) => project.published)
     .sort((a, b) => a.order - b.order);
+  const orders = new Map<number, string>();
+  for (const project of projects) {
+    const existing = orders.get(project.order);
+    if (existing) throw new Error(`Duplicate project order ${project.order}: ${existing} and ${project.slug}`);
+    orders.set(project.order, project.slug);
+  }
+  return projects;
 }
 
 export function getFeaturedProjects() {
@@ -266,7 +276,7 @@ export function getProject(slug: string) {
 }
 
 export function getSiteConfig(): SiteConfig {
-  const data = parseYaml(siteSource);
+  const data = validateSiteData(parseYaml(siteSource));
   return {
     ...data,
     url: process.env.NEXT_PUBLIC_SITE_URL?.trim() || data.url || "",

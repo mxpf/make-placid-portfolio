@@ -36,6 +36,12 @@ jobs:
       - name: Verify the template at the domain root
         run: npm test
 
+      - name: Install the browser used by experience tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify interactions and accessibility
+        run: npm run test:e2e
+
       - name: Build the project-site demo
         env:
           NEXT_PUBLIC_BASE_PATH: /make-placid-portfolio

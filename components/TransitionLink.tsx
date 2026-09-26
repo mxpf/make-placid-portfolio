@@ -1,7 +1,9 @@
 "use client";
 
 import type { MouseEvent, ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { withBasePath } from "@/lib/base-path";
 
 export function TransitionLink({
@@ -21,6 +23,11 @@ export function TransitionLink({
 }) {
   const router = useRouter();
   const renderedHref = withBasePath(href);
+  const navigationTimer = useRef<number | null>(null);
+
+  useEffect(() => () => {
+    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+  }, []);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>) {
     if (
@@ -36,17 +43,18 @@ export function TransitionLink({
 
     event.preventDefault();
     beforeNavigate?.();
-    if (window.location.pathname === renderedHref) {
+    const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+    if (normalizePath(window.location.pathname) === normalizePath(renderedHref)) {
       window.scrollTo({ top: 0 });
       return;
     }
 
     document.body.classList.add("page-leaving");
-    window.setTimeout(() => router.push(href), 180);
+    navigationTimer.current = window.setTimeout(() => router.push(href), 180);
   }
 
   return (
-    <a
+    <Link
       className={className}
       href={renderedHref}
       aria-label={ariaLabel}
@@ -54,6 +62,6 @@ export function TransitionLink({
       onClick={navigate}
     >
       {children}
-    </a>
+    </Link>
   );
 }

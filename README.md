@@ -33,6 +33,7 @@ A portfolio can become busy for reasons that have very little to do with the wor
 - Responsive WebP variants generated at build time
 - Local font loading, optional private-font override, reduced-motion support, visible focus states, and restrained link interactions
 - Static-export verification for routes, local assets, responsive candidates, social cards, and video posters
+- Build-time validation for site settings, projects, media structures, duplicate IDs, and project ordering
 
 ## Requirements
 
@@ -51,6 +52,8 @@ npm run dev
 ```
 
 Open the local URL printed in the terminal. Most portfolio edits happen in [`content/`](content/) and [`public/`](public/).
+
+Make Placid 2 is currently an alpha. The template and its private `@make-placid/core` workspace share the same version while the reusable package boundary is being established. Treat the content model and CSS-token exports as pre-release APIs until 2.0.0.
 
 ## Make It Yours
 
@@ -94,6 +97,8 @@ Edit [`content/about.md`](content/about.md). These tokens are replaced from [`co
 - `{{location}}`
 
 The About page accepts ordinary Markdown: paragraphs, links, lists, and block quotations.
+
+Project Markdown, About Markdown, captions, and `homepageIntro` are trusted repository content and are rendered as HTML during the build. Do not populate these fields directly from public submissions or an untrusted CMS without adding HTML sanitization.
 
 ### Replace social and icon images
 
@@ -152,6 +157,8 @@ public/
 ```
 
 Project paths begin after `public/`. For example, `public/images/project-name/cover.jpg` becomes `/images/project-name/cover.jpg`.
+
+The responsive-image generator accepts JPEG and PNG source files. It writes WebP variants and preserves the source image's decoded orientation and color appearance through Sharp. Use correctly oriented RGB masters, keep social cards at 1200x630, and use source images at least as wide as their largest intended display size. WebP and AVIF source masters are not currently part of the authoring contract.
 
 ## Projects
 
@@ -486,4 +493,4 @@ Instrument Sans is included under the SIL Open Font License 1.1. Unsplash demons
 
 ## Release Status
 
-Version 1.0.0 established the foundation: static export, project-subpath support, automated demo publishing, dependency checks, and complete demonstration content. See [CHANGELOG.md](CHANGELOG.md) for the release record.
+Version 1.0.0 established the foundation: static export, project-subpath support, automated demo publishing, dependency checks, and complete demonstration content. Version 2 is currently an alpha focused on reusable core primitives, stricter authoring safeguards, and compatibility work. See [CHANGELOG.md](CHANGELOG.md) for the release record.

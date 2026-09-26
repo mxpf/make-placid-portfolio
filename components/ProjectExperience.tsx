@@ -3,10 +3,11 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { useRouter } from "next/navigation";
 import type { Html5Media, ImageGridItem, ImageMedia, MediaRowMedia, Project, ProjectMedia, VideoMedia, YouTubeMedia } from "@/lib/content";
 import { columnImageSizes, detailImageSizes, galleryImageSizes, ResponsiveImage } from "@/components/ResponsiveImage";
+import { ImageDetailDialog } from "@/components/ImageDetailDialog";
 import { TransitionLink } from "@/components/TransitionLink";
+import { useProjectKeyboardNavigation } from "@/components/useProjectKeyboardNavigation";
 import { withBasePath } from "@/lib/base-path";
 
 type ViewTransitionDocument = Document & {
@@ -110,13 +111,7 @@ function VideoControls({
   );
 }
 
-function HostedVideo({
-  media,
-  onIntentionalPlay,
-}: {
-  media: VideoMedia;
-  onIntentionalPlay?: () => void;
-}) {
+function HostedVideo({ media }: { media: VideoMedia }) {
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(media.autoplay === true);
   const [autoplayAllowed, setAutoplayAllowed] = useState(false);
@@ -147,12 +142,11 @@ function HostedVideo({
     if (!video) return;
 
     if (video.paused) {
-      onIntentionalPlay?.();
       void video.play().catch(() => setPlaying(false));
     } else {
       video.pause();
     }
-  }, [onIntentionalPlay]);
+  }, []);
 
   const handleVideoSurfaceClick = useCallback(() => {
     if (playing) toggleVideoPlayback();
@@ -212,7 +206,6 @@ function HostedVideo({
           className="video-poster"
           aria-label={`Play ${media.title}`}
           onClick={() => {
-            onIntentionalPlay?.();
             setPlaying(true);
           }}
         >
@@ -315,7 +308,7 @@ function ImageRow({
           const canOpen = canOpenDetail && image.detail === true;
 
           return (
-            <span
+            <div
               className="image-row-cell"
               key={imageMedia.id}
               style={image.width && image.height ? { "--image-row-ratio": image.width / image.height } as CSSProperties : undefined}
@@ -332,7 +325,7 @@ function ImageRow({
               ) : (
                 <ImageVisual media={imageMedia} crop={false} />
               )}
-            </span>
+            </div>
           );
         })}
       </div>
@@ -352,7 +345,7 @@ function MediaRow({ media }: { media: MediaRowMedia }) {
     >
       <div className="image-row-track">
         {media.items.map((item, index) => (
-          <span
+          <div
             className="image-row-cell"
             key={`${media.id}-${index}`}
             style={item.width && item.height ? { "--image-row-ratio": item.width / item.height } as CSSProperties : undefined}
@@ -360,7 +353,11 @@ function MediaRow({ media }: { media: MediaRowMedia }) {
             {item.kind === "video" ? (
               <MediaRowVideo media={item} />
             ) : item.kind === "youtube" ? (
-              <YouTubeVideo media={item} />
+              <YouTubeVideo media={{
+                ...item,
+                id: `${media.id}-${index}`,
+                ratio: `${item.width} / ${item.height}`,
+              }} />
             ) : (() => {
               const image: ImageGridItem = item;
               return (
@@ -375,7 +372,7 @@ function MediaRow({ media }: { media: MediaRowMedia }) {
                 />
               );
             })()}
-          </span>
+          </div>
         ))}
       </div>
     </div>
@@ -490,7 +487,7 @@ function YouTubeVideo({ media }: { media: YouTubeMedia }) {
       ) : (
         <iframe
           className="youtube-frame"
-          src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}?autoplay=1&playsinline=1&rel=0`}
+          src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}?autoplay=${playing ? 1 : 0}&playsinline=1&rel=0`}
           title={media.title}
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -507,16 +504,14 @@ function GalleryMedia({
   transitionName,
   canOpenDetail,
   priority,
-  onIntentionalPlay,
 }: {
   media: ProjectMedia;
   onOpenImage: (media: ImageMedia) => void;
   transitionName?: string;
   canOpenDetail: boolean;
   priority: boolean;
-  onIntentionalPlay?: () => void;
 }) {
-  if (media.kind === "video") return <HostedVideo media={media} onIntentionalPlay={onIntentionalPlay} />;
+  if (media.kind === "video") return <HostedVideo media={media} />;
 
   if (media.kind === "youtube") return <YouTubeVideo media={media} />;
 
@@ -655,17 +650,19 @@ export function ProjectExperience({
   const [detailIndex, setDetailIndex] = useState<number | null>(null);
   const [transitionId, setTransitionId] = useState<string | null>(null);
   const [supportsDetail, setSupportsDetail] = useState(false);
-  const [forceFullOpacity, setForceFullOpacity] = useState(false);
   const projectLayout = useRef<HTMLElement>(null);
   const projectSummary = useRef<HTMLDivElement>(null);
   const detailScroller = useRef<HTMLDivElement>(null);
-  const detailCloseButton = useRef<HTMLButtonElement>(null);
   const detailTrigger = useRef<HTMLElement | null>(null);
-  const router = useRouter();
 
   const detailImage = detailIndex === null ? null : staticImages[detailIndex];
   const [leadMedia, ...remainingMedia] = project.media;
   const hasProjectNavigation = Boolean(previousProject || nextProject);
+  useProjectKeyboardNavigation({
+    disabled: detailIndex !== null,
+    previousProject,
+    nextProject,
+  });
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px)");
@@ -709,51 +706,6 @@ export function ProjectExperience({
       layout.classList.remove("is-media-aligned");
     };
   }, [project.slug]);
-
-  useEffect(() => {
-    const layout = projectLayout.current;
-    if (!layout) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileViewport = window.matchMedia("(max-width: 767px)");
-    let frame = 0;
-
-    const updateOpacity = () => {
-      frame = 0;
-      if (forceFullOpacity || reduceMotion.matches || mobileViewport.matches) {
-        layout.style.setProperty("--project-content-opacity", "1");
-        return;
-      }
-
-      const rootStyles = getComputedStyle(document.documentElement);
-      const start = Number.parseFloat(rootStyles.getPropertyValue("--project-content-opacity-start")) || 0.1;
-      const fadeViewport = Number.parseFloat(rootStyles.getPropertyValue("--project-content-fade-viewport")) || 12;
-      const distance = Math.max(window.innerHeight * fadeViewport / 100, 1);
-      const progress = Math.min(Math.max(window.scrollY / distance, 0), 1);
-      const opacity = start + ((1 - start) * progress);
-      layout.style.setProperty("--project-content-opacity", opacity.toFixed(3));
-    };
-
-    const scheduleOpacityUpdate = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateOpacity);
-    };
-
-    updateOpacity();
-    window.addEventListener("scroll", scheduleOpacityUpdate, { passive: true });
-    window.addEventListener("resize", scheduleOpacityUpdate);
-    reduceMotion.addEventListener("change", scheduleOpacityUpdate);
-    mobileViewport.addEventListener("change", scheduleOpacityUpdate);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleOpacityUpdate);
-      window.removeEventListener("resize", scheduleOpacityUpdate);
-      reduceMotion.removeEventListener("change", scheduleOpacityUpdate);
-      mobileViewport.removeEventListener("change", scheduleOpacityUpdate);
-      layout.style.removeProperty("--project-content-opacity");
-    };
-  }, [forceFullOpacity, project.slug]);
 
   useEffect(() => {
     if (detailIndex === null) {
@@ -803,47 +755,6 @@ export function ProjectExperience({
       });
   }, [detailImage, runTransition]);
 
-  useEffect(() => {
-    if (detailIndex === null) return;
-    const activeIndex = detailIndex;
-    detailCloseButton.current?.focus({ preventScroll: true });
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeDetail();
-      } else if (event.key === "ArrowLeft" && activeIndex > 0) {
-        event.preventDefault();
-        setDetailIndex(activeIndex - 1);
-        detailScroller.current?.scrollTo({ top: 0 });
-      } else if (event.key === "ArrowRight" && activeIndex < staticImages.length - 1) {
-        event.preventDefault();
-        setDetailIndex(activeIndex + 1);
-        detailScroller.current?.scrollTo({ top: 0 });
-      }
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [closeDetail, detailIndex, staticImages.length]);
-
-  useEffect(() => {
-    function onProjectNavigationKeyDown(event: KeyboardEvent) {
-      if (detailIndex !== null) return;
-      if (["INPUT", "TEXTAREA", "SELECT"].includes((event.target as HTMLElement)?.tagName)) return;
-      if (event.key === "ArrowLeft" && previousProject) {
-        event.preventDefault();
-        router.push(withBasePath(`/projects/${previousProject.slug}`));
-      } else if (event.key === "ArrowRight" && nextProject) {
-        event.preventDefault();
-        router.push(withBasePath(`/projects/${nextProject.slug}`));
-      }
-    }
-
-    window.addEventListener("keydown", onProjectNavigationKeyDown);
-    return () => window.removeEventListener("keydown", onProjectNavigationKeyDown);
-  }, [detailIndex, nextProject, previousProject, router]);
-
   return (
     <main
       ref={projectLayout}
@@ -877,7 +788,6 @@ export function ProjectExperience({
                 onOpenImage={openDetail}
                 canOpenDetail={supportsDetail}
                 priority
-                onIntentionalPlay={() => setForceFullOpacity(true)}
                 transitionName={transitionId === `project-image-${leadMedia.id}` ? transitionId : undefined}
               />
             </div>
@@ -894,7 +804,6 @@ export function ProjectExperience({
                     onOpenImage={openDetail}
                     canOpenDetail={supportsDetail}
                     priority={false}
-                    onIntentionalPlay={() => setForceFullOpacity(true)}
                     transitionName={transitionId === `project-image-${media.id}` ? transitionId : undefined}
                   />
                 </div>
@@ -920,25 +829,26 @@ export function ProjectExperience({
       </div>
 
       {detailImage ? (
-        <div className="detail-layer" ref={detailScroller} role="dialog" aria-modal="true" aria-label="Image detail" tabIndex={-1}>
-          <button
-            className="detail-close-control"
-            type="button"
-            onClick={closeDetail}
-            ref={detailCloseButton}
-          >
-            Close
-          </button>
-          <button className="detail-close" type="button" onClick={closeDetail} aria-label="Close image detail">
-            <div
+        <ImageDetailDialog
+          scrollerRef={detailScroller}
+          onClose={closeDetail}
+          onPrevious={detailIndex !== null && detailIndex > 0 ? () => {
+            setDetailIndex(detailIndex - 1);
+            detailScroller.current?.scrollTo({ top: 0 });
+          } : undefined}
+          onNext={detailIndex !== null && detailIndex < staticImages.length - 1 ? () => {
+            setDetailIndex(detailIndex + 1);
+            detailScroller.current?.scrollTo({ top: 0 });
+          } : undefined}
+        >
+          <span
               className="detail-media"
               key={detailImage.id}
               style={{ viewTransitionName: transitionId ?? undefined } as ViewTransitionStyle}
             >
               <ImageVisual media={detailImage} sizes={detailImageSizes} priority crop={false} />
-            </div>
-          </button>
-        </div>
+          </span>
+        </ImageDetailDialog>
       ) : null}
     </main>
   );

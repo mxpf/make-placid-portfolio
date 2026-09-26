@@ -59,8 +59,8 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, /<title>Make Placid<\/title>/i);
   assert.match(html, />Make Placid<\/a>/);
   assert.match(html, />About &amp; contact<\/a>/);
-  assert.equal((html.match(/href="\/projects\/project-\d{2}"/g) ?? []).length, 7);
-  assert.doesNotMatch(html, /href="\/projects\/project-08"/);
+  assert.equal((html.match(/href="\/projects\/project-\d{2}\/"/g) ?? []).length, 7);
+  assert.doesNotMatch(html, /href="\/projects\/project-08\/"/);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
   assert.match(html, /id="home-intro-title">A minimal portfolio for thoughtful creative work\.<\/h1>/);
   assert.match(html, /responsive media, and <a href="https:\/\/nextjs\.org\/docs\/app\/guides\/static-exports">static deployment<\/a>\./);
@@ -115,8 +115,8 @@ test("server-renders project, about, and not-found routes", async () => {
   assert.match(projectHtml, /class="media-frame image-row/);
   assert.match(projectHtml, /accessible playback controls/);
   assert.match(projectHtml, /selected detail views/);
-  assert.match(projectHtml, /href="\/projects\/project-02"[^>]*>Previous/);
-  assert.match(projectHtml, /href="\/projects\/project-04"[^>]*>Next/);
+  assert.match(projectHtml, /href="\/projects\/project-02\/"[^>]*>Previous/);
+  assert.match(projectHtml, /href="\/projects\/project-04\/"[^>]*>Next/);
   assert.equal(
     getMetaContent(projectHtml, "property", "og:image"),
     "https://maxpfennig.haus/make-placid-portfolio/social/projects/project-03.png",
@@ -133,9 +133,9 @@ test("server-renders project, about, and not-found routes", async () => {
   assert.equal(getMetaContent(fallbackSocialHtml, "property", "og:image:width"), "1200");
   assert.equal(getMetaContent(fallbackSocialHtml, "property", "og:image:height"), "630");
   assert.equal(getMetaContent(fallbackSocialHtml, "name", "twitter:image"), "https://maxpfennig.haus/make-placid-portfolio/og.png");
-  assert.match(lastCuratedHtml, /href="\/projects\/project-06"[^>]*>Previous/);
+  assert.match(lastCuratedHtml, /href="\/projects\/project-06\/"[^>]*>Previous/);
   assert.doesNotMatch(lastCuratedHtml, /Next —/);
-  assert.doesNotMatch(lastCuratedHtml, /href="\/projects\/project-08"/);
+  assert.doesNotMatch(lastCuratedHtml, /href="\/projects\/project-08\/"/);
   assert.match(directOnlyHtml, /Project 08 — Direct Link/);
   assert.doesNotMatch(directOnlyHtml, /Previous —|Next —/);
   assert.doesNotMatch(directOnlyHtml, /class="project-navigation"/);
@@ -181,7 +181,7 @@ test("ships a verified and maintainable publication path", async () => {
     readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
   ]);
 
-  assert.match(packageJson, /"version": "1\.0\.0"/);
+  assert.match(packageJson, /"version": "2\.0\.0-alpha\.1"/);
   assert.match(packageJson, /"verify:export": "node scripts\/verify-static-export\.mjs"/);
   assert.match(packageJson, /"audit:production"/);
   assert.match(config, /NEXT_PUBLIC_BASE_PATH/);

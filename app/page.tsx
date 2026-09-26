@@ -50,7 +50,7 @@ export default function Home() {
                     alt={project.thumbnail.alt}
                     sizes={project.homepageWide ? "calc(100vw - 48px)" : columnImageSizes}
                     className="home-project-image home-project-image--base"
-                    priority={index < 2}
+                    priority={index === 0}
                     style={{
                       objectPosition: `${project.thumbnail.focalX}% ${project.thumbnail.focalY}%`,
                       objectFit: project.thumbnail.fit,
