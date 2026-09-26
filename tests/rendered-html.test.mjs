@@ -63,7 +63,7 @@ test("server-renders the portfolio home page", async () => {
   assert.doesNotMatch(html, /href="\/projects\/project-08\/"/);
   assert.match(html, /srcSet="\/images\/responsive\/unsplash\//);
   assert.match(html, /id="home-intro-title">A minimal portfolio for thoughtful creative work\.<\/h1>/);
-  assert.match(html, /responsive media, and <a href="https:\/\/nextjs\.org\/docs\/app\/guides\/static-exports">static deployment<\/a>\./);
+  assert.match(html, /responsive media, and <a href="https:\/\/nextjs\.org\/docs\/app\/guides\/static-exports" rel="noreferrer">static deployment<\/a>\./);
   assert.match(html, /class="home-project home-project--lead"/);
   assert.doesNotMatch(html, /class="home-project[^"]*"[^>]*data-reveal/);
   assert.equal((html.match(/class="home-project-label"/g) ?? []).length, 7);
@@ -170,7 +170,7 @@ test("publishes search-engine discovery routes", async () => {
 });
 
 test("ships a verified and maintainable publication path", async () => {
-  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, changelog] = await Promise.all([
+  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/base-path.ts", import.meta.url), "utf8"),
@@ -178,6 +178,9 @@ test("ships a verified and maintainable publication path", async () => {
     readFile(new URL("../scripts/prune-responsive-source-images.mjs", import.meta.url), "utf8"),
     readFile(new URL("../.github/workflows/publish-demo.yml", import.meta.url), "utf8"),
     readFile(new URL("../.github/workflows/dependency-audit.yml", import.meta.url), "utf8"),
+    readFile(new URL("../.github/workflows/quality.yml", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content-schema.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/markdown.ts", import.meta.url), "utf8"),
     readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
   ]);
 
@@ -192,6 +195,13 @@ test("ships a verified and maintainable publication path", async () => {
   assert.match(publishWorkflow, /actions\/deploy-pages@v4/);
   assert.match(publishWorkflow, /NEXT_PUBLIC_BASE_PATH: \/make-placid-portfolio/);
   assert.match(auditWorkflow, /schedule:/);
+  assert.doesNotMatch(auditWorkflow, /continue-on-error/);
+  assert.match(qualityWorkflow, /pull_request:/);
+  assert.match(qualityWorkflow, /npm run test:e2e/);
+  assert.match(schema, /z\.strictObject/);
+  assert.match(schema, /ratio values must be greater than zero/);
+  assert.match(markdown, /sanitizeHtml/);
+  assert.match(markdown, /allowedSchemes/);
   assert.match(changelog, /1\.0\.0 — 2026-08-14/);
   await access(new URL("../public/.nojekyll", import.meta.url));
 });
@@ -312,6 +322,9 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /@media \(prefers-reduced-motion: no-preference\)\s*\{[\s\S]*?\.home-intro h1,\s*\.home-intro p\s*\{[^}]*animation: homepage-intro-entry-reveal var\(--reveal-opacity-duration\) ease-out both/s);
   assert.match(styles, /\.home-intro p\s*\{[^}]*animation-delay: var\(--reveal-stagger\)/s);
   assert.match(styles, /--homepage-lead-opacity-rest: 1/);
+  assert.match(styles, /--homepage-lead-reveal-delay: 120ms/);
+  assert.match(styles, /--homepage-lead-reveal-opacity-duration: 480ms/);
+  assert.match(styles, /--homepage-lead-reveal-movement-duration: 650ms/);
   assert.match(styles, /\.home-project--lead \.home-project-image--base\s*\{[^}]*opacity: max\([^}]*var\(--homepage-lead-opacity-rest\)[^}]*var\(--homepage-content-opacity-current/s);
   assert.match(styles, /\.home-project--lead\s*\{[^}]*will-change: opacity, transform[^}]*homepage-lead-opacity-in[^}]*homepage-lead-movement-in/s);
   assert.doesNotMatch(styles, /\.home-project--lead \.home-project-media\s*\{[^}]*homepage-lead-movement-in/s);
@@ -333,6 +346,8 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /html:has\(body\.detail-open\),\s*body\.detail-open\s*\{[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer\s*\{[^}]*inset: var\(--header-height\) 0 0[^}]*overscroll-behavior: none/s);
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
+  assert.match(styles, /\.detail-navigation\s*\{/);
+  assert.doesNotMatch(styles, /\.detail-layer\s*\{[^}]*display: none/s);
   assert.match(styles, /\.media-caption a,\s*\.home-intro a\s*\{[^}]*text-decoration-line: underline/s);
   assert.match(styles, /\.project-navigation a\s*\{[^}]*text-decoration-color: transparent[^}]*text-decoration-color 180ms ease/s);
   assert.match(styles, /\.project-navigation a:hover\s*\{[^}]*text-decoration-color: color-mix\(in srgb, currentColor 45%, transparent\)/s);
@@ -347,6 +362,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(layout, /preload: true/);
   assert.match(layout, /instrumentSans\.variable/);
   assert.match(layout, /className=\{htmlClassName\}/);
+  assert.match(layout, /withBasePath\("\/fonts\/portfolio-custom\.woff2"\)/);
   assert.match(styles, /html\s*\{[^}]*font-family: var\(--font-instrument-sans\), Arial, Helvetica, sans-serif/s);
   assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", var\(--font-instrument-sans\)/s);
   assert.doesNotMatch(styles, /font-family: "Instrument Sans";[\s\S]*?InstrumentSans-Regular\.woff2/s);

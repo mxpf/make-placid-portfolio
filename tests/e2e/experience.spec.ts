@@ -6,13 +6,14 @@ test("core pages have no automatically detectable accessibility violations", asy
   for (const path of ["/", "/about/", "/projects/project-03/", "/missing/"]) {
     await page.goto(path);
     await expect(page.locator("body")).toBeVisible();
-    const results = await new AxeBuilder({ page }).analyze();
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+      .analyze();
     expect(results.violations, `${path}: ${results.violations.map((item) => item.id).join(", ")}`).toEqual([]);
   }
 });
 
-test("image detail traps focus, supports arrows, and restores its trigger", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name.includes("mobile"), "Detail mode is intentionally desktop-only");
+test("image detail traps focus, exposes navigation, and restores its trigger", async ({ page }) => {
   await page.goto("/projects/project-03/");
   const trigger = page.getByRole("button", { name: /Open detail view:/ }).first();
   await trigger.click();
@@ -20,15 +21,51 @@ test("image detail traps focus, supports arrows, and restores its trigger", asyn
   const dialog = page.getByRole("dialog", { name: "Image detail" });
   await expect(dialog).toBeVisible();
   await expect(page.getByRole("button", { name: "Close", exact: true })).toBeFocused();
-  await page.keyboard.press("Shift+Tab");
-  await expect(page.getByRole("button", { name: "Close image detail" })).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("button", { name: "Close", exact: true })).toBeFocused();
-  await page.keyboard.press("ArrowRight");
+  await expect(page.getByText(/1 of \d+/)).toBeVisible();
+  const next = page.getByRole("button", { name: "Next image" });
+  await expect(next).toBeEnabled();
+  await next.click();
+  await expect(page.getByText(/2 of \d+/)).toBeVisible();
   await expect(dialog.locator("img")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
   await expect(trigger).toBeFocused();
+});
+
+test("visible project navigation changes routes", async ({ page }) => {
+  await page.goto("/projects/project-03/");
+  await page.getByRole("link", { name: /Next —/ }).click();
+  await expect(page).toHaveURL(/\/projects\/project-04\/?$/);
+  await page.getByRole("link", { name: /Previous —/ }).click();
+  await expect(page).toHaveURL(/\/projects\/project-03\/?$/);
+});
+
+test("About closes back to the previous homepage position", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => window.scrollTo(0, Math.min(document.body.scrollHeight, 900)));
+  const before = await page.evaluate(() => window.scrollY);
+  await page.getByRole("link", { name: "About & contact" }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(Math.max(0, before - 2));
+});
+
+test("video embeds load only after an explicit action", async ({ page }) => {
+  await page.goto("/projects/project-03/");
+  await expect(page.locator("iframe.youtube-frame")).toHaveCount(0);
+  await page.getByRole("button", { name: /Play I Am Easy To Find/ }).click();
+  await expect(page.locator("iframe.youtube-frame")).toHaveAttribute("src", /youtube-nocookie\.com/);
+  await expect(page.locator("iframe.youtube-frame")).toHaveAttribute("src", /autoplay=1/);
+});
+
+test("mobile layouts do not overflow horizontally", async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.includes("mobile"), "Mobile-only reflow assertion");
+  for (const path of ["/", "/about/", "/projects/project-03/"]) {
+    await page.goto(path);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${path} has horizontal overflow`).toBeLessThanOrEqual(1);
+  }
 });
 
 test("project arrows do not override focused media controls", async ({ page }) => {

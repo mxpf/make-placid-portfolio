@@ -1,13 +1,5 @@
 @import "../packages/core/tokens.css";
 
-@font-face {
-  font-family: "Portfolio Custom";
-  src: url("/fonts/portfolio-custom.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   --page-gutter: 24px;
   --column-gap: 24px;
@@ -23,12 +15,12 @@
   --reveal-opacity-duration: 180ms;
   --reveal-movement-duration: 180ms;
   --reveal-stagger: 20ms;
-  --homepage-lead-reveal-distance: 38vh;
+  --homepage-lead-reveal-distance: 12vh;
   --homepage-lead-opacity-rest: 1;
-  --homepage-lead-reveal-delay: 360ms;
+  --homepage-lead-reveal-delay: 120ms;
   --homepage-lead-reveal-easing: cubic-bezier(0.45, 0, 0.2, 1);
-  --homepage-lead-reveal-opacity-duration: 1200ms;
-  --homepage-lead-reveal-movement-duration: 1800ms;
+  --homepage-lead-reveal-opacity-duration: 480ms;
+  --homepage-lead-reveal-movement-duration: 650ms;
   --subhead-size: 14px;
   --subhead-line-height: 24px;
   --title-subhead-gap: 0;
@@ -866,6 +858,50 @@ iframe {
   background: color-mix(in srgb, var(--light) 72%, transparent);
 }
 
+.detail-navigation {
+  position: fixed;
+  z-index: 70;
+  right: var(--page-gutter);
+  bottom: var(--spacing-2);
+  left: var(--page-gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  pointer-events: none;
+}
+
+.detail-navigation button,
+.detail-navigation p {
+  min-height: 44px;
+  margin: 0;
+  padding: 9px 14px;
+  border: 1px solid var(--divider);
+  border-radius: 999px;
+  color: var(--dark);
+  background: color-mix(in srgb, var(--light) 88%, transparent);
+  backdrop-filter: blur(12px);
+  font-size: 14px;
+  line-height: 24px;
+  pointer-events: auto;
+}
+
+.detail-navigation button:first-child { justify-self: start; }
+.detail-navigation button:last-child { justify-self: end; }
+.detail-navigation p { justify-self: center; }
+
+.detail-navigation button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.detail-navigation button:not(:disabled) { cursor: pointer; }
+.detail-navigation button:not(:disabled):hover,
+.detail-navigation button:not(:disabled):focus-visible {
+  border-color: color-mix(in srgb, var(--dark) 36%, transparent);
+  outline: none;
+  background: color-mix(in srgb, var(--light) 72%, transparent);
+}
+
 .detail-media {
   display: flex;
   width: 100%;
@@ -1111,7 +1147,8 @@ body:has(.project-layout) .bottom-rail {
 
 @media (max-width: 767px) {
   .site-header {
-    position: relative;
+    position: sticky;
+    top: 0;
     grid-template-columns: minmax(0, 1fr) max-content;
     gap: var(--spacing-1);
     height: var(--header-height);
@@ -1238,15 +1275,6 @@ body:has(.project-layout) .bottom-rail {
     margin-left: 0;
   }
 
-  .gallery-image-button {
-    cursor: default;
-    pointer-events: none;
-  }
-
-  .gallery-image-button:hover {
-    opacity: 1;
-  }
-
   .about-layout,
   .not-found-layout {
     display: block;
@@ -1257,9 +1285,8 @@ body:has(.project-layout) .bottom-rail {
     min-height: calc(100vh - var(--header-height));
   }
 
-  .detail-layer {
-    display: none;
-  }
+  .detail-layer { inset: var(--header-height) 0 0; }
+  .detail-navigation { bottom: var(--spacing-1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

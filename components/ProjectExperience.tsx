@@ -8,6 +8,7 @@ import { columnImageSizes, detailImageSizes, galleryImageSizes, ResponsiveImage 
 import { ImageDetailDialog } from "@/components/ImageDetailDialog";
 import { TransitionLink } from "@/components/TransitionLink";
 import { useProjectKeyboardNavigation } from "@/components/useProjectKeyboardNavigation";
+import { useAutoplayPermission } from "@/components/useAutoplayPermission";
 import { withBasePath } from "@/lib/base-path";
 
 type ViewTransitionDocument = Document & {
@@ -114,26 +115,14 @@ function VideoControls({
 function HostedVideo({ media }: { media: VideoMedia }) {
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(media.autoplay === true);
-  const [autoplayAllowed, setAutoplayAllowed] = useState(false);
+  const autoplayAllowed = useAutoplayPermission(media.autoplay === true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!media.autoplay) return;
-
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncPreference = () => {
-      const allowed = !query.matches;
-      setAutoplayAllowed(allowed);
-      if (!allowed) videoRef.current?.pause();
-    };
-
-    syncPreference();
-    query.addEventListener("change", syncPreference);
-    return () => query.removeEventListener("change", syncPreference);
-  }, [media.autoplay]);
-
-  useEffect(() => {
-    if (!media.autoplay || !autoplayAllowed) return;
+    if (!media.autoplay || !autoplayAllowed) {
+      videoRef.current?.pause();
+      return;
+    }
     void videoRef.current?.play().catch(() => setPlaying(false));
   }, [autoplayAllowed, media.autoplay]);
 
@@ -386,25 +375,13 @@ function MediaRowVideo({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldAutoplay = media.autoplay ?? true;
-  const [autoplayAllowed, setAutoplayAllowed] = useState(false);
+  const autoplayAllowed = useAutoplayPermission(shouldAutoplay);
 
   useEffect(() => {
-    if (!shouldAutoplay) return;
-
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncPreference = () => {
-      const allowed = !query.matches;
-      setAutoplayAllowed(allowed);
-      if (!allowed) videoRef.current?.pause();
-    };
-
-    syncPreference();
-    query.addEventListener("change", syncPreference);
-    return () => query.removeEventListener("change", syncPreference);
-  }, [shouldAutoplay]);
-
-  useEffect(() => {
-    if (!shouldAutoplay || !autoplayAllowed) return;
+    if (!shouldAutoplay || !autoplayAllowed) {
+      videoRef.current?.pause();
+      return;
+    }
     void videoRef.current?.play().catch(() => undefined);
   }, [autoplayAllowed, shouldAutoplay]);
 
@@ -649,7 +626,6 @@ export function ProjectExperience({
   );
   const [detailIndex, setDetailIndex] = useState<number | null>(null);
   const [transitionId, setTransitionId] = useState<string | null>(null);
-  const [supportsDetail, setSupportsDetail] = useState(false);
   const projectLayout = useRef<HTMLElement>(null);
   const projectSummary = useRef<HTMLDivElement>(null);
   const detailScroller = useRef<HTMLDivElement>(null);
@@ -663,14 +639,6 @@ export function ProjectExperience({
     previousProject,
     nextProject,
   });
-
-  useEffect(() => {
-    const query = window.matchMedia("(min-width: 768px)");
-    const sync = () => setSupportsDetail(query.matches);
-    sync();
-    query.addEventListener("change", sync);
-    return () => query.removeEventListener("change", sync);
-  }, []);
 
   useLayoutEffect(() => {
     const layout = projectLayout.current;
@@ -730,7 +698,7 @@ export function ProjectExperience({
   }, []);
 
   const openDetail = useCallback((media: ImageMedia) => {
-    if (!supportsDetail || media.detail !== true) return;
+    if (media.detail !== true) return;
     const index = staticImages.findIndex((image) => image.id === media.id);
     if (index === -1) return;
     detailTrigger.current = document.activeElement instanceof HTMLElement
@@ -741,7 +709,7 @@ export function ProjectExperience({
     void runTransition(() => flushSync(() => setDetailIndex(index)))
       .catch(() => undefined)
       .finally(() => setTransitionId(null));
-  }, [runTransition, staticImages, supportsDetail]);
+  }, [runTransition, staticImages]);
 
   const closeDetail = useCallback(() => {
     if (!detailImage) return;
@@ -786,7 +754,7 @@ export function ProjectExperience({
               <GalleryMedia
                 media={leadMedia}
                 onOpenImage={openDetail}
-                canOpenDetail={supportsDetail}
+                canOpenDetail
                 priority
                 transitionName={transitionId === `project-image-${leadMedia.id}` ? transitionId : undefined}
               />
@@ -802,7 +770,7 @@ export function ProjectExperience({
                   <GalleryMedia
                     media={media}
                     onOpenImage={openDetail}
-                    canOpenDetail={supportsDetail}
+                    canOpenDetail
                     priority={false}
                     transitionName={transitionId === `project-image-${media.id}` ? transitionId : undefined}
                   />
@@ -840,6 +808,8 @@ export function ProjectExperience({
             setDetailIndex(detailIndex + 1);
             detailScroller.current?.scrollTo({ top: 0 });
           } : undefined}
+          currentIndex={(detailIndex ?? 0) + 1}
+          total={staticImages.length}
         >
           <span
               className="detail-media"

@@ -9,6 +9,7 @@ const RETURN_KEY = "portfolio-about-return";
 const RESTORE_KEY = "portfolio-about-restore";
 
 type AboutReturn = {
+  pathname: string;
   scrollX: number;
   scrollY: number;
 };
@@ -47,7 +48,11 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
   function rememberLocation() {
     sessionStorage.setItem(
       RETURN_KEY,
-      JSON.stringify({ scrollX: window.scrollX, scrollY: window.scrollY } satisfies AboutReturn),
+      JSON.stringify({
+        pathname: withoutBasePath(window.location.pathname),
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+      } satisfies AboutReturn),
     );
   }
 
@@ -66,8 +71,13 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
     if (storedReturn) {
       sessionStorage.removeItem(RETURN_KEY);
       sessionStorage.setItem(RESTORE_KEY, storedReturn);
-      router.back();
-      return;
+      try {
+        const { pathname } = JSON.parse(storedReturn) as AboutReturn;
+        router.replace(pathname || "/", { scroll: false });
+        return;
+      } catch {
+        sessionStorage.removeItem(RESTORE_KEY);
+      }
     }
 
     router.push("/");

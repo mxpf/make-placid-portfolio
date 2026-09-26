@@ -1,7 +1,7 @@
-import { marked } from "marked";
 import { parse as parseYaml } from "yaml";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
+import { renderInlineMarkdown, renderMarkdown } from "@/lib/markdown";
 import { validateProjectData, validateSiteData } from "@/lib/content-schema";
 
 export type ImageMedia = {
@@ -190,17 +190,6 @@ const projectFiles = Object.fromEntries(
 );
 const aboutSource = readFileSync(path.join(contentRoot, "about.md"), "utf8");
 const siteSource = readFileSync(path.join(contentRoot, "site.yml"), "utf8");
-
-function renderMarkdown(source: string) {
-  const html = marked.parse(source, { async: false }) as string;
-  return html.replace(
-    /(<blockquote>\s*<p>)([“‘"'])/g,
-    '$1<span class="hanging-quote">$2</span>',
-  );
-}
-function renderInlineMarkdown(source: string) {
-  return marked.parseInline(source, { async: false }) as string;
-}
 
 function parseProjectFile(source: string) {
   const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);

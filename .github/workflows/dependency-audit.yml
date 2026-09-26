@@ -28,5 +28,4 @@ jobs:
         run: npm run audit:production
 
       - name: Audit the complete development toolchain
-        continue-on-error: true
         run: npm run audit:full

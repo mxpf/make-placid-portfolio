@@ -9,12 +9,16 @@ export function ImageDetailDialog({
   onClose,
   onPrevious,
   onNext,
+  currentIndex,
+  total,
 }: {
   children: ReactNode;
   scrollerRef: RefObject<HTMLDivElement | null>;
   onClose: () => void;
   onPrevious?: () => void;
   onNext?: () => void;
+  currentIndex: number;
+  total: number;
 }) {
   const closeButton = useRef<HTMLButtonElement>(null);
 
@@ -57,6 +61,15 @@ export function ImageDetailDialog({
       <button className="detail-close-control" type="button" onClick={onClose} ref={closeButton}>
         Close
       </button>
+      <div className="detail-navigation" aria-label="Image detail navigation">
+        <button type="button" onClick={onPrevious} disabled={!onPrevious} aria-label="Previous image">
+          Previous
+        </button>
+        <p aria-live="polite" aria-atomic="true">{currentIndex} of {total}</p>
+        <button type="button" onClick={onNext} disabled={!onNext} aria-label="Next image">
+          Next
+        </button>
+      </div>
       <button className="detail-close" type="button" onClick={onClose} aria-label="Close image detail">
         {children}
       </button>

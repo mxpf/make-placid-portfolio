@@ -1,0 +1,43 @@
+name: Quality
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the template
+        uses: actions/checkout@v5
+
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify types and source quality
+        run: |
+          npm run lint
+          npm run typecheck
+
+      - name: Build and verify the static export
+        run: npm test
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser and WCAG checks
+        run: npm run test:e2e
+
+      - name: Audit dependencies
+        run: |
+          npm run audit:production
+          npm run audit:full

@@ -8,6 +8,9 @@
 - Removed scroll-dependent project-media opacity and reduced homepage preload competition.
 - Added complete About-page social metadata and aligned dependency security baselines.
 - Defined the trusted-Markdown boundary and the supported responsive-image authoring contract.
+- Sanitized rendered Markdown and made content schemas reject unknown or malformed authoring fields.
+- Added mobile image detail with visible navigation, position announcements, and WCAG-targeted browser coverage.
+- Added pull-request quality checks and stricter static-export asset and fragment verification.
 
 ## 1.0.0 — 2026-08-14
 

@@ -72,6 +72,11 @@ export default function RootLayout({
 
   return (
     <html lang={site.language} className={htmlClassName}>
+      {customFontEnabled ? (
+        <head>
+          <style>{`@font-face{font-family:"Portfolio Custom";src:url("${withBasePath("/fonts/portfolio-custom.woff2")}") format("woff2");font-style:normal;font-weight:400;font-display:swap}`}</style>
+        </head>
+      ) : null}
       <body>
         <SiteChrome
           name={site.name}

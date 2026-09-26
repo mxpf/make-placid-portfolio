@@ -27,7 +27,7 @@ A portfolio can become busy for reasons that have very little to do with the wor
 - Project pages with a fixed desktop summary column and a responsive single-column grid on smaller screens
 - Static images, image grids, proportion-aware image rows, mixed-media rows, hosted video, YouTube embeds, and local HTML5 banners
 - Captions with inline Markdown, optional project evidence, thumbnail subtitles, focal points, fit, scale, and rollover images
-- Desktop image-detail mode with focus restoration, click, Escape, and arrow-key controls
+- Responsive image-detail mode with visible navigation, focus restoration, click, Escape, and arrow-key controls
 - Previous/next project navigation drawn from the curated project order
 - Project-level social images with a site-wide fallback
 - Responsive WebP variants generated at build time
@@ -98,7 +98,7 @@ Edit [`content/about.md`](content/about.md). These tokens are replaced from [`co
 
 The About page accepts ordinary Markdown: paragraphs, links, lists, and block quotations.
 
-Project Markdown, About Markdown, captions, and `homepageIntro` are trusted repository content and are rendered as HTML during the build. Do not populate these fields directly from public submissions or an untrusted CMS without adding HTML sanitization.
+Project Markdown, About Markdown, captions, and `homepageIntro` are sanitized before being rendered as HTML. The supported subset includes headings, paragraphs, lists, block quotations, links, emphasis, strong text, code, and line breaks; scripts, event handlers, unsafe protocols, and unsupported elements are removed.
 
 ### Replace social and icon images
 
@@ -388,17 +388,17 @@ Once published, the site does not need a runtime image service or third-party im
 
 ## Interaction
 
-On desktop:
+On desktop and mobile:
 
 - Select a homepage image to open its project.
 - Select a project image to open the detail view.
 - Select the expanded image or press Escape to close it.
-- Use the left and right arrow keys to move between detail images.
+- Use the visible Previous/Next controls to move between detail images. Desktop keyboards can also use the left and right arrow keys.
 - Outside detail mode, use the left and right arrow keys or the visible Previous/Next links to move through the curated project sequence.
 - Select the site name to return to the homepage.
 - Open About and use Close to return to the previous page position.
 
-On mobile, the project gallery remains inline and image-detail mode is disabled.
+On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls.
 
 ## Styling
 
@@ -432,7 +432,9 @@ The individual numbers matter less than their relationship. The template uses a 
 app/                  Pages, metadata, and global styles
 components/           Navigation, transitions, and project interactions
 content/              Site identity, About copy, and project content
-lib/content.ts        Content loading and Markdown rendering
+lib/content.ts        Content loading and validated project data
+lib/content-schema.ts Strict YAML and media validation
+lib/markdown.ts       Sanitized Markdown rendering
 public/               Fonts, images, videos, embeds, and social assets
 scripts/              Image generation and export verification utilities
 tests/                Rendered-route checks

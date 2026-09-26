@@ -5,8 +5,12 @@ const localOrRemotePath = z.string().refine(
   (value) => value.startsWith("/") || /^https:\/\//.test(value),
   "must be a root-relative path or an HTTPS URL",
 );
-const ratio = z.string().regex(/^\s*\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?\s*$/, "must use a width / height ratio");
+const ratio = z.string()
+  .regex(/^\s*\d+(?:\.\d+)?\s*\/\s*\d+(?:\.\d+)?\s*$/, "must use a width / height ratio")
+  .refine((value) => value.split("/").every((part) => Number(part.trim()) > 0), "ratio values must be greater than zero");
 const mediaId = z.string().min(1).regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/, "must contain only letters, numbers, hyphens, and underscores");
+const youtubeId = z.string().regex(/^[a-zA-Z0-9_-]{6,20}$/, "must be a valid YouTube video id");
+const cssLength = z.string().regex(/^\d+(?:\.\d+)?(?:px|rem|em|%|vw|vh|svw|svh|dvw|dvh)$/, "must be a positive CSS length");
 const captionFields = {
   caption: z.string().optional(),
   captionPosition: z.enum(["above", "below"]).optional(),
@@ -21,12 +25,12 @@ const imageFields = {
   scale: z.number().positive().optional(),
   detail: z.boolean().optional(),
 };
-const imageItemSchema = z.object(imageFields).refine(
+const imageItemSchema = z.strictObject(imageFields).refine(
   (item) => (item.width === undefined) === (item.height === undefined),
   { message: "width and height must be provided together" },
 );
 
-const imageSchema = z.object({
+const imageSchema = z.strictObject({
   kind: z.literal("image"),
   id: mediaId,
   src: localPath.optional(),
@@ -40,7 +44,7 @@ const imageSchema = z.object({
   border: z.boolean().optional(),
   ...captionFields,
 });
-const videoSchema = z.object({
+const videoSchema = z.strictObject({
   kind: z.literal("video"),
   id: mediaId,
   src: localOrRemotePath,
@@ -52,16 +56,16 @@ const videoSchema = z.object({
   audioControls: z.boolean().optional(),
   ...captionFields,
 });
-const youtubeSchema = z.object({
+const youtubeSchema = z.strictObject({
   kind: z.literal("youtube"),
   id: mediaId,
-  youtubeId: z.string().min(1),
+  youtubeId,
   poster: localPath.optional(),
   ratio,
   title: z.string().min(1),
   ...captionFields,
 });
-const html5Schema = z.object({
+const html5Schema = z.strictObject({
   kind: z.literal("html5"),
   id: mediaId,
   src: localPath,
@@ -70,39 +74,43 @@ const html5Schema = z.object({
   title: z.string().min(1),
   ...captionFields,
 });
-const imageGridSchema = z.object({
+const imageGridSchema = z.strictObject({
   kind: z.literal("image-grid"),
   id: mediaId,
   ratio,
   images: z.array(imageItemSchema).min(1),
   columns: z.number().int().positive().optional(),
-  gap: z.string().optional(),
+  gap: cssLength.optional(),
   background: z.string().optional(),
   border: z.boolean().optional(),
   ...captionFields,
+}).superRefine((grid, context) => {
+  if (grid.columns !== undefined && grid.columns > grid.images.length) {
+    context.addIssue({ code: "custom", path: ["columns"], message: "cannot exceed the number of images" });
+  }
 });
-const imageRowSchema = z.object({
+const imageRowSchema = z.strictObject({
   kind: z.literal("image-row"),
   id: mediaId,
-  height: z.string().optional(),
+  height: cssLength.optional(),
   images: z.array(imageItemSchema).min(1),
-  gap: z.string().optional(),
+  gap: cssLength.optional(),
   ...captionFields,
 });
 const mediaRowItemSchema = z.discriminatedUnion("kind", [
-  z.object({ kind: z.literal("image"), ...imageFields }),
+  z.strictObject({ kind: z.literal("image"), ...imageFields }),
   videoSchema.omit({ id: true, ratio: true }).extend({ width: z.number().positive(), height: z.number().positive() }),
   youtubeSchema.omit({ id: true, ratio: true }).extend({ width: z.number().positive(), height: z.number().positive() }),
 ]);
-const mediaRowSchema = z.object({
+const mediaRowSchema = z.strictObject({
   kind: z.literal("media-row"),
   id: mediaId,
   items: z.array(mediaRowItemSchema).min(1),
-  gap: z.string().optional(),
+  gap: cssLength.optional(),
   ...captionFields,
 });
 
-const projectSchema = z.object({
+const projectSchema = z.strictObject({
   title: z.string().min(1),
   homepageLabel: z.string().optional(),
   homepageSubtitle: z.string().optional(),
@@ -113,7 +121,7 @@ const projectSchema = z.object({
   published: z.boolean(),
   featured: z.boolean().optional(),
   homepageWide: z.boolean().optional(),
-  thumbnail: z.object({
+  thumbnail: z.strictObject({
     src: localPath.optional(),
     hoverSrc: localPath.optional(),
     alt: z.string().min(1),
@@ -124,7 +132,7 @@ const projectSchema = z.object({
     tone: z.number().min(0).optional(),
   }),
   media: z.array(z.discriminatedUnion("kind", [imageSchema, videoSchema, youtubeSchema, html5Schema, imageGridSchema, imageRowSchema, mediaRowSchema])).min(1),
-  evidence: z.object({
+  evidence: z.strictObject({
     role: z.string().optional(),
     mandate: z.string().optional(),
     scale: z.string().optional(),
@@ -140,7 +148,7 @@ const projectSchema = z.object({
   }
 });
 
-const siteSchema = z.object({
+const siteSchema = z.strictObject({
   name: z.string().min(1),
   description: z.string().min(1),
   homepageTitle: z.string().optional(),
