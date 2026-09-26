@@ -246,7 +246,7 @@ test("keeps configured local media and responsive-image metadata valid", async (
 });
 
 test("keeps identity copy in the content layer", async () => {
-  const [page, projectPage, layout, chrome, transitionLink, scrollReveal, projectExperience, styles, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
+  const [page, projectPage, layout, chrome, transitionLink, scrollReveal, projectExperience, styles, coreTokens, siteConfig, contentLibrary, packageJson, gitignore, envExample, manifest, license, notices] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/projects/[slug]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -255,6 +255,7 @@ test("keeps identity copy in the content layer", async () => {
     readFile(new URL("../components/ScrollReveal.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/ProjectExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/tokens.css", import.meta.url), "utf8"),
     readFile(new URL("../content/site.yml", import.meta.url), "utf8"),
     readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
@@ -283,6 +284,15 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(page, /<section className="home-intro" aria-labelledby="home-intro-title">/);
   assert.doesNotMatch(page, /className="home-intro"[^>]*data-reveal/);
   assert.doesNotMatch(page, /dataReveal=/);
+  assert.match(coreTokens, /--ground: #f1ede3/);
+  assert.match(coreTokens, /--ink: #1a1814/);
+  assert.match(coreTokens, /--body-ink: #454139/);
+  assert.match(coreTokens, /--quiet-ink: #605b51/);
+  assert.match(coreTokens, /--link-ink: #116a62/);
+  assert.match(coreTokens, /--focus-ink: #785800/);
+  assert.match(coreTokens, /--divider: #cdc8bc/);
+  assert.match(styles, /::selection\s*\{[^}]*background: var\(--selection\)/s);
+  assert.match(styles, /outline: 1px solid var\(--focus\)/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
   assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
   assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);

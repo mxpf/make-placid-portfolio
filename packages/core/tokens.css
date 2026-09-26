@@ -5,15 +5,18 @@
  * aliases at the end preserve compatibility with existing Make Placid styles.
  */
 :root {
-  --ground: #f7f6f2;
-  --ink: #1c1c1a;
-  --body-ink: #70706c;
-  --quiet-ink: #999992;
-  --link-ink: var(--body-ink);
-  --divider: color-mix(in srgb, var(--ink) 14%, transparent);
-  --selection: color-mix(in srgb, var(--ink) 12%, var(--ground));
+  /* Thinkinghaus light palette roles: https://keeping.haus/thinkinghaus-palette/ */
+  --ground: #f1ede3;
+  --ink: #1a1814;
+  --body-ink: #454139;
+  --quiet-ink: #605b51;
+  --link-ink: #116a62;
+  --focus-ink: #785800;
+  --divider: #cdc8bc;
+  --selection: #cdc8bc;
 
   --dark: var(--ink);
   --light: var(--ground);
   --link: var(--link-ink);
+  --focus: var(--focus-ink);
 }

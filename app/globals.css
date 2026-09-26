@@ -66,6 +66,11 @@ body {
   color: var(--dark);
 }
 
+::selection {
+  color: var(--dark);
+  background: var(--selection);
+}
+
 html:has(body.detail-open),
 body.detail-open {
   overflow: hidden;
@@ -151,7 +156,7 @@ iframe {
 .video-autoplay-toggle:focus-visible,
 .project-navigation a:focus-visible,
 .not-found-link:focus-visible {
-  outline: 1px solid var(--link);
+  outline: 1px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -186,7 +191,7 @@ iframe {
 
 .home-intro p {
   margin-top: var(--spacing-2);
-  color: var(--link);
+  color: var(--body-ink);
 }
 
 .home-project-list {
@@ -251,7 +256,7 @@ iframe {
 
 .home-project-subtitle {
   margin-top: var(--title-subhead-gap);
-  color: var(--link);
+  color: var(--quiet-ink);
   font-size: var(--subhead-size);
   line-height: var(--subhead-line-height);
   transition: color 360ms ease;
@@ -375,8 +380,14 @@ iframe {
 .project-summary h2,
 .about-copy h1,
 .about-copy h2 {
+  color: var(--dark);
   font: inherit;
   font-weight: 400;
+}
+
+.project-summary-body,
+.about-copy {
+  color: var(--body-ink);
 }
 
 .project-summary h2,
@@ -390,7 +401,7 @@ iframe {
 
 .project-summary-lead > p {
   margin-bottom: 0;
-  color: var(--link);
+  color: var(--quiet-ink);
   font-size: var(--subhead-size);
   line-height: var(--subhead-line-height);
 }
@@ -414,7 +425,7 @@ iframe {
 
 .project-evidence dt {
   margin: 0;
-  color: var(--link);
+  color: var(--quiet-ink);
   font-size: 12px;
   letter-spacing: 0.06em;
   line-height: 24px;
@@ -456,6 +467,7 @@ iframe {
 .about-copy a,
 .media-caption a,
 .home-intro a {
+  color: var(--link);
   text-decoration-line: underline;
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
   text-decoration-thickness: 1px;
@@ -474,7 +486,7 @@ iframe {
 .about-copy a:focus-visible,
 .media-caption a:focus-visible,
 .home-intro a:focus-visible {
-  outline: 1px solid var(--link);
+  outline: 1px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -676,6 +688,7 @@ iframe {
 
 .media-caption {
   margin: var(--spacing-1) 0 0;
+  color: var(--quiet-ink);
   text-align: right;
   text-wrap: balance;
 }
@@ -683,7 +696,6 @@ iframe {
 .media-caption--above {
   margin: 0 0 var(--spacing-1);
   max-width: min(62%, 720px);
-  color: var(--link);
   text-align: left;
   text-wrap: pretty;
 }

@@ -395,7 +395,9 @@ On mobile, the project gallery remains inline and image-detail mode is disabled.
 
 ## Styling
 
-Most visual decisions begin in [`app/globals.css`](app/globals.css):
+Layout decisions begin in [`app/globals.css`](app/globals.css). The default
+colors live in [`packages/core/tokens.css`](packages/core/tokens.css) and use
+the light roles from the [Thinkinghaus palette](https://keeping.haus/thinkinghaus-palette/):
 
 ```css
 :root {
@@ -406,9 +408,12 @@ Most visual decisions begin in [`app/globals.css`](app/globals.css):
   --spacing-1: 12px;
   --spacing-2: 24px;
   --spacing-3: 36px;
-  --dark: #1c1c1a;
-  --light: #f7f6f2;
-  --link: #70706c;
+  --ground: #f1ede3;
+  --ink: #1a1814;
+  --body-ink: #454139;
+  --quiet-ink: #605b51;
+  --link-ink: #116a62;
+  --focus-ink: #785800;
 }
 ```
 
