@@ -41,7 +41,6 @@ export default function Home() {
             href={`/projects/${project.slug}`}
             key={project.slug}
             ariaLabel={`View ${project.title}`}
-            dataReveal={index !== 0}
           >
             <span className="home-project-media">
               {project.thumbnail.src ? (

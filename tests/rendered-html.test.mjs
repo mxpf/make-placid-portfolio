@@ -65,6 +65,7 @@ test("server-renders the portfolio home page", async () => {
   assert.match(html, /id="home-intro-title">A minimal portfolio for thoughtful creative work\.<\/h1>/);
   assert.match(html, /responsive media, and <a href="https:\/\/nextjs\.org\/docs\/app\/guides\/static-exports">static deployment<\/a>\./);
   assert.match(html, /class="home-project home-project--lead"/);
+  assert.doesNotMatch(html, /class="home-project[^"]*"[^>]*data-reveal/);
   assert.equal((html.match(/class="home-project-label"/g) ?? []).length, 7);
   assert.equal((html.match(/class="home-project-subtitle"/g) ?? []).length, 7);
   assert.equal((html.match(/class="home-project-image home-project-image--rollover"/g) ?? []).length, 1);
@@ -281,6 +282,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.doesNotMatch(`${transitionLink}${chrome}`, /location\.assign|window\.location\.assign|history\.back/);
   assert.match(page, /<section className="home-intro" aria-labelledby="home-intro-title">/);
   assert.doesNotMatch(page, /className="home-intro"[^>]*data-reveal/);
+  assert.doesNotMatch(page, /dataReveal=/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
   assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
   assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);
