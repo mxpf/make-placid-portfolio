@@ -170,7 +170,7 @@ test("publishes search-engine discovery routes", async () => {
 });
 
 test("ships a verified and maintainable publication path", async () => {
-  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog] = await Promise.all([
+  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog, transitionLink, keyboardNavigation] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/base-path.ts", import.meta.url), "utf8"),
@@ -182,6 +182,8 @@ test("ships a verified and maintainable publication path", async () => {
     readFile(new URL("../lib/content-schema.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/markdown.ts", import.meta.url), "utf8"),
     readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
+    readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/useProjectKeyboardNavigation.ts", import.meta.url), "utf8"),
   ]);
 
   assert.match(packageJson, /"version": "2\.0\.0-alpha\.1"/);
@@ -203,6 +205,9 @@ test("ships a verified and maintainable publication path", async () => {
   assert.match(markdown, /sanitizeHtml/);
   assert.match(markdown, /allowedSchemes/);
   assert.match(changelog, /1\.0\.0 — 2026-08-14/);
+  assert.match(transitionLink, /href=\{href\}/);
+  assert.doesNotMatch(transitionLink, /href=\{renderedHref\}/);
+  assert.doesNotMatch(keyboardNavigation, /router\.push\(withBasePath/);
   await access(new URL("../public/.nojekyll", import.meta.url));
 });
 

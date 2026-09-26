@@ -3,6 +3,7 @@
 import { useLayoutEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { withoutBasePath } from "@/lib/base-path";
 
 const RETURN_KEY = "portfolio-about-return";
@@ -100,6 +101,7 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
             {aboutLabel}
           </TransitionLink>
         )}
+        <ThemeToggle />
       </div>
     </header>
   );

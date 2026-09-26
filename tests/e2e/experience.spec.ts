@@ -13,6 +13,17 @@ test("core pages have no automatically detectable accessibility violations", asy
   }
 });
 
+test("theme toggle switches palettes and persists across navigation", async ({ page }) => {
+  await page.goto("/");
+  const toggle = page.getByRole("button", { name: "Toggle color theme" });
+  await toggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.getByRole("link", { name: "About & contact" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
+
 test("image detail traps focus, exposes navigation, and restores its trigger", async ({ page }) => {
   await page.goto("/projects/project-03/");
   const trigger = page.getByRole("button", { name: /Open detail view:/ }).first();

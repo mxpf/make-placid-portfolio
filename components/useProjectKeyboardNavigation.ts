@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { withBasePath } from "@/lib/base-path";
 
 type NavigationItem = { slug: string } | null;
 
@@ -26,10 +25,10 @@ export function useProjectKeyboardNavigation({
 
       if (event.key === "ArrowLeft" && previousProject) {
         event.preventDefault();
-        router.push(withBasePath(`/projects/${previousProject.slug}`));
+        router.push(`/projects/${previousProject.slug}`);
       } else if (event.key === "ArrowRight" && nextProject) {
         event.preventDefault();
-        router.push(withBasePath(`/projects/${nextProject.slug}`));
+        router.push(`/projects/${nextProject.slug}`);
       }
     }
 

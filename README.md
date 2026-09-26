@@ -400,11 +400,13 @@ On desktop and mobile:
 
 On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls.
 
+Use the compact palette switch at the right edge of the header to move between Thinkinghaus Light and the complementary dark palette. The selection persists across pages and visits.
+
 ## Styling
 
 Layout decisions begin in [`app/globals.css`](app/globals.css). The default
 colors live in [`packages/core/tokens.css`](packages/core/tokens.css) and use
-the light roles from the [Thinkinghaus palette](https://keeping.haus/thinkinghaus-palette/):
+the light roles from the [Thinkinghaus palette](https://keeping.haus/thinkinghaus-palette/). Dark-mode overrides live alongside them:
 
 ```css
 :root {

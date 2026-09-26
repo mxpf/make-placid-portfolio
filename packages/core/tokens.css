@@ -19,4 +19,17 @@
   --light: var(--ground);
   --link: var(--link-ink);
   --focus: var(--focus-ink);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --ground: #171816;
+  --ink: #f0eee8;
+  --body-ink: #d8d5ce;
+  --quiet-ink: #aaa79f;
+  --link-ink: #91bca3;
+  --focus-ink: #d5ad52;
+  --divider: #3b3c37;
+  --selection: #454740;
+  color-scheme: dark;
 }

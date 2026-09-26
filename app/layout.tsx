@@ -71,13 +71,18 @@ export default function RootLayout({
   ].filter(Boolean).join(" ");
 
   return (
-    <html lang={site.language} className={htmlClassName}>
+    <html lang={site.language} className={htmlClassName} suppressHydrationWarning>
       {customFontEnabled ? (
         <head>
           <style>{`@font-face{font-family:"Portfolio Custom";src:url("${withBasePath("/fonts/portfolio-custom.woff2")}") format("woff2");font-style:normal;font-weight:400;font-display:swap}`}</style>
         </head>
       ) : null}
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{const t=localStorage.getItem("make-placid-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}}catch{}`,
+          }}
+        />
         <SiteChrome
           name={site.name}
           aboutLabel={site.aboutLabel}

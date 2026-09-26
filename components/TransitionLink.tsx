@@ -56,7 +56,7 @@ export function TransitionLink({
   return (
     <Link
       className={className}
-      href={renderedHref}
+      href={href}
       aria-label={ariaLabel}
       data-reveal={dataReveal || undefined}
       onClick={navigate}
