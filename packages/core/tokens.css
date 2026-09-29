@@ -1,39 +1,68 @@
-/*
- * Make Placid core tokens.
- *
- * Implementations supply their own values for these semantic variables. The
- * aliases at the end preserve compatibility with existing Make Placid styles.
- */
-:root {
-  /* Thinkinghaus light palette roles: https://keeping.haus/thinkinghaus-palette/ */
-  --ground: #f1ede3;
-  --ink: #1a1814;
-  --body-ink: #454139;
-  --quiet-ink: #605b51;
-  --link-ink: #116a62;
-  --focus-ink: #785800;
-  --divider: #cdc8bc;
-  --selection: #cdc8bc;
-  --toggle-track: #d6d1c6;
-  --toggle-thumb: #7c766b;
+@import "./thinkinghaus-v0.5.css";
 
-  --dark: var(--ink);
-  --light: var(--ground);
-  --link: var(--link-ink);
-  --focus: var(--focus-ink);
+/*
+ * Make Placid semantic contract.
+ *
+ * The shared palette above is pinned to Thinkinghaus v0.5 at commit e37b642.
+ * Components consume these role names instead of raw palette values.
+ */
+:root,
+:root[data-theme="light"] {
+  --ground: var(--th-ivory);
+  --surface: var(--th-neutral-50);
+  --surface-raised: var(--th-neutral-100);
+  --ink: var(--th-charcoal);
+  --body-ink: var(--th-neutral-800);
+  --quiet-ink: var(--th-neutral-700);
+  --faint-ink: var(--th-neutral-600);
+  --link-ink: var(--th-patina-600);
+  --focus-ink: var(--th-ochre-600);
+  --success-ink: var(--th-moss-600);
+  --warning-ink: var(--th-ochre-600);
+  --error-ink: var(--th-clay-600);
+  --info-ink: var(--th-slate-600);
+  --divider: var(--th-neutral-200);
+  --divider-hover: var(--th-neutral-300);
+  --control-border: var(--th-neutral-600);
+  --selection: var(--th-neutral-200);
+  --selection-ink: var(--th-charcoal);
+  --toggle-track: var(--th-neutral-100);
+  --toggle-thumb: var(--th-neutral-600);
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --ground: #171816;
-  --ink: #f0eee8;
-  --body-ink: #d8d5ce;
-  --quiet-ink: #aaa79f;
-  --link-ink: #91bca3;
-  --focus-ink: #d5ad52;
-  --divider: #3b3c37;
-  --selection: #454740;
-  --toggle-track: #38352e;
-  --toggle-thumb: #9a9285;
+  --ground: var(--th-charcoal);
+  --surface: var(--th-neutral-950);
+  --surface-raised: var(--th-neutral-900);
+  --ink: var(--th-ivory);
+  --body-ink: var(--th-body);
+  --quiet-ink: var(--th-taupe);
+  --faint-ink: var(--th-neutral-600);
+  --link-ink: var(--th-patina-400);
+  --focus-ink: var(--th-ochre-400);
+  --success-ink: var(--th-moss-400);
+  --warning-ink: var(--th-ochre-400);
+  --error-ink: var(--th-clay-400);
+  --info-ink: var(--th-slate-400);
+  --divider: var(--th-neutral-800);
+  --divider-hover: var(--th-neutral-700);
+  --control-border: var(--th-neutral-500);
+  --selection: var(--th-neutral-700);
+  --selection-ink: var(--th-ivory);
+  --toggle-track: var(--th-neutral-900);
+  --toggle-thumb: var(--th-neutral-500);
   color-scheme: dark;
+}
+
+:root {
+  --dark: var(--ink);
+  --light: var(--ground);
+  --link: var(--link-ink);
+  --link-hover: color-mix(in srgb, var(--link-ink) 82%, var(--ink));
+  --focus: var(--focus-ink);
+  --success: var(--success-ink);
+  --warning: var(--warning-ink);
+  --error: var(--error-ink);
+  --info: var(--info-ink);
 }

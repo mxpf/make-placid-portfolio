@@ -71,7 +71,7 @@ export default function RootLayout({
   ].filter(Boolean).join(" ");
 
   return (
-    <html lang={site.language} className={htmlClassName} suppressHydrationWarning>
+    <html lang={site.language} className={htmlClassName} data-theme="light" suppressHydrationWarning>
       {customFontEnabled ? (
         <head>
           <style>{`@font-face{font-family:"Portfolio Custom";src:url("${withBasePath("/fonts/portfolio-custom.woff2")}") format("woff2");font-style:normal;font-weight:400;font-display:swap}`}</style>

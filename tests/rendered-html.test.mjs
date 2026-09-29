@@ -70,7 +70,7 @@ test("server-renders the portfolio home page", async () => {
   assert.equal((html.match(/class="home-project-subtitle"/g) ?? []).length, 7);
   assert.equal((html.match(/class="home-project-image home-project-image--rollover"/g) ?? []).length, 1);
   assert.match(html, /rel="icon"/);
-  assert.match(html, /<html lang="en" class="[^"]*__variable_[a-z0-9]+[^"]*">/);
+  assert.match(html, /<html lang="en" class="[^"]*__variable_[a-z0-9]+[^"]*" data-theme="light">/);
   assert.match(html, /<link rel="preload" href="\/_next\/static\/media\/[^"]+\.woff2" as="font" crossorigin="" type="font\/woff2"\/>/);
   assert.match(html, /property="og:image"/);
   assert.match(html, /<section class="home-intro" aria-labelledby="home-intro-title">/);
@@ -170,7 +170,7 @@ test("publishes search-engine discovery routes", async () => {
 });
 
 test("ships a verified and maintainable publication path", async () => {
-  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog, transitionLink, keyboardNavigation] = await Promise.all([
+  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog, transitionLink, keyboardNavigation, palette] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/base-path.ts", import.meta.url), "utf8"),
@@ -184,6 +184,7 @@ test("ships a verified and maintainable publication path", async () => {
     readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
     readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/useProjectKeyboardNavigation.ts", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/thinkinghaus-v0.5.css", import.meta.url), "utf8"),
   ]);
 
   assert.match(packageJson, /"version": "2\.0\.0-alpha\.1"/);
@@ -208,6 +209,11 @@ test("ships a verified and maintainable publication path", async () => {
   assert.match(transitionLink, /href=\{href\}/);
   assert.doesNotMatch(transitionLink, /href=\{renderedHref\}/);
   assert.doesNotMatch(keyboardNavigation, /router\.push\(withBasePath/);
+  assert.match(palette, /Thinkinghaus palette v0\.5/);
+  assert.match(palette, /--th-neutral-150: #D9D2C6/);
+  assert.match(palette, /--th-neutral-200: #D0CBBF/);
+  assert.match(palette, /--th-neutral-300: #BFBCB3/);
+  assert.match(palette, /--th-patina-600: #1A6A5E/);
   await access(new URL("../public/.nojekyll", import.meta.url));
 });
 
@@ -299,13 +305,14 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(page, /<section className="home-intro" aria-labelledby="home-intro-title">/);
   assert.doesNotMatch(page, /className="home-intro"[^>]*data-reveal/);
   assert.doesNotMatch(page, /dataReveal=/);
-  assert.match(coreTokens, /--ground: #f1ede3/);
-  assert.match(coreTokens, /--ink: #1a1814/);
-  assert.match(coreTokens, /--body-ink: #454139/);
-  assert.match(coreTokens, /--quiet-ink: #605b51/);
-  assert.match(coreTokens, /--link-ink: #116a62/);
-  assert.match(coreTokens, /--focus-ink: #785800/);
-  assert.match(coreTokens, /--divider: #cdc8bc/);
+  assert.match(coreTokens, /e37b642/);
+  assert.match(coreTokens, /--ground: var\(--th-ivory\)/);
+  assert.match(coreTokens, /--ink: var\(--th-charcoal\)/);
+  assert.match(coreTokens, /--body-ink: var\(--th-neutral-800\)/);
+  assert.match(coreTokens, /--quiet-ink: var\(--th-neutral-700\)/);
+  assert.match(coreTokens, /--link-ink: var\(--th-patina-600\)/);
+  assert.match(coreTokens, /--focus-ink: var\(--th-ochre-600\)/);
+  assert.match(coreTokens, /--divider: var\(--th-neutral-200\)/);
   assert.match(styles, /::selection\s*\{[^}]*background: var\(--selection\)/s);
   assert.match(styles, /outline: 1px solid var\(--focus\)/);
   assert.match(styles, /\.home-grid\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) var\(--rail-height\)/s);
