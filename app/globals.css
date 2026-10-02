@@ -499,9 +499,13 @@ iframe {
 }
 
 .project-summary a,
+.project-summary a:visited,
 .about-copy a,
+.about-copy a:visited,
 .media-caption a,
-.home-intro a {
+.media-caption a:visited,
+.home-intro a,
+.home-intro a:visited {
   color: var(--link);
   text-decoration-line: underline;
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
@@ -514,7 +518,7 @@ iframe {
 .about-copy a:hover,
 .media-caption a:hover,
 .home-intro a:hover {
-  color: var(--link);
+  color: var(--link-hover);
 }
 
 .project-summary a:focus-visible,
@@ -990,7 +994,7 @@ iframe {
 }
 
 .project-navigation a:hover {
-  color: var(--link);
+  color: var(--link-hover);
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
 }
 
@@ -1048,11 +1052,20 @@ body:has(.project-layout) .bottom-rail {
 }
 
 .not-found-link {
+  color: var(--link);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
   transition: color 180ms ease;
 }
 
-.not-found-link:hover {
+.not-found-link:visited {
   color: var(--link);
+}
+
+.not-found-link:hover {
+  color: var(--link-hover);
 }
 
 @keyframes detail-crossfade {

@@ -170,7 +170,7 @@ test("publishes search-engine discovery routes", async () => {
 });
 
 test("ships a verified and maintainable publication path", async () => {
-  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog, transitionLink, keyboardNavigation, palette] = await Promise.all([
+  const [packageJson, config, basePath, verifier, pruner, publishWorkflow, auditWorkflow, qualityWorkflow, schema, markdown, changelog, transitionLink, keyboardNavigation, palette, paletteTokens, corePackage] = await Promise.all([
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
     readFile(new URL("../lib/base-path.ts", import.meta.url), "utf8"),
@@ -184,7 +184,9 @@ test("ships a verified and maintainable publication path", async () => {
     readFile(new URL("../CHANGELOG.md", import.meta.url), "utf8"),
     readFile(new URL("../components/TransitionLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/useProjectKeyboardNavigation.ts", import.meta.url), "utf8"),
-    readFile(new URL("../packages/core/thinkinghaus-v0.5.css", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/thinkinghaus-v0.6.css", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/thinkinghaus-v0.6.tokens.json", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/package.json", import.meta.url), "utf8"),
   ]);
 
   assert.match(packageJson, /"version": "2\.0\.0-alpha\.1"/);
@@ -209,11 +211,19 @@ test("ships a verified and maintainable publication path", async () => {
   assert.match(transitionLink, /href=\{href\}/);
   assert.doesNotMatch(transitionLink, /href=\{renderedHref\}/);
   assert.doesNotMatch(keyboardNavigation, /router\.push\(withBasePath/);
-  assert.match(palette, /Thinkinghaus palette v0\.5/);
+  assert.match(palette, /Thinkinghaus palette v0\.6/);
   assert.match(palette, /--th-neutral-150: #D9D2C6/);
   assert.match(palette, /--th-neutral-200: #D0CBBF/);
   assert.match(palette, /--th-neutral-300: #BFBCB3/);
   assert.match(palette, /--th-patina-600: #1A6A5E/);
+  assert.match(palette, /--th-link: var\(--th-body\)/);
+  assert.match(palette, /--th-link: var\(--th-neutral-800\)/);
+  const parsedPaletteTokens = JSON.parse(paletteTokens);
+  assert.equal(parsedPaletteTokens.version, "0.6");
+  assert.equal(parsedPaletteTokens.modes.dark.link, "body");
+  assert.equal(parsedPaletteTokens.modes.light.link, "neutral-800");
+  assert.match(corePackage, /"thinkinghaus-v0\.6\.css"/);
+  assert.match(corePackage, /"thinkinghaus-v0\.6\.tokens\.json"/);
   await access(new URL("../public/.nojekyll", import.meta.url));
 });
 
@@ -305,12 +315,12 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(page, /<section className="home-intro" aria-labelledby="home-intro-title">/);
   assert.doesNotMatch(page, /className="home-intro"[^>]*data-reveal/);
   assert.doesNotMatch(page, /dataReveal=/);
-  assert.match(coreTokens, /e37b642/);
+  assert.match(coreTokens, /7ac354f/);
   assert.match(coreTokens, /--ground: var\(--th-ivory\)/);
   assert.match(coreTokens, /--ink: var\(--th-charcoal\)/);
   assert.match(coreTokens, /--body-ink: var\(--th-neutral-800\)/);
   assert.match(coreTokens, /--quiet-ink: var\(--th-neutral-700\)/);
-  assert.match(coreTokens, /--link-ink: var\(--th-patina-600\)/);
+  assert.match(coreTokens, /--link-ink: var\(--th-link\)/);
   assert.match(coreTokens, /--focus-ink: var\(--th-ochre-600\)/);
   assert.match(coreTokens, /--divider: var\(--th-neutral-200\)/);
   assert.match(styles, /::selection\s*\{[^}]*background: var\(--selection\)/s);
@@ -360,7 +370,9 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.detail-layer:focus\s*\{[^}]*outline: none/s);
   assert.match(styles, /\.detail-navigation\s*\{/);
   assert.doesNotMatch(styles, /\.detail-layer\s*\{[^}]*display: none/s);
-  assert.match(styles, /\.media-caption a,\s*\.home-intro a\s*\{[^}]*text-decoration-line: underline/s);
+  assert.match(styles, /\.project-summary a:visited,[\s\S]*?\.home-intro a:visited\s*\{[^}]*color: var\(--link\)[^}]*text-decoration-line: underline/s);
+  assert.match(styles, /\.home-intro a:hover\s*\{[^}]*color: var\(--link-hover\)/s);
+  assert.match(styles, /\.not-found-link:visited\s*\{[^}]*color: var\(--link\)/s);
   assert.match(styles, /\.project-navigation a\s*\{[^}]*text-decoration-color: transparent[^}]*text-decoration-color 180ms ease/s);
   assert.match(styles, /\.project-navigation a:hover\s*\{[^}]*text-decoration-color: color-mix\(in srgb, currentColor 45%, transparent\)/s);
   assert.doesNotMatch(styles, /\.project-navigation a\s*\{[^}]*transform:/s);

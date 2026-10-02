@@ -1,9 +1,9 @@
-@import "./thinkinghaus-v0.5.css";
+@import "./thinkinghaus-v0.6.css";
 
 /*
  * Make Placid semantic contract.
  *
- * The shared palette above is pinned to Thinkinghaus v0.5 at commit e37b642.
+ * The shared palette above is pinned to Thinkinghaus v0.6 at commit 7ac354f.
  * Components consume these role names instead of raw palette values.
  */
 :root,
@@ -15,7 +15,7 @@
   --body-ink: var(--th-neutral-800);
   --quiet-ink: var(--th-neutral-700);
   --faint-ink: var(--th-neutral-600);
-  --link-ink: var(--th-patina-600);
+  --link-ink: var(--th-link);
   --focus-ink: var(--th-ochre-600);
   --success-ink: var(--th-moss-600);
   --warning-ink: var(--th-ochre-600);
@@ -39,7 +39,7 @@
   --body-ink: var(--th-body);
   --quiet-ink: var(--th-taupe);
   --faint-ink: var(--th-neutral-600);
-  --link-ink: var(--th-patina-400);
+  --link-ink: var(--th-link);
   --focus-ink: var(--th-ochre-400);
   --success-ink: var(--th-moss-400);
   --warning-ink: var(--th-ochre-400);
@@ -59,7 +59,7 @@
   --dark: var(--ink);
   --light: var(--ground);
   --link: var(--link-ink);
-  --link-hover: color-mix(in srgb, var(--link-ink) 82%, var(--ink));
+  --link-hover: var(--ink);
   --focus: var(--focus-ink);
   --success: var(--success-ink);
   --warning: var(--warning-ink);

@@ -6,10 +6,14 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./tokens.css": "./tokens.css"
+    "./tokens.css": "./tokens.css",
+    "./thinkinghaus.css": "./thinkinghaus-v0.6.css",
+    "./thinkinghaus.tokens.json": "./thinkinghaus-v0.6.tokens.json"
   },
   "files": [
     "tokens.css",
+    "thinkinghaus-v0.6.css",
+    "thinkinghaus-v0.6.tokens.json",
     "README.md"
   ]
 }

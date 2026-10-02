@@ -24,6 +24,28 @@ test("theme toggle switches palettes and persists across navigation", async ({ p
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
+test("content links use underlined body copy color in both themes", async ({ page }) => {
+  await page.goto("/projects/project-03/");
+  const link = page.getByRole("link", { name: "Visit the example project link" });
+
+  for (const theme of ["light", "dark"] as const) {
+    await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+    await expect.poll(() => link.evaluate((element) => ({
+      linkColor: getComputedStyle(element).color,
+      paragraphColor: getComputedStyle(element.parentElement!).color,
+    }))).toEqual(expect.objectContaining({
+      linkColor: theme === "light" ? "rgb(71, 65, 53)" : "rgb(175, 173, 166)",
+      paragraphColor: theme === "light" ? "rgb(71, 65, 53)" : "rgb(175, 173, 166)",
+    }));
+    const decoration = await link.evaluate((element) => getComputedStyle(element).textDecorationLine);
+    expect(decoration).toContain("underline");
+
+    if (theme === "light") {
+      await page.getByRole("button", { name: "Toggle color theme" }).click();
+    }
+  }
+});
+
 test("image detail traps focus, exposes navigation, and restores its trigger", async ({ page }) => {
   await page.goto("/projects/project-03/");
   const trigger = page.getByRole("button", { name: /Open detail view:/ }).first();

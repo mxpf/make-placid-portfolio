@@ -400,13 +400,13 @@ On desktop and mobile:
 
 On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls.
 
-Use the compact palette switch at the right edge of the header to move between the Thinkinghaus v0.5 light and dark modes. The selection persists across pages and visits.
+Use the compact palette switch at the right edge of the header to move between the Thinkinghaus v0.6 light and dark modes. The selection persists across pages and visits.
 
 ## Styling
 
 Layout decisions begin in [`app/globals.css`](app/globals.css). The semantic
 colors live in [`packages/core/tokens.css`](packages/core/tokens.css) and map
-to a locally pinned copy of [Thinkinghaus palette v0.5](https://keeping.haus/thinkinghaus-palette/) at upstream commit [`e37b642`](https://github.com/mxpf/thinkinghaus-palette/tree/e37b642b6903788cc3ff7cbb522c4644c16fe6fd). The pinned source is [`packages/core/thinkinghaus-v0.5.css`](packages/core/thinkinghaus-v0.5.css); update it only as an intentional palette-version change.
+to locally pinned copies of [Thinkinghaus palette v0.6](https://keeping.haus/thinkinghaus-palette/) at upstream commit [`7ac354f`](https://github.com/mxpf/thinkinghaus-palette/tree/7ac354fa15ac0798db84ed4291215d8a44f35947). The pinned sources are [`packages/core/thinkinghaus-v0.6.css`](packages/core/thinkinghaus-v0.6.css) and [`packages/core/thinkinghaus-v0.6.tokens.json`](packages/core/thinkinghaus-v0.6.tokens.json); builds never fetch them at runtime.
 
 ```css
 :root {
@@ -421,12 +421,12 @@ to a locally pinned copy of [Thinkinghaus palette v0.5](https://keeping.haus/thi
   --ink: var(--th-charcoal);          /* #1C1811 */
   --body-ink: var(--th-neutral-800);  /* #474135 */
   --quiet-ink: var(--th-neutral-700); /* #625B4D */
-  --link-ink: var(--th-patina-600);   /* #1A6A5E */
+  --link-ink: var(--th-link);         /* body copy in each mode */
   --focus-ink: var(--th-ochre-600);   /* #785800 */
 }
 ```
 
-Make Placid follows the palette's semantic roles: patina for links, ochre for focus and warnings, moss for success, clay for errors, and slate for information. Dark text accents use the `600` steps; light-on-dark accents use the `400` steps. Faint colors are decorative only. Solid-fill tokens keep their paired foreground colors and are not substitutes for text accents. See the companion [Thinkinghaus UI guidance](https://keeping.haus/thinkinghaus-ui/) when adding new states or controls.
+Make Placid follows the palette's semantic roles: standard content links use body-copy color with a persistent underline, including visited links; hover moves to primary text while preserving the underline. Ochre remains reserved for keyboard focus and warnings, moss for success, clay for errors, and slate for information. Faint colors are decorative only. Solid-fill tokens keep their paired foreground colors and are not substitutes for text accents. See the companion [Thinkinghaus UI guidance](https://keeping.haus/thinkinghaus-ui/) when adding new states or controls.
 
 The individual numbers matter less than their relationship. The template uses a 12-pixel base unit, 24-pixel standard spacing, and a few 36-pixel editorial pauses. Keep that rhythm if you want the original density to survive new content.
 
