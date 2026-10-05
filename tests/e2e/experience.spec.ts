@@ -46,6 +46,35 @@ test("content links use underlined body copy color in both themes", async ({ pag
   }
 });
 
+test("nested lists preserve parent, sibling, and following-item hierarchy", async ({ page }) => {
+  await page.goto("/projects/project-03/");
+  const summary = page.locator(".project-summary-body");
+  await summary.evaluate((element) => {
+    element.insertAdjacentHTML(
+      "beforeend",
+      '<ul data-spacing-fixture><li><span>Parent item</span><ul><li>Nested one</li><li>Nested two</li></ul></li><li>Following item</li></ul>',
+    );
+  });
+
+  const spacing = await summary.locator("[data-spacing-fixture]").evaluate((list) => {
+    const parent = list.children[0] as HTMLLIElement;
+    const nested = parent.querySelector(":scope > ul")!;
+    const nestedSibling = nested.children[1];
+    const following = list.children[1];
+    return {
+      parentToNested: getComputedStyle(nested).marginTop,
+      nestedSibling: getComputedStyle(nestedSibling).marginTop,
+      nestedToFollowing: getComputedStyle(following).marginTop,
+    };
+  });
+
+  expect(spacing).toEqual({
+    parentToNested: "4px",
+    nestedSibling: "6px",
+    nestedToFollowing: "18px",
+  });
+});
+
 test("image detail traps focus, exposes navigation, and restores its trigger", async ({ page }) => {
   await page.goto("/projects/project-03/");
   const trigger = page.getByRole("button", { name: /Open detail view:/ }).first();

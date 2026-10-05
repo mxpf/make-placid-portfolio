@@ -25,6 +25,9 @@
   --subhead-line-height: 24px;
   --title-subhead-gap: 0;
   --project-evidence-body-gap: 48px;
+  --nested-list-parent-gap: 4px;
+  --nested-list-sibling-gap: 6px;
+  --nested-list-following-gap: 18px;
   --spacing-1: 12px;
   --spacing-2: 24px;
   --spacing-3: 36px;
@@ -481,6 +484,32 @@ iframe {
 .about-copy ul {
   padding-left: 0;
   list-style: none;
+}
+
+.project-summary li > :is(ul, ol),
+.about-copy li > :is(ul, ol) {
+  margin-top: var(--nested-list-parent-gap);
+  margin-bottom: 0;
+}
+
+.project-summary li > p:has(+ :is(ul, ol)),
+.about-copy li > p:has(+ :is(ul, ol)) {
+  margin-bottom: var(--nested-list-parent-gap);
+}
+
+.project-summary li > p + :is(ul, ol),
+.about-copy li > p + :is(ul, ol) {
+  margin-top: 0;
+}
+
+.project-summary li > :is(ul, ol) > li + li,
+.about-copy li > :is(ul, ol) > li + li {
+  margin-top: var(--nested-list-sibling-gap);
+}
+
+.project-summary li:has(> :is(ul, ol)) + li,
+.about-copy li:has(> :is(ul, ol)) + li {
+  margin-top: var(--nested-list-following-gap);
 }
 
 .project-summary li::before,

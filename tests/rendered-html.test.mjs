@@ -373,6 +373,12 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-summary a:visited,[\s\S]*?\.home-intro a:visited\s*\{[^}]*color: var\(--link\)[^}]*text-decoration-line: underline/s);
   assert.match(styles, /\.home-intro a:hover\s*\{[^}]*color: var\(--link-hover\)/s);
   assert.match(styles, /\.not-found-link:visited\s*\{[^}]*color: var\(--link\)/s);
+  assert.match(styles, /--nested-list-parent-gap: 4px/);
+  assert.match(styles, /--nested-list-sibling-gap: 6px/);
+  assert.match(styles, /--nested-list-following-gap: 18px/);
+  assert.match(styles, /li > :is\(ul, ol\)[\s\S]*?margin-top: var\(--nested-list-parent-gap\)[^}]*margin-bottom: 0/s);
+  assert.match(styles, /li > :is\(ul, ol\) > li \+ li[\s\S]*?margin-top: var\(--nested-list-sibling-gap\)/s);
+  assert.match(styles, /li:has\(> :is\(ul, ol\)\) \+ li[\s\S]*?margin-top: var\(--nested-list-following-gap\)/s);
   assert.match(styles, /\.project-navigation a\s*\{[^}]*text-decoration-color: transparent[^}]*text-decoration-color 180ms ease/s);
   assert.match(styles, /\.project-navigation a:hover\s*\{[^}]*text-decoration-color: color-mix\(in srgb, currentColor 45%, transparent\)/s);
   assert.doesNotMatch(styles, /\.project-navigation a\s*\{[^}]*transform:/s);
