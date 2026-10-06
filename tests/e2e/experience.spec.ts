@@ -15,9 +15,13 @@ test("core pages have no automatically detectable accessibility violations", asy
 
 test("theme toggle switches palettes and persists across navigation", async ({ page }) => {
   await page.goto("/");
-  const toggle = page.getByRole("button", { name: "Toggle color theme" });
+  const toggle = page.locator(".theme-toggle");
+  await expect(toggle).toHaveAccessibleName("Switch to dark theme");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
   await toggle.click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(toggle).toHaveAccessibleName("Switch to light theme");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("link", { name: "About & contact" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
@@ -41,7 +45,7 @@ test("content links use underlined body copy color in both themes", async ({ pag
     expect(decoration).toContain("underline");
 
     if (theme === "light") {
-      await page.getByRole("button", { name: "Toggle color theme" }).click();
+      await page.getByRole("button", { name: "Switch to dark theme" }).click();
     }
   }
 });
@@ -73,6 +77,17 @@ test("nested lists preserve parent, sibling, and following-item hierarchy", asyn
     nestedSibling: "6px",
     nestedToFollowing: "18px",
   });
+});
+
+test("desktop project summaries expose and clear their overflow cue", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.includes("mobile"), "Desktop fixed-summary assertion");
+  await page.setViewportSize({ width: 1280, height: 500 });
+  await page.goto("/projects/project-03/");
+  const summary = page.locator(".project-summary");
+  await expect(summary).toHaveAttribute("data-scrollable", "true");
+  await expect(summary).toHaveAttribute("data-scroll-end", "false");
+  await summary.evaluate((element) => element.scrollTo(0, element.scrollHeight));
+  await expect(summary).toHaveAttribute("data-scroll-end", "true");
 });
 
 test("image detail traps focus, exposes navigation, and restores its trigger", async ({ page }) => {
@@ -141,6 +156,14 @@ test("project arrows do not override focused media controls", async ({ page }) =
 test("homepage eagerly loads only its lead thumbnail", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("img[fetchpriority='high']")).toHaveCount(1);
+});
+
+test("homepage thumbnails stay fully visible while scrolling", async ({ page }) => {
+  await page.goto("/");
+  const thumbnail = page.locator(".home-project-media img").nth(1);
+  await expect(thumbnail).toHaveCSS("opacity", "1");
+  await page.evaluate(() => window.scrollTo(0, Math.min(600, document.body.scrollHeight)));
+  await expect(thumbnail).toHaveCSS("opacity", "1");
 });
 
 test("About publishes route-specific social metadata", async ({ page }) => {

@@ -676,6 +676,28 @@ export function ProjectExperience({
   }, [project.slug]);
 
   useEffect(() => {
+    const summary = projectSummary.current;
+    if (!summary) return;
+
+    const updateScrollCue = () => {
+      const scrollable = summary.scrollHeight > summary.clientHeight + 1;
+      const atEnd = summary.scrollTop + summary.clientHeight >= summary.scrollHeight - 1;
+      summary.dataset.scrollable = String(scrollable);
+      summary.dataset.scrollEnd = String(!scrollable || atEnd);
+    };
+
+    updateScrollCue();
+    const observer = new ResizeObserver(updateScrollCue);
+    observer.observe(summary);
+    summary.addEventListener("scroll", updateScrollCue, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      summary.removeEventListener("scroll", updateScrollCue);
+    };
+  }, [project.slug]);
+
+  useEffect(() => {
     if (detailIndex === null) {
       document.body.classList.remove("detail-open");
       return;

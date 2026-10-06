@@ -197,7 +197,11 @@ test("ships a verified and maintainable publication path", async () => {
   assert.match(verifier, /missing local links or assets/);
   assert.match(verifier, /\(\?:href\|src\|poster\)/);
   assert.match(pruner, /\(\?:content\|poster\)/);
-  assert.match(publishWorkflow, /actions\/deploy-pages@v4/);
+  assert.match(publishWorkflow, /actions\/checkout@v7/);
+  assert.match(publishWorkflow, /actions\/setup-node@v7/);
+  assert.match(publishWorkflow, /actions\/configure-pages@v6/);
+  assert.match(publishWorkflow, /actions\/upload-pages-artifact@v5/);
+  assert.match(publishWorkflow, /actions\/deploy-pages@v5/);
   assert.match(publishWorkflow, /NEXT_PUBLIC_BASE_PATH: \/make-placid-portfolio/);
   assert.match(auditWorkflow, /schedule:/);
   assert.doesNotMatch(auditWorkflow, /continue-on-error/);
@@ -329,12 +333,14 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.home-intro\s*\{[^}]*position: sticky[^}]*grid-column: 1/s);
   assert.match(styles, /\.home-project-list\s*\{[^}]*grid-column: 2[^}]*padding-top: var\(--homepage-project-start\)/s);
   assert.match(styles, /\.home-project--has-rollover:hover/s);
-  assert.match(styles, /\.home-project-media img\s*\{[^}]*transition:\s*filter 480ms ease,\s*transform 520ms cubic-bezier\(0\.22, 1, 0\.36, 1\),\s*opacity 420ms ease/s);
+  assert.match(styles, /\.home-project-media img\s*\{[^}]*opacity: 1[^}]*transition:\s*filter 480ms ease,\s*transform 520ms cubic-bezier\(0\.22, 1, 0\.36, 1\),\s*opacity 420ms ease/s);
   assert.match(styles, /\.home-project:hover \.home-project-media img,\s*\.home-project:focus-visible \.home-project-media img\s*\{[^}]*opacity: var\(--homepage-thumbnail-hover-opacity\)[^}]*transform: scale\(1\.025\)[^}]*transition-duration: 240ms, 360ms, 240ms/s);
   assert.match(styles, /\.home-project-subtitle\s*\{[^}]*transition: color 360ms ease/s);
   assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)\s*\{[\s\S]*?\.home-project img,[\s\S]*?\.home-project-media img\s*\{[^}]*filter: none[^}]*opacity: 1/s);
   assert.doesNotMatch(styles, /\.home-project:hover \.home-project-media img\s*\{[^}]*opacity: 0\.9/s);
-  assert.match(styles, /--homepage-project-start: calc\(56dvh - var\(--header-height\)\)/);
+  assert.match(styles, /--homepage-project-start: calc\(54dvh - var\(--header-height\)\)/);
+  assert.doesNotMatch(styles, /--homepage-content-opacity/);
+  assert.doesNotMatch(scrollReveal, /homepage-content-opacity|window\.scrollY/);
   assert.match(styles, /--reveal-distance: 4px/);
   assert.match(styles, /--reveal-opacity-duration: 180ms/);
   assert.match(styles, /--reveal-movement-duration: 180ms/);
@@ -347,7 +353,6 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /--homepage-lead-reveal-delay: 120ms/);
   assert.match(styles, /--homepage-lead-reveal-opacity-duration: 480ms/);
   assert.match(styles, /--homepage-lead-reveal-movement-duration: 650ms/);
-  assert.match(styles, /\.home-project--lead \.home-project-image--base\s*\{[^}]*opacity: max\([^}]*var\(--homepage-lead-opacity-rest\)[^}]*var\(--homepage-content-opacity-current/s);
   assert.match(styles, /\.home-project--lead\s*\{[^}]*will-change: opacity, transform[^}]*homepage-lead-opacity-in[^}]*homepage-lead-movement-in/s);
   assert.doesNotMatch(styles, /\.home-project--lead \.home-project-media\s*\{[^}]*homepage-lead-movement-in/s);
   assert.match(styles, /\.site-header\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\) max-content[^}]*gap: var\(--spacing-1\)/s);
@@ -355,6 +360,8 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /\.project-layout\s*\{[^}]*animation: project-page-in/s);
   assert.match(styles, /\.project-layout\s*\{[^}]*padding: var\(--header-height\) var\(--page-gutter\) 0/s);
   assert.match(styles, /\.project-summary\s*\{[^}]*bottom: 0[^}]*max-height: calc\(100dvh - var\(--header-height\)\)[^}]*padding-bottom: var\(--spacing-2\)/s);
+  assert.match(styles, /\.project-summary\[data-scrollable="true"\]\[data-scroll-end="false"\]::after\s*\{[^}]*opacity: 1/s);
+  assert.match(projectExperience, /summary\.dataset\.scrollable = String\(scrollable\)/);
   assert.match(styles, /body:has\(\.project-layout\) \.bottom-rail\s*\{[^}]*display: none/s);
   assert.equal((styles.match(/\.project-layout\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)[^}]*grid-auto-rows: min-content[^}]*row-gap: var\(--spacing-3\)/gs) ?? []).length, 2);
   assert.equal((styles.match(/\.project-media-column > \.project-lead-media\s*\{[^}]*order: 2[^}]*margin-bottom: 0/gs) ?? []).length, 2);
@@ -409,6 +416,8 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(license, /MIT License/);
   assert.match(notices, /SIL Open Font License 1\.1/);
   assert.match(packageJson, /"images": "node scripts\/generate-responsive-images\.mjs"/);
+  assert.match(packageJson, /mxpf-write-placid-core-1\.6\.0\.tgz/);
+  assert.doesNotMatch(styles, /@mxpf\/write-placid-core\/article-layout\.css/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
   await access(new URL("../public/fonts/InstrumentSans-Regular.woff2", import.meta.url));
