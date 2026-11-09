@@ -53,6 +53,7 @@ const videoSchema = z.strictObject({
   title: z.string().min(1),
   autoplay: z.boolean().optional(),
   controls: z.boolean().optional(),
+  playbackRate: z.number().min(0.0625).max(16).optional(),
   audioControls: z.boolean().optional(),
   ...captionFields,
 });
@@ -95,6 +96,7 @@ const imageRowSchema = z.strictObject({
   height: cssLength.optional(),
   images: z.array(imageItemSchema).min(1),
   gap: cssLength.optional(),
+  mobileGalleryLabel: z.string().min(1).optional(),
   ...captionFields,
 });
 const mediaRowItemSchema = z.discriminatedUnion("kind", [

@@ -24,6 +24,7 @@
   --divider: var(--th-neutral-200);
   --divider-hover: var(--th-neutral-300);
   --control-border: var(--th-neutral-600);
+  --tap-highlight: color-mix(in srgb, var(--th-neutral-300) 18%, transparent);
   --selection: var(--th-neutral-200);
   --selection-ink: var(--th-charcoal);
   --toggle-track: var(--th-neutral-100);
@@ -48,6 +49,7 @@
   --divider: var(--th-neutral-800);
   --divider-hover: var(--th-neutral-700);
   --control-border: var(--th-neutral-500);
+  --tap-highlight: color-mix(in srgb, var(--th-neutral-700) 24%, transparent);
   --selection: var(--th-neutral-700);
   --selection-ink: var(--th-ivory);
   --toggle-track: var(--th-neutral-900);

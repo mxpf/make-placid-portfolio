@@ -287,6 +287,7 @@ Grids keep a fixed outer ratio and equal columns. Each cell can define its own f
 - kind: image-row
   id: "poster-row"
   gap: "24px"
+  mobileGalleryLabel: "Poster series"
   caption: "A proportion-aware row of related work."
   images:
     - src: "/images/project/poster-a.jpg"
@@ -300,7 +301,7 @@ Grids keep a fixed outer ratio and equal columns. Each cell can define its own f
       height: 1600
 ```
 
-Rows use each source's width and height to preserve proportional relationships. On small screens, the row becomes a vertical sequence.
+Rows use each source's width and height to preserve proportional relationships. On small screens, the row becomes a vertical sequence. Add `mobileGalleryLabel` to opt a related set into a labeled, keyboard-operable swipe gallery whose media rail reaches the viewport edge while its heading and controls remain aligned with the page gutter.
 
 ### Mixed-media row
 
@@ -314,18 +315,19 @@ Rows use each source's width and height to preserve proportional relationships. 
       alt: "Storyboard sequence"
       width: 16
       height: 9
+      detail: true
     - kind: video
-      id: "motion-test"
       src: "/videos/project/motion-test.mp4"
       poster: "placeholder"
-      ratio: "16 / 9"
       title: "Motion test"
       autoplay: true
+      controls: false
+      playbackRate: 0.75
       width: 16
       height: 9
 ```
 
-Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is muted, loops inline, and pauses when visitors request reduced motion.
+Mixed rows accept images, hosted videos, and YouTube items. Images honor the same `detail` opt-in as image rows. Video items use the same playback model as standalone hosted video; autoplay is muted, loops inline, exposes click and keyboard play/pause, and pauses when visitors request reduced motion.
 
 ### Hosted video
 
@@ -338,10 +340,11 @@ Mixed rows accept images, hosted videos, and YouTube items. Autoplay video is mu
   title: "Film title"
   controls: true
   audioControls: true
+  playbackRate: 1
   caption: "An optional caption."
 ```
 
-Click-to-play videos reveal browser controls after the poster is selected. Set `controls: true` to use Make Placid's compact play/pause control, and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback.
+Click-to-play videos reveal browser controls after the poster is selected. Set `controls: true` to use Make Placid's compact play/pause control, and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback. Autoplay without visible controls keeps the video surface operable by click, Enter, and Space so visitors can always pause it. Use `playbackRate` from `0.0625` through `16` when the source should run slower or faster; the default remains `1`.
 
 ### YouTube
 

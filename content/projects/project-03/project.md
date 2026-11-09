@@ -45,6 +45,7 @@ media:
     id: "03-row"
     height: "520px"
     gap: "12px"
+    mobileGalleryLabel: "Selected detail views"
     caption: "A responsive image row can combine varied proportions and enable **selected detail views**."
     images:
       - src: "/images/unsplash/dI9KhXi0ooE.jpg"
@@ -56,6 +57,26 @@ media:
         alt: "Pedestrian casting a long shadow on a downtown street"
         width: 4
         height: 5
+  - kind: media-row
+    id: "03-mixed-row"
+    gap: "12px"
+    caption: "Mixed rows can combine detail-enabled images with **accessible autoplay loops**."
+    items:
+      - kind: image
+        src: "/images/unsplash/aGVx6_UFkO0.jpg"
+        alt: "Elevated train crossing a steel bridge"
+        width: 4
+        height: 3
+        detail: true
+      - kind: video
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        poster: "/images/unsplash/h2coDswHOAw.jpg"
+        title: "Mixed row motion study"
+        autoplay: true
+        controls: false
+        playbackRate: 0.75
+        width: 16
+        height: 9
 ---
 
 # Project 03 — Complete Case Study

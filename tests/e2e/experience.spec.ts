@@ -136,6 +136,103 @@ test("video embeds load only after an explicit action", async ({ page }) => {
   await expect(page.locator("iframe.youtube-frame")).toHaveAttribute("src", /autoplay=1/);
 });
 
+test("autoplay videos share keyboard playback and configured speed", async ({ page }) => {
+  await page.addInitScript(() => {
+    const playing = new WeakSet<HTMLMediaElement>();
+    Object.defineProperty(HTMLMediaElement.prototype, "paused", {
+      configurable: true,
+      get() {
+        return !playing.has(this);
+      },
+    });
+    HTMLMediaElement.prototype.play = function play() {
+      playing.add(this);
+      this.dispatchEvent(new Event("play"));
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function pause() {
+      playing.delete(this);
+      this.dispatchEvent(new Event("pause"));
+    };
+  });
+
+  for (const [path, title, playbackRate] of [
+    ["/projects/project-03/", "Mixed row motion study", 0.75],
+    ["/projects/project-08/", "Direct-link motion preview", 0.5],
+  ] as const) {
+    await page.goto(path);
+    const video = page.locator(`video[role="button"][aria-label$="${title}"]`);
+    await expect(video).toHaveAccessibleName(`Play ${title}`);
+    await expect(video).toHaveAttribute("tabindex", "0");
+    await expect.poll(() => video.evaluate((element) => (element as HTMLVideoElement).playbackRate)).toBe(playbackRate);
+    await video.focus();
+    await page.keyboard.press("Enter");
+    await expect(video).toHaveAccessibleName(`Pause ${title}`);
+    await page.keyboard.press("Space");
+    await expect(video).toHaveAccessibleName(`Play ${title}`);
+  }
+});
+
+test("mixed-media row images honor detail opt-in", async ({ page }) => {
+  await page.goto("/projects/project-03/");
+  const trigger = page.getByRole("button", { name: "Open detail view: Elevated train crossing a steel bridge" });
+  await trigger.click();
+  await expect(page.getByRole("dialog", { name: "Image detail" })).toBeVisible();
+  await page.getByRole("button", { name: "Close", exact: true }).click();
+  await expect(trigger).toBeFocused();
+});
+
+test("tap feedback follows the theme without replacing keyboard focus", async ({ page }) => {
+  await page.goto("/");
+  const tapColor = () => page.locator("html").evaluate((element) => getComputedStyle(element).getPropertyValue("-webkit-tap-highlight-color"));
+  const lightTapColor = await tapColor();
+  expect(lightTapColor).not.toBe("rgba(0, 0, 0, 0)");
+
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  await expect.poll(tapColor).not.toBe(lightTapColor);
+
+  await page.keyboard.press("Tab");
+  const focusedOutline = await page.evaluate(() => {
+    const focused = document.activeElement;
+    return focused instanceof HTMLElement ? getComputedStyle(focused).outlineStyle : "none";
+  });
+  expect(focusedOutline).toBe("solid");
+});
+
+test("mobile swipe galleries bleed only their media track to the right edge", async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.includes("mobile"), "Mobile-only swipe-gallery assertion");
+  await page.goto("/projects/project-03/");
+
+  const gallery = page.getByRole("region", { name: "Selected detail views" });
+  const track = gallery.locator(".image-row-track");
+  const heading = gallery.locator(".mobile-gallery-heading");
+  const controls = gallery.locator(".mobile-gallery-controls");
+  await expect(heading).toBeVisible();
+  await expect(controls).toBeVisible();
+
+  const edges = await gallery.evaluate((element) => {
+    const trackRect = element.querySelector(".image-row-track")!.getBoundingClientRect();
+    const headingRect = element.querySelector(".mobile-gallery-heading")!.getBoundingClientRect();
+    const controlsRect = element.querySelector(".mobile-gallery-controls")!.getBoundingClientRect();
+    return {
+      viewport: document.documentElement.clientWidth,
+      trackRight: trackRect.right,
+      headingRight: headingRect.right,
+      controlsRight: controlsRect.right,
+    };
+  });
+  expect(Math.abs(edges.trackRight - edges.viewport)).toBeLessThanOrEqual(1);
+  expect(edges.headingRight).toBeLessThanOrEqual(edges.viewport - 23);
+  expect(edges.controlsRight).toBeLessThanOrEqual(edges.viewport - 23);
+  await expect.poll(() => track.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+
+  await gallery.getByRole("button", { name: "Next Selected detail views image" }).click();
+  await expect(heading).toContainText("2 / 2");
+  await track.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(heading).toContainText("1 / 2");
+});
+
 test("mobile layouts do not overflow horizontally", async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.includes("mobile"), "Mobile-only reflow assertion");
   for (const path of ["/", "/about/", "/projects/project-03/"]) {

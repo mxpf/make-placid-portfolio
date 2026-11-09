@@ -26,6 +26,7 @@ media:
     poster: "/images/unsplash/h2coDswHOAw.jpg"
     title: "Direct-link motion preview"
     autoplay: true
+    playbackRate: 0.5
 ---
 
 # Project 08 — Direct Link

@@ -53,6 +53,7 @@ export type ImageRowMedia = {
   height?: string;
   images: ImageGridItem[];
   gap?: string;
+  mobileGalleryLabel?: string;
   caption?: string;
   captionHtml?: string;
   captionPosition?: "above" | "below";
@@ -92,6 +93,7 @@ export type VideoMedia = {
   title: string;
   autoplay?: boolean;
   controls?: boolean;
+  playbackRate?: number;
   audioControls?: boolean;
   caption?: string;
   captionHtml?: string;

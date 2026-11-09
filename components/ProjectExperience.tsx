@@ -112,34 +112,47 @@ function VideoControls({
   );
 }
 
-function HostedVideo({ media }: { media: VideoMedia }) {
+function HostedVideo({
+  media,
+  autoplayDefault = false,
+  inRow = false,
+}: {
+  media: VideoMedia;
+  autoplayDefault?: boolean;
+  inRow?: boolean;
+}) {
   const [playing, setPlaying] = useState(false);
-  const [muted, setMuted] = useState(media.autoplay === true);
-  const autoplayAllowed = useAutoplayPermission(media.autoplay === true);
+  const [started, setStarted] = useState(false);
+  const [playbackIntent, setPlaybackIntent] = useState<"play" | "pause" | null>(null);
+  const shouldAutoplay = media.autoplay ?? autoplayDefault;
+  const [muted, setMuted] = useState(shouldAutoplay);
+  const autoplayAllowed = useAutoplayPermission(shouldAutoplay);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const usesNativeControls = !shouldAutoplay && media.controls === undefined;
+  const usesCustomControls = media.controls === true;
+  const surfaceControlsPlayback = !usesNativeControls && !usesCustomControls;
+  const showVideo = shouldAutoplay || inRow || started;
 
   useEffect(() => {
-    if (!media.autoplay || !autoplayAllowed) {
-      videoRef.current?.pause();
-      return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = media.playbackRate ?? 1;
+    const shouldPlay = playbackIntent === "play"
+      || (playbackIntent === null && shouldAutoplay && autoplayAllowed);
+    if (shouldPlay) {
+      void video.play().catch(() => setPlaying(false));
+    } else if (playbackIntent === "pause" || shouldAutoplay) {
+      video.pause();
     }
-    void videoRef.current?.play().catch(() => setPlaying(false));
-  }, [autoplayAllowed, media.autoplay]);
+  }, [autoplayAllowed, media.playbackRate, playbackIntent, shouldAutoplay, showVideo]);
 
   const toggleVideoPlayback = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (video.paused) {
-      void video.play().catch(() => setPlaying(false));
-    } else {
-      video.pause();
-    }
+    setPlaybackIntent(video.paused ? "play" : "pause");
   }, []);
-
-  const handleVideoSurfaceClick = useCallback(() => {
-    if (playing) toggleVideoPlayback();
-  }, [playing, toggleVideoPlayback]);
 
   const toggleMuted = useCallback(() => {
     const video = videoRef.current;
@@ -149,53 +162,56 @@ function HostedVideo({ media }: { media: VideoMedia }) {
     setMuted(next);
   }, []);
 
-  if (media.autoplay) {
-    return (
-      <div
-        className={`media-frame autoplay-video${playing ? " is-playing" : ""}`}
-        style={ratioStyle(media.ratio)}
-        onClick={handleVideoSurfaceClick}
-      >
+  return (
+    <div
+      className={`${inRow ? "row-video " : ""}media-frame${shouldAutoplay ? " autoplay-video" : ""}${playing ? " is-playing" : ""}`}
+      style={ratioStyle(media.ratio)}
+    >
+      {showVideo ? (
         <video
           ref={videoRef}
           src={withBasePath(media.src)}
           poster={media.poster === "placeholder" ? undefined : withBasePath(media.poster)}
-          autoPlay={autoplayAllowed}
+          autoPlay={shouldAutoplay && autoplayAllowed}
+          controls={usesNativeControls}
           muted={muted}
-          loop
+          loop={shouldAutoplay}
           playsInline
           disablePictureInPicture
-          aria-label={media.title}
-          onPlay={() => setPlaying(true)}
+          role={surfaceControlsPlayback ? "button" : undefined}
+          tabIndex={surfaceControlsPlayback ? 0 : undefined}
+          aria-label={surfaceControlsPlayback ? `${playing ? "Pause" : "Play"} ${media.title}` : media.title}
+          aria-pressed={surfaceControlsPlayback ? playing : undefined}
+          onClick={surfaceControlsPlayback ? toggleVideoPlayback : undefined}
+          onKeyDown={surfaceControlsPlayback ? (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleVideoPlayback();
+          } : undefined}
+          onLoadedMetadata={(event) => {
+            event.currentTarget.playbackRate = media.playbackRate ?? 1;
+          }}
+          onPlay={() => {
+            setStarted(true);
+            setPlaying(true);
+          }}
           onPause={() => setPlaying(false)}
+          onEnded={() => {
+            setPlaybackIntent("pause");
+            setPlaying(false);
+          }}
+          onVolumeChange={(event) => setMuted(event.currentTarget.muted)}
         />
-        {media.controls === true ? (
-          <VideoControls
-            title={media.title}
-            playing={playing}
-            muted={muted}
-            showAudioControls={media.audioControls === true}
-            onTogglePlayback={toggleVideoPlayback}
-            onToggleMuted={toggleMuted}
-          />
-        ) : null}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`media-frame${playing ? " is-playing" : ""}`}
-      style={ratioStyle(media.ratio)}
-      onClick={handleVideoSurfaceClick}
-    >
-      {!playing && (
+      ) : null}
+      {!shouldAutoplay && !started ? (
         <button
           type="button"
           className="video-poster"
           aria-label={`Play ${media.title}`}
           onClick={() => {
-            setPlaying(true);
+            setStarted(true);
+            setPlaybackIntent("play");
           }}
         >
           {media.poster !== "placeholder" && (
@@ -208,34 +224,17 @@ function HostedVideo({ media }: { media: VideoMedia }) {
           )}
           <span className="play-triangle" aria-hidden="true" />
         </button>
-      )}
-      {playing && (
-        <>
-          <video
-            ref={videoRef}
-            src={withBasePath(media.src)}
-            controls={media.controls === undefined}
-            autoPlay
-            playsInline
-            disablePictureInPicture
+      ) : null}
+      {(shouldAutoplay || started) && usesCustomControls ? (
+          <VideoControls
+            title={media.title}
+            playing={playing}
             muted={muted}
-            aria-label={media.title}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            onVolumeChange={(event) => setMuted(event.currentTarget.muted)}
+            showAudioControls={media.audioControls === true}
+            onTogglePlayback={toggleVideoPlayback}
+            onToggleMuted={toggleMuted}
           />
-          {media.controls === true ? (
-            <VideoControls
-              title={media.title}
-              playing={playing}
-              muted={muted}
-              showAudioControls={media.audioControls === true}
-              onTogglePlayback={toggleVideoPlayback}
-              onToggleMuted={toggleMuted}
-            />
-          ) : null}
-        </>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -278,15 +277,71 @@ function ImageRow({
   canOpenDetail: boolean;
 }) {
   const gap = media.gap ?? "0px";
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [mobileGalleryEnabled, setMobileGalleryEnabled] = useState(false);
+  const mobileGalleryLabel = media.mobileGalleryLabel;
+
+  useEffect(() => {
+    if (!mobileGalleryLabel) return;
+    const query = window.matchMedia("(max-width: 767px)");
+    const sync = () => setMobileGalleryEnabled(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, [mobileGalleryLabel]);
+
+  const moveToSlide = useCallback((index: number) => {
+    const track = trackRef.current;
+    const slides = track?.querySelectorAll<HTMLElement>(":scope > .image-row-cell");
+    const first = slides?.[0];
+    const target = slides?.[index];
+    if (!track || !first || !target) return;
+
+    track.scrollTo({
+      left: target.offsetLeft - first.offsetLeft,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }, []);
 
   return (
     <div
-      className={`media-frame image-row${media.images.length > 2 ? " image-row--optical-tight" : ""}`}
+      className={`media-frame image-row${media.images.length > 2 ? " image-row--optical-tight" : ""}${mobileGalleryLabel ? " mobile-swipe-gallery" : ""}`}
       style={{
         "--image-row-gap": gap,
       } as CSSProperties}
+      role={mobileGalleryLabel ? "region" : undefined}
+      aria-roledescription={mobileGalleryLabel ? "carousel" : undefined}
+      aria-label={mobileGalleryLabel}
     >
-      <div className="image-row-track">
+      {mobileGalleryLabel ? (
+        <div className="mobile-gallery-heading">
+          <h3>{mobileGalleryLabel}</h3>
+          <span aria-live="polite" aria-atomic="true">{activeSlide + 1} / {media.images.length}</span>
+        </div>
+      ) : null}
+      <div
+        className="image-row-track"
+        id={mobileGalleryLabel ? `${media.id}-mobile-track` : undefined}
+        ref={trackRef}
+        tabIndex={mobileGalleryEnabled ? 0 : undefined}
+        onScroll={mobileGalleryLabel ? () => {
+          const track = trackRef.current;
+          const slides = track?.querySelectorAll<HTMLElement>(":scope > .image-row-cell");
+          const first = slides?.[0];
+          if (!track || !slides?.length || !first) return;
+          const distances = Array.from(slides, (slide) => Math.abs(slide.offsetLeft - first.offsetLeft - track.scrollLeft));
+          setActiveSlide(distances.indexOf(Math.min(...distances)));
+        } : undefined}
+        onKeyDown={mobileGalleryLabel ? (event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          event.stopPropagation();
+          const next = Math.max(0, Math.min(media.images.length - 1, activeSlide + (event.key === "ArrowRight" ? 1 : -1)));
+          setActiveSlide(next);
+          moveToSlide(next);
+        } : undefined}
+      >
         {media.images.map((image, index) => {
           const imageMedia = {
             kind: "image",
@@ -318,11 +373,42 @@ function ImageRow({
           );
         })}
       </div>
+      {mobileGalleryLabel ? (
+        <div className="mobile-gallery-controls">
+          <span>Swipe to browse</span>
+          <button
+            type="button"
+            aria-label={`Previous ${mobileGalleryLabel} image`}
+            aria-controls={`${media.id}-mobile-track`}
+            disabled={activeSlide === 0}
+            onClick={() => moveToSlide(activeSlide - 1)}
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            aria-label={`Next ${mobileGalleryLabel} image`}
+            aria-controls={`${media.id}-mobile-track`}
+            disabled={activeSlide === media.images.length - 1}
+            onClick={() => moveToSlide(activeSlide + 1)}
+          >
+            Next
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function MediaRow({ media }: { media: MediaRowMedia }) {
+function MediaRow({
+  media,
+  onOpenImage,
+  canOpenDetail,
+}: {
+  media: MediaRowMedia;
+  onOpenImage: (media: ImageMedia) => void;
+  canOpenDetail: boolean;
+}) {
   const gap = media.gap ?? "0px";
 
   return (
@@ -340,7 +426,15 @@ function MediaRow({ media }: { media: MediaRowMedia }) {
             style={item.width && item.height ? { "--image-row-ratio": item.width / item.height } as CSSProperties : undefined}
           >
             {item.kind === "video" ? (
-              <MediaRowVideo media={item} />
+              <HostedVideo
+                media={{
+                  ...item,
+                  id: `${media.id}-${index}`,
+                  ratio: `${item.width} / ${item.height}`,
+                }}
+                autoplayDefault
+                inRow
+              />
             ) : item.kind === "youtube" ? (
               <YouTubeVideo media={{
                 ...item,
@@ -349,55 +443,27 @@ function MediaRow({ media }: { media: MediaRowMedia }) {
               }} />
             ) : (() => {
               const image: ImageGridItem = item;
-              return (
-                <ImageVisual
-                  media={{
-                    kind: "image",
-                    id: `${media.id}-${index}`,
-                    ratio: "1 / 1",
-                    ...image,
-                  } satisfies ImageMedia & ImageGridItem}
-                  crop={false}
-                />
-              );
+              const imageMedia = {
+                kind: "image",
+                id: `${media.id}-${index}`,
+                ratio: image.width && image.height ? `${image.width} / ${image.height}` : "1 / 1",
+                ...image,
+              } satisfies ImageMedia & ImageGridItem;
+              return canOpenDetail && image.detail === true ? (
+                <button
+                  type="button"
+                  className="image-row-detail-button"
+                  onClick={() => onOpenImage(imageMedia)}
+                  aria-label={`Open detail view: ${image.alt}`}
+                >
+                  <ImageVisual media={imageMedia} crop={false} />
+                </button>
+              ) : <ImageVisual media={imageMedia} crop={false} />;
             })()}
           </div>
         ))}
       </div>
     </div>
-  );
-}
-
-function MediaRowVideo({
-  media,
-}: {
-  media: Extract<MediaRowMedia["items"][number], { kind: "video" }>;
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const shouldAutoplay = media.autoplay ?? true;
-  const autoplayAllowed = useAutoplayPermission(shouldAutoplay);
-
-  useEffect(() => {
-    if (!shouldAutoplay || !autoplayAllowed) {
-      videoRef.current?.pause();
-      return;
-    }
-    void videoRef.current?.play().catch(() => undefined);
-  }, [autoplayAllowed, shouldAutoplay]);
-
-  return (
-    <video
-      ref={videoRef}
-      src={withBasePath(media.src)}
-      poster={media.poster === "placeholder" ? undefined : withBasePath(media.poster)}
-      autoPlay={shouldAutoplay && autoplayAllowed}
-      controls={!shouldAutoplay && media.controls !== false}
-      muted={shouldAutoplay}
-      loop={shouldAutoplay}
-      playsInline
-      disablePictureInPicture
-      aria-label={media.title}
-    />
   );
 }
 
@@ -500,7 +566,9 @@ function GalleryMedia({
     return <ImageRow media={media} onOpenImage={onOpenImage} canOpenDetail={canOpenDetail} />;
   }
 
-  if (media.kind === "media-row") return <MediaRow media={media} />;
+  if (media.kind === "media-row") {
+    return <MediaRow media={media} onOpenImage={onOpenImage} canOpenDetail={canOpenDetail} />;
+  }
 
   if (!canOpenDetail || media.detail !== true) {
     return (
@@ -609,14 +677,19 @@ export function ProjectExperience({
   const staticImages = useMemo(
     () => project.media.flatMap((media) => {
       if (media.kind === "image" && media.detail === true) return [media];
-      if (media.kind !== "image-row") return [];
-
-      return media.images.flatMap((image, index) => image.detail === true ? [{
+      if (media.kind === "image-row") return media.images.flatMap((image, index) => image.detail === true ? [{
         kind: "image" as const,
         id: `${media.id}-${index}`,
         ratio: image.width && image.height ? `${image.width} / ${image.height}` : "1 / 1",
         ...image,
       }] : []);
+      if (media.kind === "media-row") return media.items.flatMap((item, index) => item.kind === "image" && item.detail === true ? [{
+        id: `${media.id}-${index}`,
+        ratio: item.width && item.height ? `${item.width} / ${item.height}` : "1 / 1",
+        ...item,
+        kind: "image" as const,
+      }] : []);
+      return [];
     }),
     [project.media],
   );

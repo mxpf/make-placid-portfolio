@@ -150,6 +150,35 @@ test("server-renders project, about, and not-found routes", async () => {
   assert.match(notFoundHtml, /Return home\./);
 });
 
+test("ships reusable, accessible media interaction configuration", async () => {
+  const [html, component, schema, contentLibrary, styles, tokens, readme] = await Promise.all([
+    render("/projects/project-03").then((response) => response.text()),
+    readFile(new URL("../components/ProjectExperience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content-schema.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/content.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../packages/core/tokens.css", import.meta.url), "utf8"),
+    readFile(new URL("../README.md", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(html, /role="region" aria-roledescription="carousel" aria-label="Selected detail views"/);
+  assert.match(html, /aria-label="Open detail view: Elevated train crossing a steel bridge"/);
+  assert.match(html, /<video[^>]*role="button"[^>]*tabindex="0"[^>]*aria-label="Play Mixed row motion study"/);
+  assert.match(schema, /playbackRate: z\.number\(\)\.min\(0\.0625\)\.max\(16\)\.optional\(\)/);
+  assert.match(schema, /mobileGalleryLabel: z\.string\(\)\.min\(1\)\.optional\(\)/);
+  assert.match(contentLibrary, /playbackRate\?: number/);
+  assert.match(component, /event\.currentTarget\.playbackRate = media\.playbackRate \?\? 1/);
+  assert.match(component, /media\.kind === "media-row"[\s\S]*?item\.kind === "image" && item\.detail === true/);
+  assert.match(component, /role=\{surfaceControlsPlayback \? "button" : undefined\}/);
+  assert.match(styles, /-webkit-tap-highlight-color: var\(--tap-highlight\)/);
+  assert.match(styles, /\.mobile-swipe-gallery \.image-row-track\s*\{[^}]*width: auto;[^}]*margin-inline-end: calc\(-1 \* var\(--page-gutter\)\);[^}]*overflow-x: auto;/s);
+  assert.match(styles, /\.autoplay-video video\[role="button"\]:focus-visible/);
+  assert.match(tokens, /--tap-highlight: color-mix\(in srgb, var\(--th-neutral-300\) 18%, transparent\)/);
+  assert.match(tokens, /--tap-highlight: color-mix\(in srgb, var\(--th-neutral-700\) 24%, transparent\)/);
+  assert.match(readme, /mobileGalleryLabel/);
+  assert.match(readme, /playbackRate/);
+});
+
 test("publishes search-engine discovery routes", async () => {
   const [robotsResponse, sitemapResponse] = await Promise.all([
     render("/robots.txt"),
@@ -404,7 +433,7 @@ test("keeps identity copy in the content layer", async () => {
   assert.match(styles, /html\.custom-font\s*\{[^}]*font-family: "Portfolio Custom", var\(--font-instrument-sans\)/s);
   assert.doesNotMatch(styles, /font-family: "Instrument Sans";[\s\S]*?InstrumentSans-Regular\.woff2/s);
   assert.match(projectExperience, /function VideoControls/);
-  assert.equal((projectExperience.match(/<VideoControls/g) ?? []).length, 2);
+  assert.equal((projectExperience.match(/<VideoControls/g) ?? []).length, 1);
   assert.equal((projectExperience.match(/className="video-control-group"/g) ?? []).length, 1);
   assert.match(layout, /NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT/);
   assert.match(gitignore, /public\/fonts\/portfolio-custom\.woff2/);
