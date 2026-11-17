@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, type MouseEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { TransitionLink } from "@/components/TransitionLink";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -71,7 +71,8 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
     clearPosition();
   }, [isAbout, normalizedPathname]);
 
-  function closeAbout() {
+  function closeAbout(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
     if (document.body.classList.contains("page-leaving")) return;
     document.body.classList.add("page-leaving");
     window.setTimeout(returnFromAbout, 180);
@@ -102,7 +103,7 @@ export function SiteChrome({ name, aboutLabel, closeLabel }: SiteChromeProps) {
       </div>
       <div className="site-action">
         {isAbout ? (
-          <button className="site-link" type="button" onClick={closeAbout}>
+          <button id="site-about-close" className="site-link" type="button" onClick={closeAbout}>
             {closeLabel}
           </button>
         ) : (

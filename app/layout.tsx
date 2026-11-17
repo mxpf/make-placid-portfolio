@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { captureAboutReturn } from "@/lib/about-return";
+import { aboutReturnScript } from "@/lib/about-return";
 import { getSiteConfig } from "@/lib/content";
 import { absoluteSiteUrl, withBasePath } from "@/lib/base-path";
 import "./globals.css";
@@ -84,7 +84,7 @@ export default function RootLayout({
             __html: `try{const t=localStorage.getItem("make-placid-theme");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}}catch{}`,
           }}
         />
-        <script dangerouslySetInnerHTML={{ __html: captureAboutReturn }} />
+        <script dangerouslySetInnerHTML={{ __html: aboutReturnScript }} />
         <SiteChrome
           name={site.name}
           aboutLabel={site.aboutLabel}

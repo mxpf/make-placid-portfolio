@@ -124,7 +124,7 @@ test("About closes back to the previous homepage position", async ({ page }) => 
   await page.getByRole("link", { name: "About & contact" }).click();
   await expect(page).toHaveURL(/\/about\/$/);
   await page.getByRole("button", { name: "Close" }).click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL("/");
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(Math.max(0, before - 2));
 });
 
@@ -142,7 +142,26 @@ test("About remembers the position before app scripts load", async ({ page }) =>
   await page.getByRole("link", { name: "About & contact" }).click();
   await expect(page).toHaveURL(/\/about\/$/);
   await page.getByRole("button", { name: "Close" }).click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL("/");
+  await expect.poll(() => page.evaluate((position) => Math.abs(window.scrollY - position), before)).toBeLessThanOrEqual(2);
+});
+
+test("About can close before its own app scripts load", async ({ page }) => {
+  let loadScripts = false;
+  await page.route("**/_next/static/**/*.js", (route) => loadScripts ? route.continue() : route.abort());
+  await page.goto("/");
+  const before = await page.evaluate(() => {
+    window.scrollTo(0, 900);
+    return window.scrollY;
+  });
+  expect(before).toBeGreaterThan(0);
+  await page.getByRole("link", { name: "About & contact" }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+  await page.waitForLoadState("load");
+
+  loadScripts = true;
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page).toHaveURL("/");
   await expect.poll(() => page.evaluate((position) => Math.abs(window.scrollY - position), before)).toBeLessThanOrEqual(2);
 });
 
@@ -158,7 +177,7 @@ test("About restores the position when the return page grows", async ({ page }) 
 
   const stylesheet = await page.addStyleTag({ content: ".home-grid { height: 100vh; overflow: clip; }" });
   await page.getByRole("button", { name: "Close" }).click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL("/");
   await expect(page.locator(".home-grid")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThan(before);
   await page.evaluate(async () => {

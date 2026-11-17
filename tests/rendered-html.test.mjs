@@ -150,7 +150,7 @@ test("server-renders project, about, and not-found routes", async () => {
   assert.match(projectHtml, /aria-label="Play I Am Easy To Find, a film by Mike Mills and The National"/);
   assert.doesNotMatch(projectHtml, /youtube-nocookie\.com\/embed/);
   assert.doesNotMatch(projectHtml, /M7lc1UVf-VE|Google Developers/);
-  assert.match(aboutHtml, /<button class="site-link" type="button">Close<\/button>/);
+  assert.match(aboutHtml, /<button id="site-about-close" class="site-link" type="button">Close<\/button>/);
   assert.match(aboutHtml, /minimalist portfolio system for designers, artists, photographers, architects, and creative practices/);
   assert.match(aboutHtml, /<span class="hanging-quote">“<\/span>/);
   assert.match(aboutHtml, /<h1 class="visually-hidden">About &amp; contact<\/h1>/);
