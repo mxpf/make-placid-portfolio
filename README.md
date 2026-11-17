@@ -25,13 +25,14 @@ A portfolio can become busy for reasons that have very little to do with the wor
 - A content-driven homepage with optional introduction copy and inline Markdown links
 - Curated homepage/project sequencing, with direct-link-only published projects available outside the visible sequence
 - Project pages with a fixed desktop summary column and a responsive single-column grid on smaller screens
-- Static images, image grids, proportion-aware image rows, mixed-media rows, hosted video, YouTube embeds, and local HTML5 banners
+- Static images, image grids, proportion-aware image rows, opt-in mobile swipe galleries, mixed-media rows, hosted video, YouTube embeds, and local HTML5 banners
 - Captions with inline Markdown, optional project evidence, thumbnail subtitles, focal points, fit, scale, and rollover images
-- Responsive image-detail mode with visible navigation, focus restoration, click, Escape, and arrow-key controls
+- Responsive image-detail mode for standalone and row images with visible navigation, focus restoration, click, Escape, and arrow-key controls
+- Consistent hosted-video playback in standalone and mixed rows, with optional playback speed, accessible pause controls, and reduced-motion behavior
 - Previous/next project navigation drawn from the curated project order
 - Project-level social images with a site-wide fallback
 - Responsive WebP variants generated at build time
-- Local font loading, optional private-font override, reduced-motion support, visible focus states, and restrained link interactions
+- Local font loading, optional private-font override, reduced-motion support, theme-aware tap feedback, visible focus states, and restrained link interactions
 - Static-export verification for routes, local assets, responsive candidates, social cards, and video posters
 - Build-time validation for site settings, projects, media structures, duplicate IDs, and project ordering
 
@@ -398,12 +399,13 @@ On desktop and mobile:
 - Select the expanded image or press Escape to close it.
 - Use the visible Previous/Next controls to move between detail images. Desktop keyboards can also use the left and right arrow keys.
 - Outside detail mode, use the left and right arrow keys or the visible Previous/Next links to move through the curated project sequence.
+- Select a video poster to begin playback. To pause an autoplay loop, select the video or focus it and press Enter or Space.
 - Select the site name to return to the homepage.
 - Open About and use Close to return to the previous page position.
 
-On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls.
+On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls. Rows with a mobileGalleryLabel support swiping and visible Previous/Next controls. The media rail reaches the viewport edge while the label and controls stay aligned with the page gutter.
 
-Use the compact palette switch at the right edge of the header to move between the Thinkinghaus v0.6 light and dark modes. The selection persists across pages and visits.
+Use the compact palette switch at the right edge of the header to move between the Thinkinghaus v0.6 light and dark modes. The selection persists across pages and visits. Tap feedback follows the active palette, and keyboard navigation retains its visible focus outlines.
 
 ## Styling
 
