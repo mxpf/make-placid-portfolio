@@ -70,7 +70,15 @@ test("server-renders the portfolio home page", async () => {
   assert.equal((html.match(/class="home-project-subtitle"/g) ?? []).length, 7);
   assert.equal((html.match(/class="home-project-image home-project-image--rollover"/g) ?? []).length, 1);
   assert.match(html, /rel="icon"/);
-  assert.match(html, /<html lang="en" class="[^"]*__variable_[a-z0-9]+[^"]*" data-theme="light">/);
+  const rootClasses = html.match(/<html lang="en" class="([^"]+)" data-theme="light">/)?.[1].split(/\s+/);
+  assert.ok(rootClasses, "The document applies a font class");
+  const stylesheets = [...html.matchAll(/<link rel="stylesheet" href="(\/_next\/static\/[^"?#]+\.css)"/g)];
+  const compiledStyles = await Promise.all(stylesheets.map(([, href]) =>
+    readFile(new URL(`out${href}`, templateRoot), "utf8"),
+  ));
+  assert.ok(rootClasses.some(className => compiledStyles.some(css =>
+    new RegExp(`\\.${escapeRegExp(className)}\\s*\\{\\s*--font-instrument-sans\\s*:`).test(css),
+  )), "A class applied to the document defines the exported Instrument Sans variable");
   assert.match(html, /<link rel="preload" href="\/_next\/static\/media\/[^"]+\.woff2" as="font" crossorigin="" type="font\/woff2"\/>/);
   assert.match(html, /property="og:image"/);
   assert.match(html, /<section class="home-intro" aria-labelledby="home-intro-title">/);

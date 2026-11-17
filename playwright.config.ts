@@ -16,7 +16,8 @@ export default defineConfig({
     { name: "mobile-chromium", use: { ...devices["iPhone 13"], browserName: "chromium" } },
   ],
   webServer: {
-    command: "PORT=4317 node scripts/serve-static.mjs out",
+    command: "node scripts/serve-static.mjs out",
+    env: { PORT: "4317" },
     url: "http://127.0.0.1:4317",
     reuseExistingServer: false,
   },
