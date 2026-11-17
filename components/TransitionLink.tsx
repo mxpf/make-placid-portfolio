@@ -8,17 +8,17 @@ import { withBasePath } from "@/lib/base-path";
 
 export function TransitionLink({
   href,
+  id,
   className,
   children,
   ariaLabel,
-  beforeNavigate,
   dataReveal = false,
 }: {
   href: string;
+  id?: string;
   className?: string;
   children: ReactNode;
   ariaLabel?: string;
-  beforeNavigate?: () => void;
   dataReveal?: boolean;
 }) {
   const router = useRouter();
@@ -42,7 +42,6 @@ export function TransitionLink({
     }
 
     event.preventDefault();
-    beforeNavigate?.();
     const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
     if (normalizePath(window.location.pathname) === normalizePath(renderedHref)) {
       window.scrollTo({ top: 0 });
@@ -55,6 +54,7 @@ export function TransitionLink({
 
   return (
     <Link
+      id={id}
       className={className}
       href={href}
       aria-label={ariaLabel}

@@ -128,6 +128,48 @@ test("About closes back to the previous homepage position", async ({ page }) => 
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(Math.max(0, before - 2));
 });
 
+test("About remembers the position before app scripts load", async ({ page }) => {
+  let loadScripts = false;
+  await page.route("**/_next/static/**/*.js", (route) => loadScripts ? route.continue() : route.abort());
+  await page.goto("/");
+  const before = await page.evaluate(() => {
+    window.scrollTo(0, 900);
+    return window.scrollY;
+  });
+  expect(before).toBeGreaterThan(0);
+
+  loadScripts = true;
+  await page.getByRole("link", { name: "About & contact" }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect.poll(() => page.evaluate((position) => Math.abs(window.scrollY - position), before)).toBeLessThanOrEqual(2);
+});
+
+test("About restores the position when the return page grows", async ({ page }) => {
+  await page.goto("/");
+  const before = await page.evaluate(() => {
+    window.scrollTo(0, 900);
+    return window.scrollY;
+  });
+  expect(before).toBeGreaterThan(0);
+  await page.getByRole("link", { name: "About & contact" }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+
+  const stylesheet = await page.addStyleTag({ content: ".home-grid { height: 100vh; overflow: clip; }" });
+  await page.getByRole("button", { name: "Close" }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator(".home-grid")).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThan(before);
+  await page.evaluate(async () => {
+    for (let frame = 0; frame < 4; frame++) await new Promise(requestAnimationFrame);
+  });
+  expect(await page.evaluate(() => window.scrollY)).toBeLessThan(before);
+
+  await stylesheet.evaluate((style) => { style.parentNode?.removeChild(style); });
+  await expect.poll(() => page.evaluate((position) => Math.abs(window.scrollY - position), before)).toBeLessThanOrEqual(2);
+});
+
 test("video embeds load only after an explicit action", async ({ page }) => {
   await page.goto("/projects/project-03/");
   await expect(page.locator("iframe.youtube-frame")).toHaveCount(0);
