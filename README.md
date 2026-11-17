@@ -1,66 +1,44 @@
 # Make Placid
 
-Make Placid is a quiet static portfolio template for creative practices that want the work to stay in front.
-
-It is not a CMS, a dashboard, or a design-system showroom. It is a small [Next.js](https://nextjs.org/) export with a deliberate spatial language, Markdown and YAML content, local media, and enough verification to make publishing feel boring in the best possible way.
-
-The template gives you a frame strong enough to keep a portfolio coherent, and simple enough that replacing the work still feels like editing the work.
+Make Placid is a portfolio template for designers and creative studios. Edit the text in Markdown and YAML, put your media in `public/`, and use [Next.js](https://nextjs.org/) to build a site you can publish on a static host.
 
 **[View the demo](https://maxpfennig.haus/make-placid-portfolio/)** / **[View it in use](https://maxpfennig.haus)** / **[Start a new repository](https://github.com/new?template_name=make-placid-portfolio&template_owner=mxpf)**
 
 ![Make Placid portfolio example](docs/preview.png)
 
-## What It Protects
-
-A portfolio can become busy for reasons that have very little to do with the work. Make Placid tries to hold a few useful boundaries.
-
-- **The work stays primary.** The interface uses proportion, spacing, type, and motion to create orientation without becoming the subject.
-- **Content stays close to the material.** Each project lives in its own folder. The site identity lives in one YAML file. Media paths point to files you can see.
-- **The grid does real work.** Desktop keeps a 38/62 relationship between context and work. Smaller screens keep the same ordering logic without pretending the desktop layout still fits.
-- **The build is disposable.** The published site is a static export. Generated images can be recreated. Private fonts and local clutter stay outside the repository.
-- **The demo remains a demo.** Example copy, Unsplash images, and remote video embeds are there to show the system. They are not meant to become your portfolio by accident.
-
 ## What You Get
 
-- A content-driven homepage with optional introduction copy and inline Markdown links
-- Curated homepage/project sequencing, with direct-link-only published projects available outside the visible sequence
-- Project pages with a fixed desktop summary column and a responsive single-column grid on smaller screens
-- Static images, image grids, proportion-aware image rows, opt-in mobile swipe galleries, mixed-media rows, hosted video, YouTube embeds, and local HTML5 banners
-- Captions with inline Markdown, optional project evidence, thumbnail subtitles, focal points, fit, scale, and rollover images
-- Responsive image-detail mode for standalone and row images with visible navigation, focus restoration, click, Escape, and arrow-key controls
-- Consistent hosted-video playback in standalone and mixed rows, with optional playback speed, accessible pause controls, and reduced-motion behavior
-- Previous/next project navigation drawn from the curated project order
-- Project-level social images with a site-wide fallback
-- Responsive WebP variants generated at build time
-- Local font loading, optional private-font override, reduced-motion support, theme-aware tap feedback, visible focus states, and restrained link interactions
-- Static-export verification for routes, local assets, responsive candidates, social cards, and video posters
-- Build-time validation for site settings, projects, media structures, duplicate IDs, and project ordering
+- A homepage with an optional introduction and a project list in the order you choose
+- Project pages with a fixed summary column on desktop and a single column on phones
+- Image grids and rows, swipe galleries on mobile, enlarged image views, videos, and HTML5 banners
+- Light and dark themes, keyboard navigation, and support for reduced motion
+- Share images for individual projects, WebP images generated at build time, and checks for content errors and missing files
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 22.13 or newer
-- npm, included with Node.js
+- [Node.js](https://nodejs.org/) 22.13.0 or newer
+- Git and npm. npm comes with Node.js.
 
 ## Quick Start
 
-Clone the template, install dependencies, and start the local server:
+Use the template link above to create your own repository, or clone the demo to try it locally.
 
 ```bash
-git clone https://github.com/mxpf/make-placid-portfolio.git
+git clone --config core.autocrlf=false https://github.com/mxpf/make-placid-portfolio.git
 cd make-placid-portfolio
-npm install
+npm ci
 npm run dev
 ```
 
-Open the local URL printed in the terminal. Most portfolio edits happen in [`content/`](content/) and [`public/`](public/).
+If you made your own repository, use its URL and folder name in the first two commands. Open the local address printed in the terminal. Edit your text and settings in [`content/`](content/) and put your media in [`public/`](public/).
 
-Make Placid 2 is currently an alpha. The template and its private `@make-placid/core` workspace share the same version while the reusable package boundary is being established. Treat the content model and CSS-token exports as pre-release APIs until 2.0.0.
+On Windows, the clone command keeps LF line endings. If an existing checkout reports “Project files must begin with YAML frontmatter,” check that the `project.md` files use LF line endings.
 
 ## Make It Yours
 
 ### Set the site identity
 
-Edit [`content/site.yml`](content/site.yml):
+Edit [`content/site.yml`](content/site.yml) to set your name, site address, contact details, and labels.
 
 ```yaml
 name: "Your Name"
@@ -85,67 +63,37 @@ favicon: "/favicon.png"
 appleTouchIcon: "/apple-touch-icon.png"
 ```
 
-These values feed navigation, homepage copy, metadata, `robots.txt`, `sitemap.xml`, social previews, icons, accessibility labels, and reusable About-page fields.
-
-`homepageIntro` accepts inline Markdown links. Omit both `homepageTitle` and `homepageIntro` if you want a compact homepage that begins with the project list.
+`homepageIntro` accepts Markdown links. Leave out both `homepageTitle` and `homepageIntro` to start the homepage with the project list.
 
 ### Write the About page
 
-Edit [`content/about.md`](content/about.md). These tokens are replaced from [`content/site.yml`](content/site.yml):
+Edit [`content/about.md`](content/about.md). The build fills in `{{name}}`, `{{email}}`, and `{{location}}` from [`content/site.yml`](content/site.yml).
 
-- `{{name}}`
-- `{{email}}`
-- `{{location}}`
-
-The About page accepts ordinary Markdown: paragraphs, links, lists, and block quotations.
-
-Project Markdown, About Markdown, captions, and `homepageIntro` are sanitized before being rendered as HTML. The supported subset includes headings, paragraphs, lists, block quotations, links, emphasis, strong text, code, and line breaks; scripts, event handlers, unsafe protocols, and unsupported elements are removed.
+About pages and project descriptions support paragraphs, headings up to level 3, lists, quotes, links, and basic formatting. Captions and `homepageIntro` use inline formatting such as links, bold, italics, and code. The build strips scripts, unsafe links, and unsupported HTML.
 
 ### Replace social and icon images
 
-Replace [`public/og.png`](public/og.png) with a 1200x630 image for link sharing. If you change the filename, update `socialImage` in [`content/site.yml`](content/site.yml).
+Replace [`public/og.png`](public/og.png) with a 1200 × 630 pixel image for link previews. If you rename the file, update `socialImage` in [`content/site.yml`](content/site.yml).
 
 Replace [`public/favicon.png`](public/favicon.png) and [`public/apple-touch-icon.png`](public/apple-touch-icon.png) with square brand assets, then update their paths if needed.
 
-Projects can also define their own `socialImage`. Use the same 1200x630 size. A good convention is:
-
-```text
-public/social/projects/project-slug.png
-```
-
-referenced as:
-
-```yaml
-socialImage: "/social/projects/project-slug.png"
-```
-
-If a project does not define `socialImage`, its Open Graph and Twitter metadata use the site-wide card.
+To give a project its own preview, put an image of the same size in `public/social/projects/` and set `socialImage` in its `project.md`. Write the path as `/social/projects/project-slug.png`. Projects use the site-wide image by default.
 
 ### Choose typography
 
 The template includes [Instrument Sans](https://github.com/Instrument/instrument-sans) under the SIL Open Font License. Its license lives at [`public/fonts/OFL.txt`](public/fonts/OFL.txt).
 
-For a privately licensed font, place a regular WOFF2 file here:
-
-```text
-public/fonts/portfolio-custom.woff2
-```
-
-Then copy the private environment example and enable the custom font:
-
-```bash
-cp .env.example .env.local
-```
+To use your own font, put a regular-weight WOFF2 file at `public/fonts/portfolio-custom.woff2`. Copy [`.env.example`](.env.example) to `.env.local` and set the font option there.
 
 ```text
 NEXT_PUBLIC_PORTFOLIO_CUSTOM_FONT=true
 ```
 
-Git ignores both `.env.local` and `portfolio-custom.woff2`, so the public template never ships your private font file. Leave the flag `false` to use Instrument Sans.
+The default is Instrument Sans. Git ignores `.env.local` and `portfolio-custom.woff2`. The build can still copy a font from `public/` into the published site, so only put it there if your license permits web use.
 
 ### Replace the demonstration assets
 
-Keep portfolio assets under [`public/`](public/), organized in a way you will still understand later:
+Replace the sample media with your own files in [`public/`](public/). One way to organize them is by project.
 
 ```text
 public/
@@ -159,11 +107,11 @@ public/
 
 Project paths begin after `public/`. For example, `public/images/project-name/cover.jpg` becomes `/images/project-name/cover.jpg`.
 
-The responsive-image generator accepts JPEG and PNG source files. It writes WebP variants and preserves the source image's decoded orientation and color appearance through Sharp. Use correctly oriented RGB masters, keep social cards at 1200x630, and use source images at least as wide as their largest intended display size. WebP and AVIF source masters are not currently part of the authoring contract.
+Use JPEG or PNG files under `public/images/` for automatic WebP generation. Choose source images at least as wide as you plan to show them.
 
 ## Projects
 
-Each project lives in its own folder:
+Put each project in its own folder under `content/projects/`.
 
 ```text
 content/projects/
@@ -171,9 +119,9 @@ content/projects/
     project.md
 ```
 
-The folder name becomes the URL slug. A project at `content/projects/exhibition/project.md` appears at `/projects/exhibition/`.
+The folder name becomes part of the URL. A published project at `content/projects/exhibition/project.md` appears at `/projects/exhibition/`.
 
-Start with this shape:
+Start with the YAML settings between the `---` lines, then write the project description in Markdown.
 
 ```markdown
 ---
@@ -212,26 +160,28 @@ media:
 
 # Exhibition Identity
 
-A concise description of the project, its context, and the work shown.
+A short introduction to the project.
 
-Additional paragraphs, lists, links, and block quotes appear below the lead media.
+More about the work and how it was made.
 ```
 
-`order` controls the sequence. `published: false` keeps a project in the repository without generating its page. `featured: false` keeps a published page available by direct link while removing it from the homepage and previous/next navigation.
+`order` sets the project sequence. Give each published project a different number. `published: false` skips the page at build time. `featured: false` keeps the published page and its sitemap entry while leaving it out of the homepage and Previous and Next links.
 
-`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The homepage label falls back to the project title. Set `colorMedia: true` when a project should keep its original color instead of using the default monochrome treatment.
+The first item in `media` is the lead. On desktop, the description sits beside the media. If the description starts with a level-one heading and a paragraph, phones show those first, followed by the lead media and the rest of the description.
+
+`homepageLabel`, `homepageSubtitle`, `seoDescription`, and `socialImage` are optional. The homepage uses the project title when you leave out `homepageLabel`. Use `colorMedia: true` to show the original colors. Project media is grayscale by default.
 
 ### Homepage thumbnails
 
-Homepage thumbnails use `--thumbnail-ratio`, which defaults to `1.618 / 1`. A dedicated thumbnail crop usually gives the calmest result.
+Homepage thumbnails use `--thumbnail-ratio`, which defaults to `1.618 / 1`. You can supply a separate crop for the homepage.
 
 Use `focalX` and `focalY` to position a cropped image. Both accept values from `0` to `100`, with `50` as the center.
 
-Use `fit: "cover"` or `fit: "contain"` to control cropping, and `scale` for small optical corrections. Add `hoverSrc` for a desktop rollover. On touch devices, the alternate image becomes the stable thumbnail because there is no reliable hover state.
+Use `fit: "cover"` to fill the frame or `fit: "contain"` to show the whole image. Use `scale` to adjust its size. Set `hoverSrc` to show a second image on desktop hover. Touch devices show that second image by default.
 
 Set `showProjectLabels: true` in [`content/site.yml`](content/site.yml) to show labels and optional subtitles beneath thumbnails. Set it to `false` for an image-only homepage.
 
-For a private labels-on preview without changing content, add this to `.env.local`:
+To preview the labels locally, set this in `.env.local`.
 
 ```text
 NEXT_PUBLIC_SHOW_PROJECT_LABELS=true
@@ -239,7 +189,7 @@ NEXT_PUBLIC_SHOW_PROJECT_LABELS=true
 
 ## Media
 
-Project galleries support seven media structures. Every top-level item needs a unique `id`. Captions accept inline Markdown and can sit `"above"` or `"below"` the media.
+Each gallery entry under `media` needs an `id` that is unique within the project. Captions accept inline Markdown. Use `captionPosition` to put a caption `"above"` or `"below"` its media.
 
 ### Image
 
@@ -258,7 +208,7 @@ Project galleries support seven media structures. Every top-level item needs a u
   captionPosition: "below"
 ```
 
-Set `detail: false` to keep an image out of the desktop enlargement view. Existing image entries default to `true`.
+Standalone images open in an enlarged view on desktop and mobile. Set `detail: false` to turn that off for an image.
 
 ### Image grid
 
@@ -273,14 +223,12 @@ Set `detail: false` to keep an image out of the desktop enlargement view. Existi
   images:
     - src: "/images/project/application-a.jpg"
       alt: "First application"
-      label: "Print"
     - src: "/images/project/application-b.jpg"
       alt: "Second application"
-      label: "Digital"
       fit: "contain"
 ```
 
-Grids keep a fixed outer ratio and equal columns. Each cell can define its own fit, position, scale, and optional label.
+The whole grid uses one aspect ratio and equal-width columns. Each image can have its own fit, position, and scale.
 
 ### Image row
 
@@ -302,7 +250,9 @@ Grids keep a fixed outer ratio and equal columns. Each cell can define its own f
       height: 1600
 ```
 
-Rows use each source's width and height to preserve proportional relationships. On small screens, the row becomes a vertical sequence. Add `mobileGalleryLabel` to opt a related set into a labeled, keyboard-operable swipe gallery whose media rail reaches the viewport edge while its heading and controls remain aligned with the page gutter.
+Use each image's width and height to keep its proportions. On phones, the images stack by default. Set `mobileGalleryLabel` for a swipe gallery with Previous and Next buttons and keyboard controls. The images scroll to the edge of the screen while the heading and buttons stay in line with the rest of the page.
+
+Set `detail: true` on an image to open it in the enlarged view.
 
 ### Mixed-media row
 
@@ -328,7 +278,7 @@ Rows use each source's width and height to preserve proportional relationships. 
       height: 9
 ```
 
-Mixed rows accept images, hosted videos, and YouTube items. Images honor the same `detail` opt-in as image rows. Video items use the same playback model as standalone hosted video; autoplay is muted, loops inline, exposes click and keyboard play/pause, and pauses when visitors request reduced motion.
+Mix images, hosted videos, and YouTube embeds in one row. Set `detail: true` on the images you want to enlarge. Hosted videos in rows autoplay by default. Set `autoplay: false` to start on click.
 
 ### Hosted video
 
@@ -345,7 +295,13 @@ Mixed rows accept images, hosted videos, and YouTube items. Images honor the sam
   caption: "An optional caption."
 ```
 
-Click-to-play videos reveal browser controls after the poster is selected. Set `controls: true` to use Make Placid's compact play/pause control, and add `audioControls: true` for mute/unmute. Set `autoplay: true` for muted looping playback. Autoplay without visible controls keeps the video surface operable by click, Enter, and Space so visitors can always pause it. Use `playbackRate` from `0.0625` through `16` when the source should run slower or faster; the default remains `1`.
+Use a file in `public/videos/` or an HTTPS video URL. Set `poster` to a local image or to `"placeholder"` for a plain play button.
+
+Standalone videos start on click and show the browser's controls by default. Set `controls: true` for Make Placid's play and pause button, and add `audioControls: true` for a mute button.
+
+Set `autoplay: true` to play a muted loop on the page. Autoplay respects the visitor's reduced-motion setting. When there is no visible play or pause button, visitors can select the video itself or focus it and press Enter or Space.
+
+`playbackRate` defaults to `1` and accepts values from `0.0625` to `16`.
 
 ### YouTube
 
@@ -359,7 +315,7 @@ Click-to-play videos reveal browser controls after the poster is selected. Set `
   caption: "An optional caption."
 ```
 
-A custom poster keeps YouTube's interface out of the composition until playback begins. Without one, the privacy-enhanced embed loads immediately.
+With a poster, the YouTube player loads when a visitor presses play. Without one, the privacy-enhanced embed loads when the page opens.
 
 ### HTML5 banner
 
@@ -372,68 +328,33 @@ A custom poster keeps YouTube's interface out of the composition until playback 
   title: "Animated campaign banner"
 ```
 
-HTML5 media scales a local creative to its configured dimensions inside a sandboxed, non-interactive iframe. Keep the creative and its relative assets together under `public/embeds/`.
+Keep the banner HTML and its assets together under `public/embeds/`. The banner scales to fit the page and runs in an isolated frame with pointer interactions disabled.
 
 ## Responsive Images
 
-Source images stay where you put them. During the build, `npm run images` creates optimized WebP candidates at several widths and records dimensions and SHA-256 source hashes in [`public/images/responsive/manifest.json`](public/images/responsive/manifest.json).
+The build makes WebP copies at several widths so browsers can load an image that fits the screen. It uses [`public/images/responsive/manifest.json`](public/images/responsive/manifest.json) to reuse copies when the source stays the same. It replaces outdated copies and removes unused ones.
 
-Images that have not changed reuse verified output. Changed images regenerate. Orphaned generated variants are removed.
+Your source files stay in the repository. The build leaves replaced sources out of `out/` when the page no longer links to them as a poster or share image. The published site serves the generated copies directly.
 
-The production build also prunes superseded source images from the export after reading rendered metadata and poster attributes, so video posters and social cards that still appear in HTML remain available in `out/`.
-
-Run image generation manually after adding or replacing source files:
+To generate images without building the site, run this command.
 
 ```bash
 npm run images
 ```
 
-Once published, the site does not need a runtime image service or third-party image request.
+## Using the Site
 
-## Interaction
-
-On desktop and mobile:
-
-- Select a homepage image to open its project.
-- Select a project image to open the detail view.
-- Select the expanded image or press Escape to close it.
-- Use the visible Previous/Next controls to move between detail images. Desktop keyboards can also use the left and right arrow keys.
-- Outside detail mode, use the left and right arrow keys or the visible Previous/Next links to move through the curated project sequence.
-- Select a video poster to begin playback. To pause an autoplay loop, select the video or focus it and press Enter or Space.
-- Select the site name to return to the homepage.
-- Open About and use Close to return to the previous page position.
-
-On mobile, tap an enabled project image to open the same focus-managed detail view with touch-friendly controls. Rows with a mobileGalleryLabel support swiping and visible Previous/Next controls. The media rail reaches the viewport edge while the label and controls stay aligned with the page gutter.
-
-Use the compact palette switch at the right edge of the header to move between the Thinkinghaus v0.6 light and dark modes. The selection persists across pages and visits. Tap feedback follows the active palette, and keyboard navigation retains its visible focus outlines.
+- Select a thumbnail to open its project. Use Previous or Next to browse featured projects. The left and right arrow keys also work when a control does not have focus.
+- Select an image that supports enlargement to open it. Use the on-screen buttons or arrow keys to browse images. Select the image, use Close, or press Escape to close the view. Focus returns to the image you opened.
+- Open About and use Close to return to where you were. Close works even before About finishes loading. If the previous page needs more time, the site waits until it can reach the saved position.
+- Select the site name to go to the homepage.
+- Use the switch in the header to choose light or dark mode. The site remembers the setting in your browser.
 
 ## Styling
 
-Layout decisions begin in [`app/globals.css`](app/globals.css). The semantic
-colors live in [`packages/core/tokens.css`](packages/core/tokens.css) and map
-to locally pinned copies of [Thinkinghaus palette v0.6](https://keeping.haus/thinkinghaus-palette/) at upstream commit [`7ac354f`](https://github.com/mxpf/thinkinghaus-palette/tree/7ac354fa15ac0798db84ed4291215d8a44f35947). The pinned sources are [`packages/core/thinkinghaus-v0.6.css`](packages/core/thinkinghaus-v0.6.css) and [`packages/core/thinkinghaus-v0.6.tokens.json`](packages/core/thinkinghaus-v0.6.tokens.json); builds never fetch them at runtime.
+Edit [`app/globals.css`](app/globals.css) to change the layout, spacing, or thumbnail shape. The desktop layout gives 38% of the column space to the summary and 62% to the work. Spacing uses steps of 12, 24, and 36 pixels.
 
-```css
-:root {
-  --page-gutter: 24px;
-  --column-gap: 24px;
-  --thumbnail-ratio: 1.618 / 1;
-  --homepage-project-start: calc(56dvh - var(--header-height));
-  --spacing-1: 12px;
-  --spacing-2: 24px;
-  --spacing-3: 36px;
-  --ground: var(--th-ivory);          /* #F4EDDF */
-  --ink: var(--th-charcoal);          /* #1C1811 */
-  --body-ink: var(--th-neutral-800);  /* #474135 */
-  --quiet-ink: var(--th-neutral-700); /* #625B4D */
-  --link-ink: var(--th-link);         /* body copy in each mode */
-  --focus-ink: var(--th-ochre-600);   /* #785800 */
-}
-```
-
-Make Placid follows the palette's semantic roles: standard content links use body-copy color with a persistent underline, including visited links; hover moves to primary text while preserving the underline. Ochre remains reserved for keyboard focus and warnings, moss for success, clay for errors, and slate for information. Faint colors are decorative only. Solid-fill tokens keep their paired foreground colors and are not substitutes for text accents. See the companion [Thinkinghaus UI guidance](https://keeping.haus/thinkinghaus-ui/) when adding new states or controls.
-
-The individual numbers matter less than their relationship. The template uses a 12-pixel base unit, 24-pixel standard spacing, and a few 36-pixel editorial pauses. Keep that rhythm if you want the original density to survive new content.
+The light and dark colors come from the Thinkinghaus v0.6 palette included in the repository. Change the color roles in [`packages/core/tokens.css`](packages/core/tokens.css). The [core package README](packages/core/README.md) explains the palette and how to use it for links, focus, and status colors.
 
 ## Project Structure
 
@@ -446,7 +367,7 @@ lib/content-schema.ts Strict YAML and media validation
 lib/markdown.ts       Sanitized Markdown rendering
 public/               Fonts, images, videos, embeds, and social assets
 scripts/              Image generation and export verification utilities
-tests/                Rendered-route checks
+tests/                HTML and browser tests
 ```
 
 ## Commands
@@ -458,50 +379,54 @@ tests/                Rendered-route checks
 | `npm run build` | Create the static production export in `out/` |
 | `npm run verify:export` | Check the export for missing local routes and assets |
 | `npm test` | Build, verify the export, and check rendered routes |
+| `npm run test:e2e` | Run browser and accessibility checks against an existing build |
+| `npm run test:all` | Build and run the HTML and browser tests |
 | `npm run lint` | Check source files |
 | `npm run typecheck` | Check TypeScript without emitting files |
 | `npm run audit:production` | Audit production dependencies |
+| `npm run audit:full` | Audit production and development dependencies |
 
-Before publishing:
+Run these checks before publishing. The browser tests use Chrome locally and Chromium in GitHub Actions. Run them with `NEXT_PUBLIC_BASE_PATH` empty.
 
 ```bash
-npm test
 npm run lint
+npm run test:all
 npm run typecheck
+npm run audit:production
+npm run audit:full
 ```
 
 ## Before Publishing Your Own Portfolio
 
 - Replace the example name, biography, email address, and project copy.
-- Replace or intentionally keep the demonstration images and remote video embeds.
+- Review the demo images and video embeds. Replace the ones you don't want to publish.
 - Replace `public/og.png`, favicon, and Apple touch icon.
 - Update `url`, language, locale, keywords, and social-image text in `content/site.yml`.
 - Confirm every meaningful image has accurate alternative text.
 - Keep third-party media credits current.
-- Keep privately licensed fonts in the ignored `portfolio-custom.woff2` slot.
 - Run the verification commands.
 
 ## Deployment
 
-`npm run build` produces a complete static site in `out/`. That directory can be published with [GitHub Pages](https://pages.github.com/), [Cloudflare Pages](https://pages.cloudflare.com/), [Netlify](https://www.netlify.com/), [Vercel](https://vercel.com/), or another static host.
+`npm run build` writes the static site to `out/`. Upload the contents of that folder to your static host after running `npm run verify:export` with the same settings you used for the build.
 
-This repository includes a GitHub Actions workflow that publishes the demo whenever `main` changes. It first tests the ordinary domain-root build, then creates a second export for the repository subpath:
+Set `url` in [`content/site.yml`](content/site.yml) to your public address. `NEXT_PUBLIC_SITE_URL` can override it at build time. Leave `NEXT_PUBLIC_BASE_PATH` empty when the site lives at the root of a domain.
 
-```yaml
-NEXT_PUBLIC_BASE_PATH: /make-placid-portfolio
-NEXT_PUBLIC_SITE_URL: https://maxpfennig.haus/make-placid-portfolio
+If the site lives under a path such as `/portfolio`, set both environment variables in your shell or hosting settings before you build and verify the export.
+
+```dotenv
+NEXT_PUBLIC_BASE_PATH=/portfolio
+NEXT_PUBLIC_SITE_URL=https://your-name.github.io/portfolio
 ```
 
-For your own GitHub Pages project site, update those values in [`.github/workflows/publish-demo.yml`](.github/workflows/publish-demo.yml), then enable `Settings > Pages > GitHub Actions`.
+The included [GitHub Pages workflow](.github/workflows/publish-demo.yml) publishes the demo on pushes to `main`. It tests a build at the root, then builds and checks a second copy for the demo's public path.
 
-For a custom domain root, leave `NEXT_PUBLIC_BASE_PATH` empty and set `NEXT_PUBLIC_SITE_URL` to the public origin.
+To use it for your own site, change the two values in the workflow to match your URL. In your repository settings, open **Pages** and select **GitHub Actions** as the source under **Build and deployment**. [GitHub Pages setup guide](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)
 
 ## Licensing
 
-The software is available under the [MIT License](LICENSE). Third-party fonts, photographs, and remote media keep their original licenses or terms; those details are collected in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-Instrument Sans is included under the SIL Open Font License 1.1. Unsplash demonstration credits are recorded in [`content/image-credits.md`](content/image-credits.md). The optional `portfolio-custom.woff2` file is deliberately excluded from the repository and the MIT-licensed distribution.
+The code uses the [MIT License](LICENSE). Fonts, photos, and videos have their own terms. See [Third-party notices](THIRD_PARTY_NOTICES.md) and [Demo image credits](content/image-credits.md).
 
 ## Release Status
 
-Version 1.0.0 established the foundation: static export, project-subpath support, automated demo publishing, dependency checks, and complete demonstration content. Version 2 is currently an alpha focused on reusable core primitives, stricter authoring safeguards, and compatibility work. See [CHANGELOG.md](CHANGELOG.md) for the release record.
+The template and its private `@make-placid/core` package are at `2.0.0-alpha.1`. The current demo is built from `main`. The content fields and shared CSS tokens may change before 2.0. See the [changelog](CHANGELOG.md) for release history.
